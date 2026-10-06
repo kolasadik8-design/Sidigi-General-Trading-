@@ -1,163 +1,66 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sidigi General Trading - DEMO</title><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-[#0A2A5A]">
-<header class="bg-[#0A2A5A] text-white p-3 flex justify-between items-center"><div><b>SIDIGI</b> <span class="text-[#FF6B00]">GENERAL TRADING</span> <span class="bg-[#FF6B00] text-[10px] px-2 py-1 rounded-full ml-2">DEMO - No Firebase</span></div><div class="text-xs">Demo Mode - تجريبي</div></header>
-
-<div class="max-w-7xl mx-auto px-3 pt-3"><div class="bg-white rounded-2xl p-4 flex items-center gap-3 shadow border-l-4 border-[#FF6B00]"><div class="w-12 h-12 rounded-full bg-[#FF6B00] text-white flex items-center justify-center font-black">SG</div><div><h2 class="font-black text-[#0A2A5A]">Welcome, Admin Sidigi! 📦</h2><p class="text-xs text-gray-500">Sidigi General Trading - Demo - كل الولايات</p></div><div class="ml-auto text-[10px] bg-green-600 text-white px-3 py-1 rounded-full">DEMO</div></div></div>
-
-<div class="max-w-7xl mx-auto px-3 pt-3"><div class="bg-white rounded-2xl p-3 flex gap-2"><input id="searchInput" placeholder="🔍 Track SH-123456 or Sender Name" class="flex-1 p-3 border-2 rounded-xl text-sm outline-none" onkeyup="if(event.key==='Enter') searchShip()"><button onclick="searchShip()" class="bg-[#FF6B00] text-white px-6 rounded-xl font-bold text-sm">Track</button></div><div id="searchResults" class="mt-3"></div></div>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sidigi General Trading V16 English</title><script src="https://cdn.tailwindcss.com"></script><link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@700;900&display=swap" rel="stylesheet"><style>.signature{font-family:'Great Vibes',cursive; font-size:28px; font-weight:400; letter-spacing:1px; text-shadow: 0 2px 0 rgba(0,0,0,0.15), 0 4px 8px rgba(255,107,0,0.3), 0 8px 20px rgba(0,0,0,0.2); transform: rotate(-2deg); display:inline-block;}.signature-eng{font-family:'Poppins',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; opacity:0.7;}</style></head><body class="bg-[#0A2A5A]">
+<header class="bg-[#0A2A5A] text-white p-3 flex justify-between"><div><b>SIDIGI</b> <span class="text-[#FF6B00]">GENERAL TRADING</span> <span class="bg-[#FF6B00] text-[10px] px-2 py-1 rounded-full ml-2">V16 ENGLISH</span></div><div class="flex gap-2"><select id="loginAs" onchange="switchRole()" class="text-black text-xs p-1 rounded"><option value="admin">Login as: Admin</option><option value="warehouse">Warehouse</option><option value="driver">Driver</option><option value="finance">Finance</option><option value="reception">Reception</option></select></div></header>
 
 <div class="max-w-7xl mx-auto p-3 grid grid-cols-12 gap-3">
 <div class="col-span-12 md:col-span-3">
 <div class="bg-white rounded-2xl p-3">
-<button onclick="show('booking')" class="w-full text-left p-3 rounded-xl bg-[#FF6B00] text-white font-bold">📦 Booking - حجز</button>
-<button onclick="show('trips')" class="w-full text-left p-3 rounded-xl hover:bg-slate-100 mt-1">🚚 Trips - الرحلات</button>
-<button onclick="show('admin')" class="w-full text-left p-3 rounded-xl bg-[#0A2A5A] text-white font-bold mt-2">⚙️ Admin Control</button>
+<button onclick="show('booking')" class="w-full text-left p-3 rounded-xl bg-[#FF6B00] text-white font-bold">📦 Booking</button>
+<button onclick="show('trips')" class="w-full text-left p-3 rounded-xl hover:bg-slate-100 mt-1">🚚 Trips</button>
+<button onclick="show('finance')" class="w-full text-left p-3 rounded-xl hover:bg-slate-100 mt-1">💰 Finance</button>
+<button onclick="show('admin')" class="w-full text-left p-3 rounded-xl bg-[#0A2A5A] text-white font-bold mt-2">⚙️ Admin + Staff Passwords</button>
 </div>
-<div class="bg-white rounded-2xl p-4 mt-3 text-[11px]">
-<b>Demo Data:</b>
-<p>• Shipments saved in browser</p>
-<p>• 6-Digit Serial: SH-XXXXXX</p>
-<p>• Price per KG editable</p>
-<p>• Photo preview</p>
-</div>
+<div class="bg-white rounded-2xl p-3 mt-3 text-[10px]"><b>Current Role:</b> <span id="currentRole" class="bg-[#0A2A5A] text-white px-2 rounded">ADMIN - Full Access</span><div id="roleInfo" class="mt-2 text-gray-600"></div></div>
 </div>
 
 <div class="col-span-12 md:col-span-9 space-y-3">
 
-<!-- BOOKING -->
-<div id="p-booking" class="bg-white rounded-2xl p-5">
-<h2 class="font-black text-[#0A2A5A]">1. Booking - تفاصيل الشحنة الكاملة</h2>
-<div class="grid md:grid-cols-2 gap-3 mt-4 text-sm">
-<input id="senderName" placeholder="اسم المرسل *" class="p-3 border-2 rounded-xl">
-<input id="senderPhone" placeholder="تلفون المرسل * 0912..." class="p-3 border-2 rounded-xl">
-<input id="receiverName" placeholder="اسم المرسل إليه *" class="p-3 border-2 rounded-xl">
-<input id="receiverPhone" placeholder="تلفون المرسل إليه *" class="p-3 border-2 rounded-xl">
-<select id="destSelect" class="p-3 border-2 rounded-xl"></select>
-<input id="weight" type="number" placeholder="الوزن KG *" class="p-3 border-2 rounded-xl" oninput="calcPrice()">
-<input id="priceDisplay" placeholder="السعر SSP - Auto" disabled class="p-3 border-2 rounded-xl bg-gray-100 md:col-span-2">
-<div class="md:col-span-2">
-<label class="text-[11px] font-bold">📸 صورة الشحنة</label>
-<input id="shipImage" type="file" accept="image/*" class="w-full mt-1 p-2 border-2 rounded-xl text-xs">
-<img id="preview" class="hidden mt-2 w-full h-40 object-cover rounded-xl border">
-</div>
-</div>
-<p id="priceInfo" class="text-[11px] text-gray-500 mt-2"></p>
-<button onclick="addShipment()" class="w-full mt-4 bg-[#FF6B00] text-white p-4 rounded-xl font-black text-lg">📦 Book & Generate SH-XXXXXX</button>
-<div id="bookingList" class="mt-6"></div>
-</div>
+<div id="p-booking" class="bg-white rounded-2xl p-5"><h2 class="font-black">1. Booking - New Shipment</h2><div class="grid md:grid-cols-2 gap-3 mt-4 text-sm"><input id="senderName" placeholder="Sender Name *" class="p-3 border-2 rounded-xl"><input id="senderPhone" placeholder="Sender Phone *" class="p-3 border-2 rounded-xl"><input id="receiverName" placeholder="Receiver Name *" class="p-3 border-2 rounded-xl"><input id="receiverPhone" placeholder="Receiver Phone *" class="p-3 border-2 rounded-xl"><select id="destSelect" class="p-3 border-2 rounded-xl"></select><input id="weight" type="number" placeholder="Weight KG *" class="p-3 border-2 rounded-xl" oninput="calcPrice()"><input id="priceDisplay" disabled placeholder="Price SSP Auto" class="p-3 border-2 rounded-xl bg-gray-100 md:col-span-2"><div class="md:col-span-2"><label class="text-[11px] font-bold">📸 Shipment Photo</label><input id="shipImage" type="file" accept="image/*" class="w-full mt-1 p-2 border-2 rounded-xl text-xs"><img id="preview" class="hidden mt-2 w-full h-40 object-cover rounded-xl border"></div></div><p id="priceInfo" class="text-[11px] text-gray-500 mt-2"></p><button onclick="addShipment()" class="w-full mt-4 bg-[#FF6B00] text-white p-4 rounded-xl font-black">Book & Generate SH-XXXXXX (6-Digit)</button><div id="bookingList" class="mt-6"></div></div>
 
-<!-- TRIPS -->
-<div id="p-trips" class="bg-white rounded-2xl p-5 hidden">
-<h2 class="font-black">2. Trips Management - إدارة الرحلات</h2>
-<div id="tripsList" class="mt-4"></div>
-</div>
+<div id="p-finance" class="bg-white rounded-2xl p-5 hidden"><h2 class="font-black text-[#0A2A5A] text-lg">💰 Finance Dashboard - Admin & Finance Only</h2><div class="grid md:grid-cols-4 gap-3 mt-4"><div class="bg-[#0A2A5A] text-white rounded-xl p-4"><p class="text-[10px]">Total Revenue</p><p id="statRevenue" class="text-xl font-black">0 SSP</p></div><div class="bg-[#FF6B00] text-white rounded-xl p-4"><p class="text-[10px]">Total Shipments</p><p id="statShip" class="text-xl font-black">0</p></div><div class="bg-green-600 text-white rounded-xl p-4"><p class="text-[10px]">Paid Amount</p><p id="statPaid" class="text-xl font-black">0 SSP</p></div><div class="bg-gray-800 text-white rounded-xl p-4"><p class="text-[10px]">Avg per Shipment</p><p id="statAvg" class="text-xl font-black">0 SSP</p></div></div><div class="mt-5"><h3 class="font-bold text-sm">Revenue by Destination</h3><div id="financeByDest" class="mt-3"></div></div><div class="mt-5"><h3 class="font-bold text-sm">All Shipments Finance Details</h3><div id="financeList" class="mt-3"></div></div></div>
 
-<!-- ADMIN -->
-<div id="p-admin" class="bg-white rounded-2xl p-5 hidden">
-<h2 class="font-black text-[#0A2A5A] text-lg">3. Admin Control - Sidigi General Trading (Demo)</h2>
-<div class="grid md:grid-cols-3 gap-3 mt-4">
-<div class="bg-[#0A2A5A] text-white rounded-xl p-4"><p class="text-[10px]">Shipments</p><p id="statShip" class="text-2xl font-black">0</p></div>
-<div class="bg-[#FF6B00] text-white rounded-xl p-4"><p class="text-[10px]">Revenue SSP</p><p id="statRevenue" class="text-2xl font-black">0</p></div>
-<div class="bg-gray-800 text-white rounded-xl p-4"><p class="text-[10px]">Destinations</p><p id="statStaff" class="text-2xl font-black">0</p></div>
-</div>
+<div id="p-trips" class="bg-white rounded-2xl p-5 hidden"><h2 class="font-black">2. Trips Management</h2><div id="tripsList" class="mt-4"></div></div>
 
-<div class="mt-5 border-2 border-[#0A2A5A] rounded-2xl p-4 bg-blue-50/50">
-<h3 class="font-black text-sm">📍 Destinations & Price per KG - الوجهات وسعر الكيلو</h3>
-<div class="grid md:grid-cols-4 gap-2 mt-3">
-<input id="d_name" placeholder="State - Wau" class="p-2.5 border-2 rounded-xl text-sm">
-<input id="d_price" type="number" placeholder="SSP/KG - 5000" class="p-2.5 border-2 rounded-xl text-sm">
-<input id="d_days" type="number" placeholder="Days - 2" class="p-2.5 border-2 rounded-xl text-sm">
-<button onclick="saveDestination()" class="bg-[#0A2A5A] text-white p-2.5 rounded-xl font-bold text-sm">Add/Update</button>
-</div>
-<div id="destList" class="mt-3 text-xs"></div>
-</div>
+<div id="p-admin" class="bg-white rounded-2xl p-5"><h2 class="font-black text-[#0A2A5A]">3. Admin - Create Staff with Passwords by Specialization</h2><div class="grid md:grid-cols-3 gap-3 mt-4"><div class="bg-[#0A2A5A] text-white rounded-xl p-4"><p class="text-[10px]">Total Revenue</p><p id="statRevenue2" class="text-xl font-black">0 SSP</p></div><div class="bg-[#FF6B00] text-white rounded-xl p-4"><p class="text-[10px]">Shipments</p><p id="statShip2" class="text-xl font-black">0</p></div><div class="bg-gray-800 text-white rounded-xl p-4"><p class="text-[10px]">Staff Count</p><p id="statStaff" class="text-xl font-black">0</p></div></div>
 
-<div class="mt-5 border-2 border-[#FF6B00] rounded-2xl p-4 bg-orange-50">
-<h3 class="font-black text-sm">🚚 Create Trip - إنشاء رحلة</h3>
-<div class="grid md:grid-cols-5 gap-2 mt-3">
-<select id="t_dest" class="p-2.5 border-2 rounded-xl text-sm"></select>
-<input id="t_date" type="date" class="p-2.5 border-2 rounded-xl text-sm">
-<input id="t_driver" placeholder="Driver Name" class="p-2.5 border-2 rounded-xl text-sm">
-<input id="t_cap" type="number" placeholder="Capacity KG" class="p-2.5 border-2 rounded-xl text-sm">
-<button onclick="createTrip()" class="bg-[#FF6B00] text-white p-2.5 rounded-xl font-bold text-sm">Create Trip</button>
-</div>
-<div id="tripAdminList" class="mt-3 text-xs"></div>
-</div>
+<div class="mt-5 border-2 border-[#0A2A5A] rounded-2xl p-4 bg-blue-50/50"><h3 class="font-black text-sm">📍 Destinations & Price per KG</h3><div class="grid md:grid-cols-4 gap-2 mt-3"><input id="d_name" placeholder="State - e.g. Wau" class="p-2.5 border-2 rounded-xl text-sm"><input id="d_price" type="number" placeholder="Price/KG - 5000" class="p-2.5 border-2 rounded-xl text-sm"><input id="d_days" type="number" placeholder="Days - 2" class="p-2.5 border-2 rounded-xl text-sm"><button onclick="saveDestination()" class="bg-[#0A2A5A] text-white p-2.5 rounded-xl font-bold text-sm">Add / Update</button></div><div id="destList" class="mt-3 text-xs"></div></div>
 
-<div class="mt-5 border-2 border-green-600 rounded-2xl p-4 bg-green-50">
-<h3 class="font-black text-sm text-green-700">👥 Staff Demo (في النسخة الحقيقية بباسورد)</h3>
-<div class="grid md:grid-cols-2 gap-2 mt-3">
-<input id="s_name" placeholder="Full Name" class="p-2.5 border-2 rounded-xl text-sm">
-<input id="s_email" placeholder="Email" class="p-2.5 border-2 rounded-xl text-sm">
-<input id="s_pass" placeholder="Password" class="p-2.5 border-2 rounded-xl text-sm">
-<select id="s_role" class="p-2.5 border-2 rounded-xl text-sm"><option>Customer Service</option><option>Warehouse</option><option>Driver</option><option>Finance</option><option>Admin</option></select>
-</div>
-<button onclick="createStaffDemo()" class="w-full mt-3 bg-green-600 text-white p-3 rounded-xl font-black">Add Staff (Demo)</button>
-<div id="staffList" class="mt-4 text-xs"></div>
-</div>
+<div class="mt-5 border-2 border-green-600 rounded-2xl p-4 bg-green-50"><h3 class="font-black text-sm text-green-700">👥 Create Staff with Password by Specialization - Admin Only</h3><p class="text-[11px] text-gray-600 mt-1">Admin sets specialization and password - Staff login with that password</p><div class="grid md:grid-cols-3 gap-2 mt-3"><input id="s_name" placeholder="Full Name - Ahmed Ali" class="p-2.5 border-2 rounded-xl text-sm"><input id="s_email" placeholder="Email - ahmed@sidigi.com" class="p-2.5 border-2 rounded-xl text-sm"><input id="s_pass" placeholder="Password - e.g. Ware@123" class="p-2.5 border-2 rounded-xl text-sm"><select id="s_role" onchange="updateRoleHint()" class="p-2.5 border-2 rounded-xl text-sm md:col-span-2"><option value="reception">Reception - Booking Only</option><option value="warehouse">Warehouse - Warehouse Only</option><option value="driver">Driver - Delivery Only</option><option value="finance">Finance - Finance Only</option><option value="admin">Admin - Full Access</option></select><input id="s_phone" placeholder="Staff Phone" class="p-2.5 border-2 rounded-xl text-sm"></div><p id="roleHint" class="text-[11px] mt-2 p-2 bg-white rounded-xl border"></p><button onclick="createStaffDemo()" class="w-full mt-3 bg-green-600 text-white p-3 rounded-xl font-black">✅ Create Staff + Password</button><p id="s_msg" class="text-xs mt-2 font-bold text-center"></p><div id="staffList" class="mt-4"></div></div>
 
-<div class="mt-6 bg-gray-900 text-white rounded-xl p-4 text-xs">
-<b>✅ لما يعجبك الشكل:</b><br>
-1. رسل لي Config Firebase الجديد<br>
-2. برجع ليك نفس الشكل ده مربوط بـ Firebase + تسجيل دخول + 6 أرقام + صور بتتخزن<br>
-3. ترفعو GitHub ويشتغل APK
-</div>
-
-</div>
+<div class="mt-5 border-2 border-[#FF6B00] rounded-2xl p-4 bg-orange-50"><h3 class="font-black text-sm">🚚 Create Trip</h3><div class="grid md:grid-cols-5 gap-2 mt-3"><select id="t_dest" class="p-2.5 border-2 rounded-xl text-sm"></select><input id="t_date" type="date" class="p-2.5 border-2 rounded-xl text-sm"><input id="t_driver" placeholder="Driver Name" class="p-2.5 border-2 rounded-xl text-sm"><input id="t_cap" type="number" placeholder="Capacity KG" class="p-2.5 border-2 rounded-xl text-sm"><button onclick="createTrip()" class="bg-[#FF6B00] text-white p-2.5 rounded-xl font-bold text-sm">Create Trip</button></div><div id="tripAdminList" class="mt-3 text-xs"></div></div></div>
 </div></div>
 
-<div class="text-center py-6 text-[11px] font-bold"><span class="text-white/60">Developed by </span><span class="text-white">Eng. </span><span class="text-[#FF6B00]">Mutwokil Sadik</span> - DEMO</div>
-
-<div id="historyModal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50"><div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-auto p-5"><div class="flex justify-between"><h2 class="font-black text-[#0A2A5A]">Shipment Details - تفاصيل</h2><button onclick="historyModal.classList.add('hidden')" class="bg-gray-200 px-3 rounded-full">✕</button></div><div id="historyContent" class="mt-4 text-sm"></div></div></div>
+<!-- SIGNATURE WITH SHADOW - BIGGER FONT -->
+<div class="text-center py-10">
+<div class="signature-eng">Developed by</div>
+<div class="mt-2"><span class="signature text-[#0A2A5A]">Eng. </span><span class="signature text-[#FF6B00]">Mutwokil Sadik</span></div>
+<div class="signature-eng mt-1" style="font-size:9px; letter-spacing:4px;">SIDIGI GENERAL TRADING</div>
+</div>
 
 <script>
 let destinations=JSON.parse(localStorage.getItem('sidigi_dest')||'{}');
 let shipments=JSON.parse(localStorage.getItem('sidigi_ship')||'[]');
 let trips=JSON.parse(localStorage.getItem('sidigi_trips')||'[]');
-let staff=JSON.parse(localStorage.getItem('sidigi_staff')||'[]');
-let imageBase64="";
-
-if(Object.keys(destinations).length===0){
-  destinations={Juba:{name:'Juba',pricePerKg:3000,days:1},Wau:{name:'Wau',pricePerKg:8000,days:3},Malakal:{name:'Malakal',pricePerKg:9000,days:4},Bor:{name:'Bor',pricePerKg:5000,days:2},Yei:{name:'Yei',pricePerKg:4000,days:2},Nimule:{name:'Nimule',pricePerKg:4500,days:2}};
-  saveAll();
-}
-function saveAll(){localStorage.setItem('sidigi_dest',JSON.stringify(destinations));localStorage.setItem('sidigi_ship',JSON.stringify(shipments));localStorage.setItem('sidigi_trips',JSON.stringify(trips));localStorage.setItem('sidigi_staff',JSON.stringify(staff));}
-
+let staff=JSON.parse(localStorage.getItem('sidigi_staff_v16')||'[]');
+let imageBase64=""; let currentRole='admin';
+if(Object.keys(destinations).length===0){destinations={Juba:{name:'Juba',pricePerKg:3000,days:1},Wau:{name:'Wau',pricePerKg:8000,days:3},Malakal:{name:'Malakal',pricePerKg:9000,days:4},Bor:{name:'Bor',pricePerKg:5000,days:2},Yei:{name:'Yei',pricePerKg:4000,days:2}};}
+function saveAll(){localStorage.setItem('sidigi_dest',JSON.stringify(destinations));localStorage.setItem('sidigi_ship',JSON.stringify(shipments));localStorage.setItem('sidigi_trips',JSON.stringify(trips));localStorage.setItem('sidigi_staff_v16',JSON.stringify(staff));}
 function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
-function show(id){['booking','trips','admin'].forEach(x=>{document.getElementById('p-'+x).classList.add('hidden');});document.getElementById('p-'+id).classList.remove('hidden');}
-
-document.getElementById('shipImage').addEventListener('change',function(e){
-  const file=e.target.files[0]; if(!file) return;
-  const reader=new FileReader();
-  reader.onload=ev=>{imageBase64=ev.target.result; preview.src=imageBase64; preview.classList.remove('hidden');};
-  reader.readAsDataURL(file);
-});
-
-function loadDestinations(){
-  let opts='<option value="">Select State - اختر الولاية</option>';
-  Object.values(destinations).forEach(v=>{opts+=`<option value="${esc(v.name)}">${esc(v.name)} - ${v.pricePerKg} SSP/KG (${v.days}d)</option>`;});
-  destSelect.innerHTML=opts; t_dest.innerHTML=opts;
-  let h='';Object.values(destinations).forEach(v=>{h+=`<div class="flex justify-between border-b py-2"><span><b>${esc(v.name)}</b> - ${v.pricePerKg} SSP/KG - ${v.days} days</span><button onclick="delDest('${esc(v.name)}')" class="text-red-600 text-[10px]">Delete</button></div>`;});
-  destList.innerHTML=h||'No destinations'; statStaff.textContent=Object.keys(destinations).length;
-}
-function calcPrice(){const dest=destSelect.value,kg=parseFloat(weight.value||0);if(!dest||!kg||!destinations[dest]){priceDisplay.value='';priceInfo.textContent='';return;}const total=kg*destinations[dest].pricePerKg;priceDisplay.value=total.toLocaleString()+' SSP';priceInfo.textContent=`${kg}KG x ${destinations[dest].pricePerKg} SSP = ${total.toLocaleString()} SSP → ${dest} - رقم 6 أرقام حيتولد أوتوماتيك`;}
+function show(id){['booking','trips','admin','finance'].forEach(x=>{document.getElementById('p-'+x).classList.add('hidden');});document.getElementById('p-'+id).classList.remove('hidden');}
+function switchRole(){currentRole=loginAs.value;const r=currentRole;const el=document.getElementById('currentRole');if(r==='admin'){el.textContent='ADMIN - Full Access';el.className='bg-[#0A2A5A] text-white px-2 rounded';document.getElementById('roleInfo').textContent='Full access: booking, trips, finance, staff, pricing';}else if(r==='finance'){el.textContent='FINANCE - Finance Only';el.className='bg-green-600 text-white px-2 rounded';document.getElementById('roleInfo').textContent='Finance reports only';show('finance');}else if(r==='warehouse'){el.textContent='WAREHOUSE';document.getElementById('roleInfo').textContent='Warehouse only';}else if(r==='driver'){el.textContent='DRIVER';document.getElementById('roleInfo').textContent='Delivery only';}else{el.textContent='RECEPTION';document.getElementById('roleInfo').textContent='Booking only';}loadAll();}
+function updateRoleHint(){const r=s_role.value;let t='';if(r==='reception')t='📌 Reception: Can create new shipments only';if(r==='warehouse')t='🏭 Warehouse: View warehouse shipments and update status';if(r==='driver')t='🚚 Driver: View assigned trips and shipments for delivery';if(r==='finance')t='💰 Finance: View all financial reports and revenue';if(r==='admin')t='⚙️ Admin: Full access - create staff, set prices, view finance, create trips';roleHint.textContent=t;}updateRoleHint();
+document.getElementById('shipImage').addEventListener('change',function(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{imageBase64=ev.target.result;preview.src=imageBase64;preview.classList.remove('hidden');};reader.readAsDataURL(file);});
+function loadDestinations(){let opts='<option value="">Select Destination State</option>';Object.values(destinations).forEach(v=>{opts+=`<option value="${esc(v.name)}">${esc(v.name)} - ${v.pricePerKg} SSP/KG</option>`;});destSelect.innerHTML=opts;t_dest.innerHTML=opts;let h='';Object.values(destinations).forEach(v=>{h+=`<div class="flex justify-between border-b py-2"><span><b>${esc(v.name)}</b> - ${v.pricePerKg} SSP/KG - ${v.days} days</span><button onclick="delDest('${esc(v.name)}')" class="text-red-600 text-[10px]">Delete</button></div>`;});destList.innerHTML=h;}
+function calcPrice(){const dest=destSelect.value,kg=parseFloat(weight.value||0);if(!dest||!kg||!destinations[dest]){priceDisplay.value='';priceInfo.textContent='';return;}const total=kg*destinations[dest].pricePerKg;priceDisplay.value=total.toLocaleString()+' SSP';priceInfo.textContent=`${kg}KG x ${destinations[dest].pricePerKg} = ${total.toLocaleString()} SSP`;}
 function generateSerial(){let num;do{num=Math.floor(100000+Math.random()*900000);}while(shipments.find(s=>s.id==='SH-'+num));return 'SH-'+num;}
-function saveDestination(){const name=d_name.value.trim(),price=parseInt(d_price.value),days=parseInt(d_days.value||1);if(name.length<2||!price)return alert('Enter name & price');destinations[name]={name,pricePerKg:price,days};d_name.value='';d_price.value='';d_days.value='';saveAll();loadDestinations();}
-function delDest(name){if(!confirm('Delete '+name+'?'))return;delete destinations[name];saveAll();loadDestinations();}
-function createTrip(){const dest=t_dest.value,date=t_date.value,driver=t_driver.value.trim(),cap=parseInt(t_cap.value||0);if(!dest||!date||!driver)return alert('Fill trip');trips.unshift({destination:dest,date,driver,capacityKg:cap,status:'scheduled'});saveAll();loadTrips();t_driver.value='';t_cap.value='';}
-function loadTrips(){let h='<table class="w-full text-xs"><tr class="text-gray-400"><td>Trip</td><td>Dest</td><td>Date</td><td>Driver</td><td>Status</td></tr>';trips.forEach(v=>{h+=`<tr class="border-b"><td>${esc(v.destination)}-${esc(v.date)}</td><td><b>${esc(v.destination)}</b></td><td>${esc(v.date)}</td><td>${esc(v.driver)}</td><td>${esc(v.status)}</td></tr>`;});h+='</table>';tripsList.innerHTML=h||'No trips';tripAdminList.innerHTML=h||'No trips';}
-function addShipment(){
-  const sName=senderName.value.trim(), sPhone=senderPhone.value.trim(), rName=receiverName.value.trim(), rPhone=receiverPhone.value.trim(), dst=destSelect.value, wg=parseFloat(weight.value||0);
-  if(sName.length<2||rName.length<2||sPhone.length<6||rPhone.length<6||!dst||!wg){alert('املأ: اسم المرسل، تلفونو، اسم المستلم، تلفونو، الوجهة، الوزن');return;}
-  const pricePerKg=destinations[dst].pricePerKg;const total=wg*pricePerKg;const id=generateSerial();
-  shipments.unshift({id,senderName:sName,displaySender:sName,senderPhone:sPhone,receiverName:rName,displayReceiver:rName,receiverPhone:rPhone,destination:dst,weight:wg,pricePerKg,totalPrice:total,imageUrl:imageBase64,status:'booked',createdAt:new Date().toLocaleString()});
-  saveAll();senderName.value='';senderPhone.value='';receiverName.value='';receiverPhone.value='';weight.value='';priceDisplay.value='';shipImage.value='';preview.classList.add('hidden');imageBase64='';priceInfo.innerHTML=`✅ <b>${id}</b> تم الحجز! ${total.toLocaleString()} SSP - ${sName} → ${rName} إلى ${dst}`;loadBooking();loadStats();
-}
-function loadBooking(){let h='<table class="w-full text-xs"><tr class="text-gray-400"><td>Serial 6-Digit</td><td>Sender → Receiver</td><td>Phones</td><td>Dest</td><td>KG</td><td>Price SSP</td><td>Photo</td></tr>';shipments.forEach(v=>{h+=`<tr class="border-b"><td><b class="text-[#FF6B00]">${esc(v.id)}</b></td><td>${esc(v.displaySender)}<br>→ ${esc(v.displayReceiver)}</td><td class="text-[10px]">${esc(v.senderPhone)}<br>${esc(v.receiverPhone)}</td><td>${esc(v.destination)}</td><td>${esc(String(v.weight))}</td><td>${Number(v.totalPrice).toLocaleString()}</td><td>${v.imageUrl? `<img src="${v.imageUrl}" class="w-10 h-10 rounded object-cover">`:'No img'}</td></tr>`;});h+='</table>';bookingList.innerHTML=h||'No shipments';}
-function loadStats(){statShip.textContent=shipments.length;let total=0;shipments.forEach(v=>total+=v.totalPrice||0);statRevenue.textContent=total.toLocaleString()+' SSP';}
-function searchShip(){const q=searchInput.value.trim().toLowerCase();if(q.length<2){searchResults.innerHTML='<p class="text-xs bg-white p-3 rounded-xl">Type 2+ letters</p>';return;}let res=shipments.filter(v=>v.id.toLowerCase().includes(q)||v.senderName.toLowerCase().includes(q)||v.receiverName.toLowerCase().includes(q));let h='<div class="bg-white rounded-xl p-3"><b class="text-xs">'+res.length+' found</b>';res.slice(0,10).forEach(v=>{h+=`<div class="border-b py-2 text-sm flex justify-between"><span><b>${esc(v.id)}</b> ${esc(v.displaySender)} → ${esc(v.displayReceiver)} | ${esc(v.destination)}</span><button onclick="openHistory('${esc(v.id)}')" class="text-[10px] bg-[#FF6B00] text-white px-2 py-1 rounded-full">View</button></div>`;});h+='</div>';searchResults.innerHTML=h||'<p class="text-xs bg-white p-3 rounded-xl">No results</p>';}
-function openHistory(id){historyModal.classList.remove('hidden');const v=shipments.find(x=>x.id===id);if(!v){historyContent.innerHTML='Not found';return;}historyContent.innerHTML=`<div class="border-2 rounded-xl p-3"><p class="text-lg font-black text-[#FF6B00]">${esc(v.id)}</p><p><b>المرسل:</b> ${esc(v.displaySender)} - ${esc(v.senderPhone)}</p><p><b>المرسل إليه:</b> ${esc(v.displayReceiver)} - ${esc(v.receiverPhone)}</p><p><b>الوجهة:</b> ${esc(v.destination)} | <b>الوزن:</b> ${esc(String(v.weight))} KG</p><p><b>الإجمالي:</b> <b class="text-[#FF6B00]">${Number(v.totalPrice).toLocaleString()} SSP</b></p><p><b>التاريخ:</b> ${esc(v.createdAt)}</p>${v.imageUrl? `<img src="${v.imageUrl}" class="w-full mt-3 rounded-xl border">`:''}</div>`;}
-function createStaffDemo(){const name=s_name.value.trim(),email=s_email.value.trim();if(name.length<2)return;staff.unshift({name,email,role:s_role.value});saveAll();loadStaffDemo();s_name.value='';s_email.value='';}
-function loadStaffDemo(){let h='<b>Staff Demo:</b><div class="mt-2">';staff.forEach(v=>{h+=`<div class="flex justify-between border-b py-1"><span><b>${esc(v.name)}</b> - ${esc(v.role)}</span><span>${esc(v.email)}</span></div>`;});h+='</div>';staffList.innerHTML=h;}
-
-loadDestinations();loadBooking();loadTrips();loadStats();loadStaffDemo();
+function saveDestination(){if(currentRole!=='admin'){alert('Admin only');return;}const name=d_name.value.trim(),price=parseInt(d_price.value),days=parseInt(d_days.value||1);if(name.length<2||!price)return alert('Enter name & price');destinations[name]={name,pricePerKg:price,days};saveAll();loadDestinations();d_name.value='';d_price.value='';}
+function delDest(name){if(currentRole!=='admin')return;if(!confirm('Delete '+name+'?'))return;delete destinations[name];saveAll();loadDestinations();}
+function createTrip(){const dest=t_dest.value,date=t_date.value,driver=t_driver.value.trim();if(!dest||!date||!driver)return alert('Fill trip');trips.unshift({destination:dest,date,driver,status:'scheduled'});saveAll();loadTrips();}
+function loadTrips(){let h='<table class="w-full text-xs"><tr class="text-gray-400"><td>Trip</td><td>Dest</td><td>Date</td><td>Driver</td></tr>';trips.forEach(v=>{h+=`<tr class="border-b"><td>${esc(v.destination)}-${esc(v.date)}</td><td><b>${esc(v.destination)}</b></td><td>${esc(v.date)}</td><td>${esc(v.driver)}</td></tr>`;});h+='</table>';tripsList.innerHTML=h;tripAdminList.innerHTML=h;}
+function addShipment(){const sName=senderName.value.trim(),sPhone=senderPhone.value.trim(),rName=receiverName.value.trim(),rPhone=receiverPhone.value.trim(),dst=destSelect.value,wg=parseFloat(weight.value||0);if(sName.length<2||rName.length<2||!dst||!wg){alert('Fill all fields');return;}const total=wg*destinations[dst].pricePerKg;const id=generateSerial();shipments.unshift({id,senderName:sName,displaySender:sName,senderPhone:sPhone,receiverName:rName,displayReceiver:rName,receiverPhone:rPhone,destination:dst,weight:wg,pricePerKg:destinations[dst].pricePerKg,totalPrice:total,imageUrl:imageBase64,status:'booked',createdAt:new Date().toLocaleString()});saveAll();loadAll();priceInfo.innerHTML=`✅ <b>${id}</b> Booked ${total.toLocaleString()} SSP`;senderName.value='';senderPhone.value='';receiverName.value='';receiverPhone.value='';weight.value='';priceDisplay.value='';preview.classList.add('hidden');imageBase64='';}
+function loadBooking(){let h='<table class="w-full text-xs"><tr class="text-gray-400"><td>6-Digit Serial</td><td>Sender → Receiver</td><td>Dest</td><td>Price</td><td>Photo</td></tr>';shipments.forEach(v=>{h+=`<tr class="border-b"><td><b class="text-[#FF6B00]">${esc(v.id)}</b></td><td>${esc(v.displaySender)} → ${esc(v.displayReceiver)}</td><td>${esc(v.destination)}</td><td>${Number(v.totalPrice).toLocaleString()}</td><td>${v.imageUrl? `<img src="${v.imageUrl}" class="w-8 h-8 rounded object-cover">`:'-'}</td></tr>`;});h+='</table>';bookingList.innerHTML=h;}
+function loadFinance(){let total=0;shipments.forEach(v=>total+=v.totalPrice||0);statRevenue.textContent=total.toLocaleString()+' SSP';statRevenue2.textContent=total.toLocaleString()+' SSP';statShip.textContent=shipments.length;statShip2.textContent=shipments.length;statPaid.textContent=total.toLocaleString()+' SSP';statAvg.textContent=shipments.length? Math.round(total/shipments.length).toLocaleString()+' SSP':'0';let byDest={};shipments.forEach(v=>{byDest[v.destination]=(byDest[v.destination]||0)+v.totalPrice;});let h='<div class="grid gap-2">';Object.entries(byDest).forEach(([dest,rev])=>{h+=`<div class="flex justify-between bg-gray-50 p-2 rounded"><span><b>${esc(dest)}</b></span><span class="font-black text-[#FF6B00]">${rev.toLocaleString()} SSP</span></div>`;});h+='</div>';financeByDest.innerHTML=h||'No data';let f='<table class="w-full text-xs"><tr class="text-gray-400"><td>Serial</td><td>Customer</td><td>Dest</td><td>KG</td><td>Price/KG</td><td>Total</td></tr>';shipments.forEach(v=>{f+=`<tr class="border-b"><td><b>${esc(v.id)}</b></td><td>${esc(v.displaySender)} → ${esc(v.displayReceiver)}</td><td>${esc(v.destination)}</td><td>${v.weight}</td><td>${v.pricePerKg}</td><td class="font-bold">${Number(v.totalPrice).toLocaleString()}</td></tr>`;});f+='</table>';financeList.innerHTML=f;}
+function createStaffDemo(){if(currentRole!=='admin'){alert('Admin only');return;}const name=s_name.value.trim(),email=s_email.value.trim(),pass=s_pass.value,role=s_role.value,phone=s_phone.value.trim();if(name.length<2||email.length<5||pass.length<4){s_msg.textContent='❌ Fill name, email, password min 4';return;}staff.unshift({name,email,password:pass,role,phone,createdAt:new Date().toLocaleString()});saveAll();loadStaffDemo();s_msg.textContent=`✅ Created ${name} - Role: ${role} - Password: ${pass}`;s_name.value='';s_email.value='';s_pass.value='';s_phone.value='';}
+function loadStaffDemo(){statStaff.textContent=staff.length;let h='<div class="mt-3"><b class="text-[#0A2A5A]">Staff & Passwords (Admin View Only):</b><div class="mt-2 space-y-2">';staff.forEach(v=>{let color='bg-gray-100';if(v.role==='admin')color='bg-[#0A2A5A] text-white';if(v.role==='finance')color='bg-green-100';if(v.role==='warehouse')color='bg-blue-100';if(v.role==='driver')color='bg-orange-100';h+=`<div class="flex justify-between items-center ${color} p-3 rounded-xl border"><div><b>${esc(v.name)}</b> - <span class="text-[10px] px-2 py-1 rounded-full bg-black/10">${esc(v.role).toUpperCase()}</span><br><span class="text-[11px]">${esc(v.email)} | ${esc(v.phone||'No phone')}</span></div><div class="text-right"><span class="text-[10px]">PASSWORD</span><br><b class="font-mono text-sm bg-white px-2 py-1 rounded border text-black">${esc(v.password)}</b></div></div>`;});h+='</div></div>';staffList.innerHTML=h||'No staff';}
+function loadAll(){loadDestinations();loadBooking();loadTrips();loadFinance();loadStaffDemo();}
+loadAll();
 </script></body></html>
