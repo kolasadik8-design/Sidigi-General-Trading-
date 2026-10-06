@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sidigi General Trading V14</title><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0A2A5A"><script src="https://cdn.tailwindcss.com"></script><script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script></head><body class="bg-[#0A2A5A]">
+<div id="loginPage" class="min-h-screen flex flex-col items-center justify-center p-4 bg-[#0A2A5A]"><div class="bg-white rounded-[28px] p-8 w-full max-w-md shadow-2xl"><div class="text-center"><div class="w-16 h-16 bg-[#FF6B00] rounded-full mx-auto flex items-center justify-center text-white font-black text-xl">SG</div><h1 class="mt-3 text-2xl font-black"><span class="text-[#0A2A5A]">SIDIGI</span> <span class="text-[#FF6B00]">GENERAL TRADING</span></h1><p class="text-[11px] font-bold tracking-widest">V14 - 6 Digit Serial + Photo</p></div><input id="em" placeholder="Email" class="w-full mt-8 p-3.5 border-2 border-black rounded-2xl outline-none"><input id="pw" type="password" placeholder="Password" class="w-full mt-3 p-3.5 border-2 rounded-2xl outline-none"><button onclick="doLogin()" class="w-full mt-5 bg-[#0A2A5A] text-white p-4 rounded-2xl font-black">LOGIN</button><p id="msg" class="text-red-600 text-xs mt-3 text-center"></p></div><div class="mt-8 text-center"><p class="text-[13px] font-bold"><span class="text-white/60">Developed by </span><span class="text-white">Eng. </span><span class="text-[#FF6B00]">Mutwokil Sadik</span></p></div></div>
+
+<div id="app" class="hidden"><header class="bg-[#0A2A5A] text-white p-3 flex justify-between items-center"><div><b>SIDIGI</b> <span class="text-[#FF6B00]">GENERAL TRADING</span> <span id="rb" class="bg-[#FF6B00] text-[10px] px-2 py-1 rounded-full ml-2"></span></div><div class="flex items-center gap-2"><span id="un" class="text-xs font-bold"></span><button onclick="auth.signOut().then(()=>{localStorage.clear(); location.reload();})" class="bg-white/10 px-3 py-1 rounded text-xs">Logout</button></div></header>
+
+<div id="welcomeBanner" class="max-w-7xl mx-auto px-3 pt-3"><div class="bg-white rounded-2xl p-4 flex items-center gap-3 shadow border-l-4 border-[#FF6B00]"><div class="w-12 h-12 rounded-full bg-[#0A2A5A] text-white flex items-center justify-center font-black" id="avatar">SG</div><div><h2 id="welcomeText" class="font-black text-[#0A2A5A]"></h2><p id="welcomeSub" class="text-xs text-gray-500"></p></div><div class="ml-auto text-[10px] bg-[#FF6B00] text-white px-3 py-1 rounded-full" id="welcomeRole"></div></div></div>
+
+<div class="max-w-7xl mx-auto px-3 pt-3"><div class="bg-white rounded-2xl p-3 flex gap-2"><input id="searchInput" placeholder="🔍 Track by 6-Digit No SH-123456 or Sender Name" class="flex-1 p-3 border-2 rounded-xl text-sm outline-none" onkeyup="if(event.key==='Enter') searchShip()"><button onclick="searchShip()" class="bg-[#FF6B00] text-white px-6 rounded-xl font-bold text-sm">Track</button></div><div id="searchResults" class="mt-3"></div></div>
+
+<div class="max-w-7xl mx-auto p-3 grid grid-cols-12 gap-3"><div class="col-span-12 md:col-span-3"><div id="menu" class="bg-white rounded-2xl p-3"></div></div>
+<div class="col-span-12 md:col-span-9 space-y-3">
+
+<div id="p-booking" class="bg-white rounded-2xl p-5"><h2 class="font-black text-[#0A2A5A]">1. Booking - تفاصيل الشحنة</h2>
+<div class="grid md:grid-cols-2 gap-3 mt-4 text-sm">
+<input id="senderName" placeholder="اسم المرسل - Sender Name *" class="p-3 border-2 rounded-xl"><input id="senderPhone" placeholder="تلفون المرسل - Sender Phone *" class="p-3 border-2 rounded-xl">
+<input id="receiverName" placeholder="اسم المرسل إليه - Receiver Name *" class="p-3 border-2 rounded-xl"><input id="receiverPhone" placeholder="تلفون المرسل إليه - Receiver Phone *" class="p-3 border-2 rounded-xl">
+<select id="destSelect" class="p-3 border-2 rounded-xl"></select><input id="weight" type="number" placeholder="الوزن KG *" class="p-3 border-2 rounded-xl" oninput="calcPrice()">
+<input id="priceDisplay" placeholder="السعر SSP - Auto" disabled class="p-3 border-2 rounded-xl bg-gray-100 md:col-span-2">
+<div class="md:col-span-2"><label class="text-[11px] font-bold">📸 صورة الشحنة - Shipment Photo</label><input id="shipImage" type="file" accept="image/*" capture="environment" class="w-full mt-1 p-2 border-2 rounded-xl text-xs"><img id="preview" class="hidden mt-2 w-full h-32 object-cover rounded-xl border"></div>
+</div>
+<p id="priceInfo" class="text-[11px] text-gray-500 mt-2"></p>
+<button onclick="addShipment()" class="w-full mt-4 bg-[#FF6B00] text-white p-4 rounded-xl font-black text-lg">📦 Book & Generate 6-Digit Serial</button>
+<div id="bookingList" class="mt-6"></div>
+</div>
+
+<div id="p-trips" class="bg-white rounded-2xl p-5 hidden"><h2 class="font-black">2. Trips</h2><div id="tripsList" class="mt-4"></div></div>
+<div id="p-admin" class="bg-white rounded-2xl p-5 hidden">
+<h2 class="font-black text-[#0A2A5A] text-lg">3. Admin Control - Destinations, Trips, Staff</h2>
+<div class="grid md:grid-cols-3 gap-3 mt-4"><div class="bg-[#0A2A5A] text-white rounded-xl p-4"><p class="text-[10px]">Shipments</p><p id="statShip" class="text-2xl font-black">0</p></div><div class="bg-[#FF6B00] text-white rounded-xl p-4"><p class="text-[10px]">Revenue SSP</p><p id="statRevenue" class="text-2xl font-black">0</p></div><div class="bg-gray-800 text-white rounded-xl p-4"><p class="text-[10px]">Staff</p><p id="statStaff" class="text-2xl font-black">0</p></div></div>
+
+<div class="mt-5 border-2 border-[#0A2A5A] rounded-2xl p-4 bg-blue-50/50"><h3 class="font-black text-sm">📍 Destinations & Price per KG</h3><div class="grid md:grid-cols-4 gap-2 mt-3"><input id="d_name" placeholder="State - Wau" class="p-2.5 border-2 rounded-xl text-sm"><input id="d_price" type="number" placeholder="SSP/KG - 5000" class="p-2.5 border-2 rounded-xl text-sm"><input id="d_days" type="number" placeholder="Days - 2" class="p-2.5 border-2 rounded-xl text-sm"><button onclick="saveDestination()" class="bg-[#0A2A5A] text-white p-2.5 rounded-xl font-bold text-sm">Add</button></div><div id="destList" class="mt-3 text-xs"></div></div>
+
+<div class="mt-5 border-2 border-[#FF6B00] rounded-2xl p-4 bg-orange-50"><h3 class="font-black text-sm">🚚 Create Trip</h3><div class="grid md:grid-cols-5 gap-2 mt-3"><select id="t_dest" class="p-2.5 border-2 rounded-xl text-sm"></select><input id="t_date" type="date" class="p-2.5 border-2 rounded-xl text-sm"><input id="t_driver" placeholder="Driver" class="p-2.5 border-2 rounded-xl text-sm"><input id="t_cap" type="number" placeholder="Cap KG" class="p-2.5 border-2 rounded-xl text-sm"><button onclick="createTrip()" class="bg-[#FF6B00] text-white p-2.5 rounded-xl font-bold text-sm">Create</button></div><div id="tripAdminList" class="mt-3 text-xs"></div></div>
+
+<div class="mt-5 border-2 border-green-600 rounded-2xl p-4 bg-green-50"><h3 class="font-black text-sm text-green-700">👥 Add Staff & Password</h3><div class="grid md:grid-cols-2 gap-2 mt-3"><input id="s_name" placeholder="Full Name" class="p-2.5 border-2 rounded-xl text-sm"><input id="s_email" placeholder="Email" class="p-2.5 border-2 rounded-xl text-sm"><input id="s_pass" placeholder="Password min 6" class="p-2.5 border-2 rounded-xl text-sm"><select id="s_role" class="p-2.5 border-2 rounded-xl text-sm"><option value="reception">Customer Service</option><option value="warehouse">Warehouse</option><option value="driver">Driver</option><option value="finance">Finance</option><option value="admin">Admin</option></select></div><button onclick="createStaff()" class="w-full mt-3 bg-green-600 text-white p-3 rounded-xl font-black">Create Staff</button><p id="s_msg" class="text-xs mt-2 text-center font-bold"></p><div id="staffList" class="mt-4 text-xs"></div></div>
+</div>
+</div></div>
+<div class="text-center py-6 text-[11px] font-bold"><span class="text-white/60">Developed by </span><span class="text-white">Eng. </span><span class="text-[#FF6B00]">Mutwokil Sadik</span></div></div>
+
+<div id="historyModal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50"><div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-auto p-5"><div class="flex justify-between"><h2 class="font-black text-[#0A2A5A]">Shipment Details - رقم الشحنة</h2><button onclick="historyModal.classList.add('hidden')" class="bg-gray-200 px-3 rounded-full">✕</button></div><div id="historyContent" class="mt-4 text-sm"></div></div></div>
+
+<script>
+const firebaseConfig={apiKey:"AIzaSyBTKKqbrmpF6BoCzN2gK72F9TwQ2YUkR4o",authDomain:"mama-laura-medical-cente-1fb61.firebaseapp.com",projectId:"mama-laura-medical-cente-1fb61",storageBucket:"mama-laura-medical-cente-1fb61.firebasestorage.app",messagingSenderId:"850931317131",appId:"1:850931317131:web:e74efd4bd588a52944d78e"};
+firebase.initializeApp(firebaseConfig);
+const secondaryApp = firebase.initializeApp(firebaseConfig, "SidigiV14");
+const db=firebase.firestore(),auth=firebase.auth(),storage=firebase.storage();let me=null,destinations={},imageBase64="";
+auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
+function getTitle(r,n){if(r==='driver')return 'Driver '+n;if(r==='warehouse')return 'Warehouse '+n;if(r==='admin')return 'Admin '+n;return n;}
+function showWelcome(){if(!me)return;const t=getTitle(me.role,me.name);welcomeText.textContent='Welcome, '+t+'! 📦';welcomeSub.textContent='Sidigi General Trading | Role: '+me.role.toUpperCase();welcomeRole.textContent=me.role.toUpperCase();avatar.textContent=me.name.split(' ').map(x=>x[0]).join('').substring(0,2).toUpperCase();un.textContent=t;rb.textContent=me.role.toUpperCase();}
+async function doLogin(){try{const c=await auth.signInWithEmailAndPassword(em.value.trim(),pw.value);let d=await db.collection('sidigi_staff').doc(c.user.uid).get();if(!d.exists) d=await db.collection('mama_staff').doc(c.user.uid).get();if(!d.exists){msg.textContent='No staff record';return;}me={uid:c.user.uid,...d.data()};afterLogin();}catch(e){msg.textContent=e.message;}}
+function afterLogin(){loginPage.classList.add('hidden');app.classList.remove('hidden');showWelcome();buildMenu();loadDestinations().then(()=>loadAll());}
+auth.onAuthStateChanged(async(u)=>{if(u&&!me){try{let d=await db.collection('sidigi_staff').doc(u.uid).get();if(!d.exists) d=await db.collection('mama_staff').doc(u.uid).get();if(d.exists){me={uid:u.uid,...d.data()};afterLogin();}}catch(e){}}else if(!u){loginPage.classList.remove('hidden');app.classList.add('hidden');}});
+function buildMenu(){let h='';const r=me.role;if(['reception','admin'].includes(r))h+=`<button onclick="show('booking')" class="w-full text-left p-3 rounded-xl bg-[#FF6B00] text-white font-bold mt-1">📦 Booking - حجز</button>`;h+=`<button onclick="show('trips')" class="w-full text-left p-3 rounded-xl hover:bg-slate-100 mt-1">🚚 Trips</button>`;if(r==='admin')h+=`<button onclick="show('admin')" class="w-full text-left p-3 rounded-xl bg-[#0A2A5A] text-white font-bold mt-2">⚙️ Admin Control</button>`;menu.innerHTML=h;}
+function show(id){['booking','trips','admin'].forEach(x=>{const e=document.getElementById('p-'+x);if(e)e.classList.add('hidden');});document.getElementById('p-'+id).classList.remove('hidden');}
+
+// Image preview
+document.getElementById('shipImage').addEventListener('change',function(e){
+  const file=e.target.files[0]; if(!file) return;
+  if(file.size>2*1024*1024){alert('Image too big max 2MB'); return;}
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    imageBase64=ev.target.result;
+    preview.src=imageBase64; preview.classList.remove('hidden');
+  };
+  reader.readAsDataURL(file);
+});
+
+async function loadDestinations(){const snap=await db.collection('sidigi_destinations').get();destinations={};let opts='<option value="">Select State - اختر الولاية</option>';snap.forEach(d=>{const v=d.data();destinations[v.name]=v;opts+=`<option value="${esc(v.name)}">${esc(v.name)} - ${v.pricePerKg} SSP/KG</option>`;});if(snap.empty){const defs=[{name:'Juba',pricePerKg:3000,days:1},{name:'Wau',pricePerKg:8000,days:3},{name:'Malakal',pricePerKg:9000,days:4},{name:'Bor',pricePerKg:5000,days:2},{name:'Yei',pricePerKg:4000,days:2},{name:'Nimule',pricePerKg:4500,days:2}];defs.forEach(v=>{destinations[v.name]=v;opts+=`<option value="${v.name}">${v.name} - ${v.pricePerKg} SSP/KG</option>`;});}
+destSelect.innerHTML=opts; t_dest.innerHTML=opts;
+let h='';Object.values(destinations).forEach(v=>{h+=`<div class="flex justify-between border-b py-1"><span><b>${esc(v.name)}</b> - ${v.pricePerKg} SSP/KG</span><button onclick="delDest('${esc(v.name)}')" class="text-red-600 text-[10px]">Delete</button></div>`;});destList.innerHTML=h||'No destinations';
+}
+function calcPrice(){const dest=destSelect.value,kg=parseFloat(weight.value||0);if(!dest||!kg||!destinations[dest]){priceDisplay.value='';priceInfo.textContent='';return;}const total=kg*destinations[dest].pricePerKg;priceDisplay.value=total.toLocaleString()+' SSP';priceInfo.textContent=`${kg}KG x ${destinations[dest].pricePerKg} SSP = ${total.toLocaleString()} SSP → ${dest}`;}
+// Generate unique 6-digit serial
+async function generateSerial(){
+  for(let i=0;i<5;i++){
+    const num=Math.floor(100000+Math.random()*900000);
+    const id='SH-'+num;
+    const exists=await db.collection('sidigi_shipments').doc(id).get();
+    if(!exists.exists) return id;
+  }
+  return 'SH-'+Date.now().toString().slice(-6);
+}
+async function saveDestination(){if(me.role!=='admin'){alert('Admin only');return;}const name=d_name.value.trim(),price=parseInt(d_price.value),days=parseInt(d_days.value||1);if(name.length<2||!price)return alert('Enter name & price');await db.collection('sidigi_destinations').doc(name.toLowerCase()).set({name,pricePerKg:price,days,updatedAt:firebase.firestore.FieldValue.serverTimestamp(),by:me.uid});d_name.value='';d_price.value='';d_days.value='';loadDestinations();}
+async function delDest(name){if(me.role!=='admin')return;if(!confirm('Delete '+name+'?'))return;await db.collection('sidigi_destinations').doc(name.toLowerCase()).delete();loadDestinations();}
+async function createTrip(){if(me.role!=='admin'){alert('Admin only');return;}const dest=t_dest.value,date=t_date.value,driver=t_driver.value.trim(),cap=parseInt(t_cap.value||0);if(!dest||!date||!driver)return alert('Fill trip');await db.collection('sidigi_trips').doc(dest+'_'+Date.now()).set({destination:dest,date,driver,capacityKg:cap,status:'scheduled',createdAt:firebase.firestore.FieldValue.serverTimestamp(),by:me.uid});t_driver.value='';t_cap.value='';loadTrips();}
+async function loadTrips(){const snap=await db.collection('sidigi_trips').orderBy('createdAt','desc').limit(20).get();let h='<table class="w-full text-xs"><tr class="text-gray-400"><td>Trip</td><td>Destination</td><td>Date</td><td>Driver</td><td>Status</td></tr>';snap.forEach(d=>{const v=d.data();h+=`<tr class="border-b"><td>${esc(v.destination)}-${esc(v.date||'')}</td><td><b>${esc(v.destination)}</b></td><td>${esc(v.date)}</td><td>${esc(v.driver)}</td><td>${esc(v.status)}</td></tr>`;});h+='</table>';tripsList.innerHTML=h;tripAdminList.innerHTML=h;}
+async function searchShip(){const q=searchInput.value.trim().toLowerCase();if(q.length<2){searchResults.innerHTML='<p class="text-xs bg-white p-3 rounded-xl">Type 2+ letters</p>';return;}searchResults.innerHTML='<p class="text-xs bg-white p-3 rounded-xl">Tracking...</p>';try{const snap=await db.collection('sidigi_shipments').limit(60).get();let res=[];snap.forEach(d=>{const v=d.data();if((v.id&&v.id.toLowerCase().includes(q))||(v.senderName&&v.senderName.toLowerCase().includes(q))||(v.receiverName&&v.receiverName.toLowerCase().includes(q))||(v.displayCustomer&&v.displayCustomer.toLowerCase().includes(q)))res.push(v);});let h='<div class="bg-white rounded-xl p-3"><b class="text-xs">'+res.length+' shipments found</b>';res.slice(0,10).forEach(v=>{h+=`<div class="border-b py-2 text-sm flex justify-between items-center"><span><b>${esc(v.id)}</b> ${esc(v.displayCustomer||v.senderName)} → ${esc(v.receiverName)} | ${esc(v.destination)} | ${esc(String(v.weight||0))}KG</span><button onclick="openHistory('${esc(v.id)}')" class="text-[10px] bg-[#FF6B00] text-white px-2 py-1 rounded-full">View</button></div>`;});h+='</div>';searchResults.innerHTML=h;}catch(e){searchResults.innerHTML=esc(e.message);}}
+async function addShipment(){
+  if(!['reception','admin'].includes(me.role)){alert('No permission');return;}
+  const sName=senderName.value.trim(), sPhone=senderPhone.value.trim(), rName=receiverName.value.trim(), rPhone=receiverPhone.value.trim(), dst=destSelect.value, wg=parseFloat(weight.value||0);
+  if(sName.length<2||rName.length<2||sPhone.length<6||rPhone.length<6||!dst||!wg){alert('املأ كل الحقول: اسم المرسل، تلفون المرسل، اسم المرسل إليه، تلفون المرسل إليه، الوجهة، الوزن'); return;}
+  if(!destinations[dst]) return alert('Select valid destination');
+  if(!imageBase64){if(!confirm('ما اخترت صورة للشحنة، عايز تواصل بدون صورة؟')) return;}
+  const pricePerKg=destinations[dst].pricePerKg;
+  const total=wg*pricePerKg;
+  const id=await generateSerial();
+  priceInfo.textContent='Generating '+id+'... ⏳';
+  try{
+    let imageUrl=imageBase64||"";
+    // Optional: upload to storage if image exists
+    if(imageBase64){
+      try{
+        const ref=storage.ref().child('shipments/'+id+'.jpg');
+        await ref.putString(imageBase64,'data_url');
+        imageUrl=await ref.getDownloadURL();
+      }catch(e){ imageUrl=imageBase64; }
+    }
+    await db.collection('sidigi_shipments').doc(id).set({
+      id,
+      senderName:sName.toLowerCase(), displaySender:sName,
+      senderPhone:sPhone,
+      receiverName:rName.toLowerCase(), displayReceiver:rName,
+      receiverPhone:rPhone,
+      customer:sName.toLowerCase(), displayCustomer:sName+' → '+rName,
+      destination:dst,
+      weight:wg,
+      pricePerKg,
+      totalPrice:total,
+      imageUrl:imageUrl,
+      status:'booked',
+      createdAt:firebase.firestore.FieldValue.serverTimestamp(),
+      by:me.uid
+    });
+    senderName.value=''; senderPhone.value=''; receiverName.value=''; receiverPhone.value=''; weight.value=''; priceDisplay.value=''; shipImage.value=''; preview.classList.add('hidden'); imageBase64='';
+    priceInfo.innerHTML=`✅ <b>${id}</b> تم الحجز! ${total.toLocaleString()} SSP - ${sName} → ${rName} إلى ${dst}`;
+    loadAll();
+  }catch(e){ priceInfo.textContent='❌ '+e.message; }
+}
+async function loadAll(){loadBooking();loadTrips();loadStats();loadStaffList();}
+async function loadBooking(){const s=await db.collection('sidigi_shipments').orderBy('createdAt','desc').limit(25).get();let h='<table class="w-full text-xs"><tr class="text-gray-400"><td>Serial</td><td>Sender → Receiver</td><td>Phones</td><td>Dest</td><td>Price</td><td>Photo</td></tr>';s.forEach(d=>{const v=d.data();h+=`<tr class="border-b"><td><b class="text-[#FF6B00]">${esc(v.id)}</b></td><td>${esc(v.displaySender||v.senderName)}<br>→ ${esc(v.displayReceiver||v.receiverName)}</td><td class="text-[10px]">${esc(v.senderPhone||'')} <br>${esc(v.receiverPhone||'')}</td><td>${esc(v.destination)}</td><td>${Number(v.totalPrice||0).toLocaleString()}</td><td>${v.imageUrl? `<img src="${esc(v.imageUrl)}" class="w-10 h-10 rounded object-cover">`:'No img'}</td></tr>`;});h+='</table>';bookingList.innerHTML=h;}
+async function loadStats(){if(me.role!=='admin')return;try{const s=await db.collection('sidigi_shipments').get();statShip.textContent=s.size;let total=0; s.forEach(d=>{const v=d.data(); if(v.totalPrice) total+=parseInt(v.totalPrice);});statRevenue.textContent=total.toLocaleString()+' SSP';const st=await db.collection('sidigi_staff').get();statStaff.textContent=st.size;}catch(e){}}
+async function createStaff(){if(me.role!=='admin'){alert('Admin only');return;}const name=s_name.value.trim(),email=s_email.value.trim(),pass=s_pass.value,role=s_role.value;if(name.length<3||!email.includes('@')||pass.length<6){s_msg.textContent='❌ Fill all';return;}try{s_msg.textContent='Creating... ⏳';const cred=await secondaryApp.auth().createUserWithEmailAndPassword(email,pass);await db.collection('sidigi_staff').doc(cred.user.uid).set({name,email,role,specialty:'general',createdBy:me.uid,createdAt:firebase.firestore.FieldValue.serverTimestamp()});await db.collection('mama_staff').doc(cred.user.uid).set({name,email,role,specialty:'general',createdBy:me.uid,createdAt:firebase.firestore.FieldValue.serverTimestamp()});await secondaryApp.auth().signOut();s_msg.textContent='✅ '+getTitle(role,name)+' created! Pass: '+pass+' | Role: '+role;s_name.value='';s_email.value='';s_pass.value='';loadStaffList();loadStats();}catch(e){s_msg.textContent='❌ '+e.message;}}
+async function loadStaffList(){const snap=await db.collection('sidigi_staff').orderBy('createdAt','desc').limit(30).get();let h='<b class="text-[#0A2A5A]">Staff & Passwords:</b><div class="mt-2 space-y-1">';snap.forEach(d=>{const v=d.data();h+=`<div class="flex justify-between border-b py-1"><span><b>${esc(getTitle(v.role,v.name))}</b> - ${esc(v.role)}</span><span class="text-gray-500">${esc(v.email)}</span></div>`;});h+='</div>';staffList.innerHTML=h;}
+async function openHistory(id){historyModal.classList.remove('hidden');historyContent.innerHTML='Loading '+esc(id)+'...';try{const doc=await db.collection('sidigi_shipments').doc(id).get();if(!doc.exists){historyContent.innerHTML='Not found';return;}const v=doc.data();historyContent.innerHTML=`<div class="border-2 rounded-xl p-3"><p class="text-lg font-black text-[#FF6B00]">${esc(v.id)}</p><p><b>المرسل:</b> ${esc(v.displaySender||v.senderName)} - ${esc(v.senderPhone)}</p><p><b>المرسل إليه:</b> ${esc(v.displayReceiver||v.receiverName)} - ${esc(v.receiverPhone)}</p><p><b>الوجهة:</b> ${esc(v.destination)} | <b>الوزن:</b> ${esc(String(v.weight||0))} KG</p><p><b>سعر الكيلو:</b> ${v.pricePerKg} SSP | <b>الإجمالي:</b> <b class="text-[#FF6B00]">${Number(v.totalPrice||0).toLocaleString()} SSP</b></p><p><b>الحالة:</b> ${esc(v.status)} | <b>التاريخ:</b> ${v.createdAt? v.createdAt.toDate().toLocaleString():''}</p>${v.imageUrl? `<img src="${esc(v.imageUrl)}" class="w-full mt-3 rounded-xl border">`:''}</div>`;}catch(e){historyContent.innerHTML=esc(e.message);}}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js');}
+</script></body></html>
