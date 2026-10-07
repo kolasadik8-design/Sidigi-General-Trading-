@@ -3,120 +3,96 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>SIDIGI AVIATION - AIR TICKET SYSTEM</title>
+<title>SIDIGI GENERAL TRADING CO. LTD - Air Ticket</title>
 <link rel="manifest" href="manifest.json"/>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@700;900&family=Cinzel+Decorative:wght@700;900&display=swap" rel="stylesheet">
 <style>
-.sig-main{font-family:'Great Vibes',cursive;font-size:42px;font-weight:700;letter-spacing:1px;display:inline-block;transform:rotate(-1deg);text-shadow:0 3px 0 rgba(0,0,0,.25),0 10px 25px rgba(225,29,72,.45),0 0 30px rgba(225,29,72,.3)}
-.dev-label{font-family:'Poppins',sans-serif;letter-spacing:6px;font-size:11px;font-weight:900; background:linear-gradient(90deg,#0A2A5A,#e11d48); -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:.7}50%{opacity:1}}
+body{font-family:'Poppins',sans-serif}
+.gold-text{
+  font-family:'Great Vibes',cursive;
+  font-size:46px;
+  font-weight:900;
+  background: linear-gradient(90deg,#8B6A2B 0%,#FFD700 25%,#FFF8DC 50%,#FFD700 75%,#B8860B 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter: drop-shadow(0 2px 0 rgba(0,0,0,.3)) drop-shadow(0 8px 18px rgba(255,215,0,.55));
+  transform:rotate(-2deg);
+  display:inline-block;
+  letter-spacing:1px;
+}
+.dev-label{font-family:'Cinzel Decorative',cursive;letter-spacing:7px;font-size:12px;font-weight:900;color:#0A2A5A}
+.login-card{
+  background: rgba(255,255,255,0.98);
+  backdrop-filter: blur(20px);
+  border-radius:32px;
+  box-shadow: 0 20px 60px rgba(10,42,90,.25), 0 0 0 1px rgba(0,0,0,.05);
+  overflow:hidden;
+}
+.input-pro{
+  width:100%; padding:16px 18px; border:2px solid #e2e8f0; border-radius:16px;
+  font-weight:700; font-size:14px; transition:.2s; background:#f8fafc;
+}
+.input-pro:focus{border-color:#0A2A5A; background:#fff; outline:none; box-shadow:0 0 0 4px rgba(10,42,90,.1)}
+.btn-login{
+  background: linear-gradient(135deg,#0A2A5A 0%,#123a7a 100%);
+  transition:.3s; box-shadow:0 10px 20px rgba(10,42,90,.35);
+}
+.btn-login:hover{transform:translateY(-2px); box-shadow:0 14px 28px rgba(10,42,90,.45)}
+#welcomeToast{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9999;background:linear-gradient(90deg,#0A2A5A,#e11d48);color:#fff;padding:16px 28px;border-radius:999px;font-weight:900;box-shadow:0 10px 30px rgba(0,0,0,.3);display:none}
 .ticket-card{background:#fff;border:3px solid #e11d48;border-radius:18px;overflow:hidden}
 .t-head{background:#e11d48;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 18px}
 .t-grid{display:grid;grid-template-columns:repeat(12,1fr)}
 .f{border:1px solid #cbd5e1;padding:8px 10px;min-height:48px}
 .f b{font-size:9px;color:#1e3a8a;display:block}
 .f input,.f select{width:100%;outline:none;font-weight:700;font-size:13px;background:transparent}
-#welcomeToast{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9999;background:linear-gradient(90deg,#0A2A5A,#e11d48);color:#fff;padding:16px 28px;border-radius:999px;font-weight:900;box-shadow:0 10px 30px rgba(0,0,0,.3);display:none;animation:slideDown.6s ease}
-@keyframes slideDown{from{top:-100px;opacity:0}to{top:20px;opacity:1}}
 </style>
 </head>
-<body class="bg-slate-100">
+<body class="bg-gradient-to-br from-slate-100 via-white to-slate-200 min-h-screen">
 
 <div id="welcomeToast">Hello Manager 👋 Welcome to SIDIGI AVIATION</div>
 
-<!-- LOGIN -->
+<!-- LOGIN PROFESSIONAL -->
 <div id="authPage" class="min-h-screen flex items-center justify-center p-4">
-<div class="w-full max-w-[440px] bg-white rounded-[28px] shadow-2xl overflow-hidden border-2 border-slate-100">
-<div class="bg-[#e11d48] p-7 text-white text-center">
-<h1 class="font-black text-[19px] leading-tight">SIDIGI GENERAL TRADING CO. LTD</h1>
-<p class="text-[10px] mt-1 opacity-90">AIR TICKET SYSTEM - Juba International Airport</p>
-<p class="text-[10px] mt-1 font-bold">+211 915 499 458 | +211 917 273 900 | +211 922 710 020</p>
+<div class="w-full max-w-[460px] login-card">
+<div class="bg-gradient-to-br from-[#e11d48] to-[#be123c] p-8 text-white text-center relative overflow-hidden">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-xl"></div>
+<div class="absolute -bottom-10 -left-10 w-40 h-40 bg-black/10 rounded-full blur-xl"></div>
+<h1 class="font-black text-[20px] leading-tight relative z-10">SIDIGI GENERAL TRADING CO. LTD</h1>
+<p class="text-[11px] mt-2 opacity-95 relative z-10 tracking-widest font-bold">AIR TICKET SYSTEM • Juba International Airport</p>
+<div class="mt-3 inline-flex gap-2 text-[10px] font-bold bg-white/20 px-3 py-1 rounded-full relative z-10">+211 915 499 458 • +211 917 273 900 • +211 922 710 020</div>
 </div>
-<div class="p-7">
-<input id="loginEmail" type="email" placeholder="Staff Email" class="w-full p-4 border-2 rounded-xl mb-3 text-sm font-bold">
-<input id="loginPass" type="password" placeholder="Password" class="w-full p-4 border-2 rounded-xl mb-4 text-sm font-bold">
-<button onclick="login()" class="w-full bg-[#0A2A5A] text-white p-4 rounded-xl font-black text-[15px] tracking-wider">LOGIN TO SYSTEM</button>
-<p id="loginMsg" class="text-center text-xs text-red-600 mt-3 font-bold"></p>
 
-<!-- توقيع واضح وملفت برة صفحة التسجيل -->
-<div class="mt-10 text-center border-t-2 border-dashed pt-6 pb-2 bg-gradient-to-b from-white to-red-50 rounded-2xl">
+<div class="p-8">
+<div class="flex items-center gap-2 mb-6"><div class="w-1 h-6 bg-[#e11d48] rounded-full"></div><h2 class="font-black text-[#0A2A5A]">Staff Login</h2></div>
+<input id="loginEmail" type="email" placeholder="Staff Email Address" class="input-pro mb-4">
+<input id="loginPass" type="password" placeholder="Password" class="input-pro mb-5">
+<button onclick="login()" class="btn-login w-full text-white p-4 rounded-2xl font-black tracking-widest text-[14px]">LOGIN TO SYSTEM</button>
+<p id="loginMsg" class="text-center text-xs text-red-600 mt-4 font-bold"></p>
+
+<!-- SIGNATURE GOLD -->
+<div class="mt-10 text-center border-t-2 border-dashed border-amber-200 pt-7 pb-3 bg-gradient-to-b from-amber-50/50 to-white rounded-[20px]">
 <div class="dev-label">DEVELOPED BY</div>
-<div class="mt-3">
-<span class="sig-main" style="background:linear-gradient(90deg,#0A2A5A 20%,#e11d48 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">E- E-Mutwokil Sadik</span>
-</div>
-<div class="mt-2 text-[10px] font-black text-[#0A2A5A] tracking-[3px]">SIDIGI AVIATION SYSTEMS © 2026</div>
+<div class="mt-4"><span class="gold-text">E-Mutwokil Sadik</span></div>
+<div class="mt-3 text-[10px] font-black tracking-[4px] text-[#8B6A2B]">SIDIGI AVIATION SYSTEMS © 2026</div>
 </div>
 </div>
 </div>
 </div>
 
-<!-- APP -->
+<!-- APP SAME AS BEFORE -->
 <div id="appPage" class="hidden">
-<header class="bg-[#0A2A5A] text-white p-3 flex justify-between items-center sticky top-0 z-50">
-<div class="font-black text-sm">SIDIGI <span class="text-red-400">AVIATION</span> <span id="roleBadge" class="ml-2 bg-white/20 px-2 py-1 rounded-full text-[10px]"></span></div>
-<button onclick="logout()" class="bg-red-600 px-4 py-1.5 rounded-full text-xs font-black">Logout</button>
-</header>
-
+<header class="bg-[#0A2A5A] text-white p-3 flex justify-between items-center sticky top-0 z-50"><div class="font-black text-sm">SIDIGI <span class="text-red-400">AVIATION</span> <span id="roleBadge" class="ml-2 bg-white/20 px-2 py-1 rounded-full text-[10px]"></span></div><button onclick="logout()" class="bg-red-600 px-4 py-1.5 rounded-full text-xs font-black">Logout</button></header>
 <div class="max-w-6xl mx-auto p-3 grid grid-cols-12 gap-3">
-<div class="col-span-12 md:col-span-3">
-<div class="bg-white rounded-2xl p-2 space-y-1">
-<button onclick="showPanel('booking')" class="nav w-full text-left p-3 rounded-xl bg-[#e11d48] text-white font-bold text-sm">📄 New Air Ticket</button>
-<button onclick="showPanel('tickets')" class="nav w-full text-left p-3 rounded-xl hover:bg-slate-100 text-sm">🎫 All Tickets</button>
-<button onclick="showPanel('finance')" id="btnFinance" class="nav w-full text-left p-3 rounded-xl hover:bg-slate-100 text-sm">💰 Finance</button>
-<button onclick="showPanel('staff')" id="btnStaff" class="nav w-full text-left p-3 rounded-xl bg-[#0A2A5A] text-white font-bold text-sm mt-2">⚙️ Admin - Staff</button>
-</div>
-</div>
-
+<div class="col-span-12 md:col-span-3"><div class="bg-white rounded-2xl p-2 space-y-1"><button onclick="showPanel('booking')" class="w-full text-left p-3 rounded-xl bg-[#e11d48] text-white font-bold text-sm">📄 New Air Ticket</button><button onclick="showPanel('tickets')" class="w-full text-left p-3 rounded-xl hover:bg-slate-100 text-sm">🎫 All Tickets</button><button onclick="showPanel('finance')" id="btnFinance" class="w-full text-left p-3 rounded-xl hover:bg-slate-100 text-sm">💰 Finance</button><button onclick="showPanel('staff')" id="btnStaff" class="w-full text-left p-3 rounded-xl bg-[#0A2A5A] text-white font-bold text-sm mt-2">⚙️ Admin - Staff</button></div></div>
 <div class="col-span-12 md:col-span-9">
-<div id="panel-booking" class="space-y-3">
-<div class="ticket-card">
-<div class="t-head">
-<div><div class="bg-white text-[#e11d48] px-3 py-1 rounded-full font-black text-xs inline-block">✈ AIR TICKET</div><div class="mt-1 font-black text-[14px]">SIDIGI GENERAL TRADING CO. LTD</div><div class="text-[8px]">+211 915 499 458 | +211 917 273 900 | +211 922 710 020</div></div>
-<div class="text-right"><div class="text-[10px] opacity-80">Serial NO.</div><div id="nextSerial" class="font-black text-2xl">0001</div></div>
-</div>
-<div class="t-grid">
-<div class="f col-span-8"><b>PASSANGER NAME:</b><input id="p_name"></div>
-<div class="f col-span-4"><b>TEL:</b><input id="p_tel"></div>
-<div class="f col-span-3"><b>ORIGIN:</b><input id="p_origin" value="Juba"></div>
-<div class="f col-span-2"><b>WEIGHT (KGS):</b><input id="p_weight" type="number" oninput="calcFare()"></div>
-<div class="f col-span-3"><b>FLIGHT NO:</b><input id="p_flight"></div>
-<div class="f col-span-4"><b>CHECK IN TIME:</b><input id="p_check" type="time"></div>
-<div class="f col-span-4"><b>DESTINATION:</b><select id="p_dest" onchange="calcFare()"></select></div>
-<div class="f col-span-4"><b>TOTAL FARE:</b><input id="p_fare" disabled class="bg-slate-50"></div>
-<div class="f col-span-4"><b>TRAVEL DATE:</b><input id="p_date" type="date"></div>
-</div>
-<div class="bg-[#e11d48] text-white p-3 text-[10px] leading-[1.3]">This ticket is valid for 30 days and is subject to the terms and conditions on the back, requiring check-in to start one hour before departure and close 30 minutes before departure, with a maximum luggage allowance of 15 kilograms, where any additional weight must be paid for.</div>
-</div>
-<button onclick="issueTicket()" class="w-full bg-[#e11d48] text-white p-4 rounded-xl font-black shadow-lg">ISSUE TICKET & PRINT</button>
-<p id="msg" class="text-xs text-center font-bold"></p>
-</div>
-
+<div id="panel-booking" class="space-y-3"><div class="ticket-card"><div class="t-head"><div><div class="bg-white text-[#e11d48] px-3 py-1 rounded-full font-black text-xs inline-block">✈ AIR TICKET</div><div class="mt-1 font-black text-[14px]">SIDIGI GENERAL TRADING CO. LTD</div></div><div class="text-right"><div class="text-[10px] opacity-80">Serial NO.</div><div id="nextSerial" class="font-black text-2xl">0001</div></div></div><div class="t-grid"><div class="f col-span-8"><b>PASSANGER NAME:</b><input id="p_name"></div><div class="f col-span-4"><b>TEL:</b><input id="p_tel"></div><div class="f col-span-3"><b>ORIGIN:</b><input id="p_origin" value="Juba"></div><div class="f col-span-2"><b>WEIGHT (KGS):</b><input id="p_weight" type="number" oninput="calcFare()"></div><div class="f col-span-3"><b>FLIGHT NO:</b><input id="p_flight"></div><div class="f col-span-4"><b>CHECK IN TIME:</b><input id="p_check" type="time"></div><div class="f col-span-4"><b>DESTINATION:</b><select id="p_dest" onchange="calcFare()"></select></div><div class="f col-span-4"><b>TOTAL FARE:</b><input id="p_fare" disabled class="bg-slate-50"></div><div class="f col-span-4"><b>TRAVEL DATE:</b><input id="p_date" type="date"></div></div><div class="bg-[#e11d48] text-white p-3 text-[10px]">This ticket is valid for 30 days and is subject to the terms and conditions on the back, requiring check-in to start one hour before departure and close 30 minutes before departure, with a maximum luggage allowance of 15 kilograms, where any additional weight must be paid for.</div></div><button onclick="issueTicket()" class="w-full bg-[#e11d48] text-white p-4 rounded-xl font-black shadow-lg">ISSUE TICKET & PRINT</button><p id="msg" class="text-xs text-center font-bold"></p></div>
 <div id="panel-tickets" class="bg-white rounded-2xl p-4 hidden"><h3 class="font-black">All Air Tickets</h3><div id="ticketsList" class="mt-3 space-y-2"></div></div>
 <div id="panel-finance" class="bg-white rounded-2xl p-4 hidden"><h3 class="font-black">Finance</h3><div class="grid grid-cols-3 gap-2 mt-3"><div class="bg-[#0A2A5A] text-white p-3 rounded-xl"><div class="text-[10px]">Revenue</div><div id="finTotal" class="font-black">0</div></div><div class="bg-[#e11d48] text-white p-3 rounded-xl"><div class="text-[10px]">Tickets</div><div id="finCount" class="font-black">0</div></div><div class="bg-green-600 text-white p-3 rounded-xl"><div class="text-[10px]">Avg</div><div id="finAvg" class="font-black">0</div></div></div><div id="finList" class="mt-4 space-y-2"></div></div>
-
-<div id="panel-staff" class="bg-white rounded-2xl p-4 hidden">
-<h3 class="font-black">Admin - Add Company Staff</h3>
-<div class="mt-3 bg-green-50 border-2 border-green-600 rounded-xl p-3">
-<div class="grid md:grid-cols-2 gap-2">
-<input id="st_name" placeholder="Full Name" class="p-3 border-2 rounded-xl text-sm">
-<input id="st_email" placeholder="Email" class="p-3 border-2 rounded-xl text-sm">
-<input id="st_pass" placeholder="Password min 6" class="p-3 border-2 rounded-xl text-sm">
-<select id="st_role" class="p-3 border-2 rounded-xl text-sm font-bold"><option value="reception">Reception - Tickets Only</option><option value="warehouse">Warehouse - View Only</option><option value="driver">Driver - Flights Only</option><option value="finance">Finance - Reports Only</option><option value="admin">Admin - Full</option></select>
-</div>
-<button onclick="createStaff()" class="w-full mt-3 bg-green-600 text-white p-3 rounded-xl font-black">Create Staff</button>
-<p id="st_msg" class="text-xs text-center font-bold mt-2"></p>
-</div>
-<div class="mt-4"><div class="grid grid-cols-3 gap-2"><input id="d_name" placeholder="Destination" class="p-2 border-2 rounded-lg text-xs"><input id="d_price" type="number" placeholder="Price/KG" class="p-2 border-2 rounded-lg text-xs"><button onclick="saveDest()" class="bg-[#0A2A5A] text-white p-2 rounded-lg text-xs font-black">Add</button></div><div id="destList" class="mt-2 flex flex-wrap gap-1"></div></div>
-<div id="staffList" class="mt-4 space-y-2"></div>
+<div id="panel-staff" class="bg-white rounded-2xl p-4 hidden"><h3 class="font-black">Admin - Add Company Staff</h3><div class="mt-3 bg-green-50 border-2 border-green-600 rounded-xl p-3"><div class="grid md:grid-cols-2 gap-2"><input id="st_name" placeholder="Full Name" class="p-3 border-2 rounded-xl text-sm"><input id="st_email" placeholder="Email" class="p-3 border-2 rounded-xl text-sm"><input id="st_pass" placeholder="Password min 6" class="p-3 border-2 rounded-xl text-sm"><select id="st_role" class="p-3 border-2 rounded-xl text-sm font-bold"><option value="reception">Reception</option><option value="warehouse">Warehouse</option><option value="driver">Driver</option><option value="finance">Finance</option><option value="admin">Admin</option></select></div><button onclick="createStaff()" class="w-full mt-3 bg-green-600 text-white p-3 rounded-xl font-black">Create Staff</button><p id="st_msg" class="text-xs text-center font-bold mt-2"></p></div><div class="mt-4"><div class="grid grid-cols-3 gap-2"><input id="d_name" placeholder="Destination" class="p-2 border-2 rounded-lg text-xs"><input id="d_price" type="number" placeholder="Price/KG" class="p-2 border-2 rounded-lg text-xs"><button onclick="saveDest()" class="bg-[#0A2A5A] text-white p-2 rounded-lg text-xs font-black">Add</button></div><div id="destList" class="mt-2 flex flex-wrap gap-1"></div></div><div id="staffList" class="mt-4 space-y-2"></div></div>
 </div>
 </div>
-</div>
-
-<div class="text-center py-10 bg-white mt-6 rounded-t-[32px]">
-<div class="dev-label">DEVELOPED BY</div>
-<div class="mt-3"><span class="sig-main" style="background:linear-gradient(90deg,#0A2A5A 20%,#e11d48 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">E-Mutwokil Sadik</span></div>
-</div>
+<div class="text-center py-10 bg-white mt-6 rounded-t-[32px]"><div class="dev-label">DEVELOPED BY</div><div class="mt-4"><span class="gold-text">E-Mutwokil Sadik</span></div></div>
 </div>
 
 <script type="module">
@@ -124,14 +100,8 @@ import { initializeApp, getApp } from "https://www.gstatic.com/firebasejs/10.12.
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, getDocs, collection, runTransaction, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyC3vR2vH_REPLACE_WITH_YOURS",
-  authDomain: "sidigi-trading.firebaseapp.com",
-  projectId: "sidigi-trading",
-  storageBucket: "sidigi-trading.appspot.com",
-  messagingSenderId: "000000000000",
-  appId: "1:000000000000:web:abc123"
-};
+const firebaseConfig = { apiKey: "AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls", authDomain: "sidigi-general-trading.firebaseapp.com", projectId: "sidigi-general-trading", storageBucket: "sidigi-general-trading.firebasestorage.app", messagingSenderId: "1054004122944", appId: "1:1054004122944:web:c66be702aed7f53f1dd6a5" };
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -140,17 +110,11 @@ const secondaryAuth=getAuth(secondaryApp);
 let role='admin', destMap={}, currentUser=null;
 const esc=(s)=>{ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; };
 window.showPanel=(id)=>{ document.querySelectorAll('[id^="panel-"]').forEach(p=>p.classList.add('hidden')); document.getElementById('panel-'+id)?.classList.remove('hidden'); };
-function showWelcome(name){
-const toast=document.getElementById('welcomeToast');
-toast.textContent=`Hello Manager ${name} 👋 Welcome to SIDIGI`;
-toast.style.display='block';
-setTimeout(()=>toast.style.display='none',4000);
-}
+function showWelcome(name){ const toast=document.getElementById('welcomeToast'); toast.textContent=`Hello Manager ${name} 👋 Welcome to SIDIGI AVIATION`; toast.style.display='block'; setTimeout(()=>toast.style.display='none',4000); }
 async function loadDests(){ const snap=await getDocs(collection(db,"destinations")); destMap={}; let html='', opts='<option value="">Select Destination</option>'; snap.forEach(d=>{ const data=d.data(); destMap[d.id]=data; opts+=`<option value="${d.id}">${esc(data.name)} - ${data.price}/KG</option>`; html+=`<span class="bg-slate-100 px-2 py-1 rounded-full text-[11px]">${esc(data.name)}:${data.price}</span>`; }); document.getElementById('p_dest').innerHTML=opts; document.getElementById('destList').innerHTML=html; }
-window.calcFare=()=>{ const id=p_dest.value; const w=parseFloat(p_weight.value)||0; if(!id||!w){p_fare.value='';return;} const price=destMap[id]?.price||0; let fare=w*price; if(w>15) fare+=(w-15)*price*0.5; p_fare.value=fare.toFixed(0)+' SSP'; window._calcFareVal=fare; };
+window.calcFare=()=>{ const id=p_dest.value; const w=parseFloat(p_weight.value)||0; if(!id||!w){p_fare.value='';return;} const price=destMap[id]?.price||0; let fare=w*price; if(w>15) fare+=(w-15)*price*0.5; p_fare.value=fare.toFixed(0)+' SSP'; };
 window.login=async()=>{ const email=loginEmail.value.trim(), pass=loginPass.value; if(!email||!pass){loginMsg.textContent='Enter email & password';return;} try{ await signInWithEmailAndPassword(auth,email,pass); }catch(e){ loginMsg.textContent=e.message; } };
 window.logout=()=>signOut(auth);
-
 onAuthStateChanged(auth, async(user)=>{
 if(!user){ authPage.classList.remove('hidden'); appPage.classList.add('hidden'); return; }
 currentUser=user;
@@ -158,10 +122,8 @@ const usersSnap=await getDocs(collection(db,"users"));
 let hasAdmin=false; usersSnap.forEach(d=>{ if(d.data().role==='admin') hasAdmin=true; });
 let userDocRef=doc(db,"users",user.uid); let uDoc=await getDoc(userDocRef);
 if(!uDoc.exists()){
- if(!hasAdmin){
-  await setDoc(userDocRef,{name:user.email.split('@')[0],email:user.email,role:'admin',createdAt:serverTimestamp(),isFirstAdmin:true});
-  role='admin';
- } else { await signOut(auth); loginMsg.textContent='Account not activated - Contact Admin'; return; }
+ if(!hasAdmin){ await setDoc(userDocRef,{name:user.email.split('@')[0],email:user.email,role:'admin',createdAt:serverTimestamp(),isFirstAdmin:true}); role='admin'; }
+ else { await signOut(auth); loginMsg.textContent='Account not activated - Contact Admin'; return; }
 } else { role=uDoc.data().role; }
 roleBadge.textContent=role.toUpperCase();
 authPage.classList.add('hidden'); appPage.classList.remove('hidden');
@@ -169,7 +131,6 @@ showWelcome(uDoc.exists()? uDoc.data().name||user.email : user.email);
 if(role!=='admin'){ btnStaff.classList.add('hidden'); if(role!=='finance' && role!=='admin') btnFinance.classList.add('hidden'); if(role==='finance') showPanel('finance'); else showPanel('booking'); }else{ showPanel('booking'); }
 loadDests(); loadNextSerial(); loadTickets(); loadStaff();
 });
-
 async function loadNextSerial(){ try{ const c=await getDoc(doc(db,"counters","tickets")); const next=(c.exists()? c.data().value:0)+1; document.getElementById('nextSerial').textContent=String(next).padStart(4,'0'); }catch{} }
 window.issueTicket=async()=>{
 const name=p_name.value.trim(), tel=p_tel.value.trim(), origin=p_origin.value.trim(), weight=parseFloat(p_weight.value), flight=p_flight.value.trim(), check=p_check.value, destId=p_dest.value, date=p_date.value;
@@ -183,7 +144,6 @@ const ticketRef=doc(collection(db,"tickets")); tr.set(ticketRef,{serial:String(n
 return String(next).padStart(4,'0');
 });
 msg.textContent='Ticket SH-'+newId+' Issued!'; loadNextSerial(); loadTickets();
-const html=document.querySelector('.ticket-card').outerHTML; const w=window.open('','','width=400,height=600'); w.document.write(html); w.document.close(); w.print();
 }catch(e){ msg.textContent=e.message; }
 };
 async function loadTickets(){ const snap=await getDocs(query(collection(db,"tickets"),orderBy("createdAt","desc"))); let total=0,html=''; snap.forEach(d=>{ const t=d.data(); total+=t.fare||0; html+=`<div class="border p-2 rounded-xl text-xs flex justify-between"><div><b>SH-${esc(t.serial)}</b> - ${esc(t.passengerName)} - ${esc(t.destinationName)}</div><div class="font-black">${t.fare} SSP</div></div>`; }); ticketsList.innerHTML=html||'No tickets'; finTotal.textContent=total+' SSP'; finCount.textContent=snap.size; finAvg.textContent=snap.size?Math.round(total/snap.size)+' SSP':'0'; finList.innerHTML=html; }
@@ -192,4 +152,4 @@ window.createStaff=async()=>{ const name=st_name.value.trim(), email=st_email.va
 async function loadStaff(){ if(role!=='admin') return; const snap=await getDocs(collection(db,"users")); let html=''; snap.forEach(d=>{ const u=d.data(); html+=`<div class="border p-2 rounded-xl text-xs flex justify-between"><div>${esc(u.name)} - ${esc(u.email)} - <span class="bg-[#0A2A5A] text-white px-2 rounded-full text-[10px]">${esc(u.role)}</span></div></div>`; }); staffList.innerHTML=html; }
 </script>
 </body>
-</html>
+                                                                                                                                                                                            </html>
