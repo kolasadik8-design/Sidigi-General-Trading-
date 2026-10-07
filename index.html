@@ -1,98 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sidigi General Trading - Login</title>
-<meta name="theme-color" content="#0f172a">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SIDIGI GENERAL TRADING CO. LTD - Login</title>
+<link rel="manifest" href="./manifest.json"><meta name="theme-color" content="#C1272D">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.card{background:#1e293b;padding:32px;border-radius:16px;width:100%;max-width:380px;box-shadow:0 10px 30px rgba(0,0,0,.4);border:1px solid #334155}
-h1{text-align:center;margin-bottom:8px;letter-spacing:2px}
-.sub{text-align:center;color:#94a3b8;margin-bottom:24px;font-size:14px}
-input{width:100%;padding:12px 14px;border-radius:8px;border:1px solid #334155;background:#0f172a;color:#fff;margin-bottom:12px;font-size:16px}
-input:focus{outline:none;border-color:#3b82f6;box-shadow:0 0 0 2px rgba(59,130,246,.2)}
-button{width:100%;padding:12px;background:#3b82f6;border:none;border-radius:8px;color:#fff;font-weight:700;font-size:16px;cursor:pointer}
-button:hover{background:#2563eb}
-button:disabled{opacity:.6;cursor:not-allowed}
-.error{background:#450a0a;color:#fecaca;padding:10px;border-radius:8px;margin-bottom:12px;display:none;font-size:13px;border:1px solid #7f1d1d;word-break:break-word}
-.success{background:#052e16;color:#bbf7d0;padding:10px;border-radius:8px;margin-bottom:12px;display:none;font-size:13px}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui,sans-serif;background:#f8fafc;min-height:100vh;display:flex;flex-direction:column}
+.header{background:#fff;padding:14px 20px;position:relative;border-bottom:1px solid #e2e8f0}
+.header::after{content:"";position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#C1272D 0%,#C1272D 40%,#00A8D8 40%,#00A8D8 100%)}
+.head-inner{max-width:1100px;margin:auto;display:flex;align-items:center;gap:12px}
+.logo{width:50px;height:36px;background:linear-gradient(135deg,#00A8D8 45%,#C1272D 45%);clip-path:polygon(0 50%,25% 0,100% 0,75% 100%,0 100%)}
+.company{color:#C1272D;font-weight:800;font-size:15px;letter-spacing:.4px;line-height:1.1}
+.company small{display:block;color:#334155;font-size:9px;letter-spacing:1.2px;font-weight:600;margin-top:2px}
+.main{flex:1;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{width:100%;max-width:410px;background:#fff;border-radius:14px;padding:28px;box-shadow:0 12px 32px rgba(0,0,0,.08);border-top:5px solid #C1272D}
+.card h2{text-align:center;font-size:15px;letter-spacing:1px}.sub{text-align:center;color:#64748b;font-size:11px;margin:6px 0 18px;letter-spacing:.6px}
+label{font-size:10px;font-weight:700;color:#475569;margin-bottom:6px;display:block;letter-spacing:.6px}
+input{width:100%;padding:12px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;margin-bottom:12px;outline:none;font-size:13px}
+input:focus{border-color:#00A8D8;background:#fff}
+.btn{width:100%;padding:12px;background:#C1272D;border:none;border-radius:8px;color:#fff;font-weight:800;cursor:pointer;letter-spacing:.4px}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.err{display:none;background:#fef2f2;border:1px solid #fecaca;color:#7f1d1d;padding:10px;border-radius:8px;font-size:11px;margin-bottom:12px;word-break:break-all}
+.footer{background:#fff;border-top:3px solid #C1272D;padding:10px 20px;font-size:10px;color:#334155}
+.footer-inner{max-width:1100px;margin:auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.signature{text-align:center;padding:12px 0 6px;font-size:11px;font-weight:800;letter-spacing:.8px}
 </style>
 </head>
 <body>
-<div class="card">
-  <h1>SIDIGI</h1>
-  <p class="sub">General Trading - Manager Login</p>
-  <div id="error" class="error"></div>
-  <div id="success" class="success"></div>
-  <input id="email" type="email" placeholder="Email address" autocomplete="email" required>
-  <input id="password" type="password" placeholder="Password" autocomplete="current-password" required>
-  <button id="loginBtn">LOGIN TO SYSTEM</button>
-</div>
-
+<div class="header"><div class="head-inner"><div class="logo"></div><div class="company">SIDIGI GENERAL TRADING CO. LTD<small>GENERAL TRADING • TRAVEL • AIR CARGO</small></div></div></div>
+<div class="main"><div class="card"><h2>OPERATIONS LOGIN</h2><p class="sub">DOMESTIC TICKETS & AIR CARGO SYSTEM</p><div id="err" class="err"></div><label>EMAIL ADDRESS</label><input id="email" type="email" autocomplete="email" value="admin123@gmail.com"><label>PASSWORD</label><input id="password" type="password" autocomplete="current-password" placeholder="••••••••"><button id="loginBtn" class="btn">LOGIN TO SYSTEM →</button></div></div>
+<div class="signature"><span style="color:#C1272D">Developed by</span> <span style="color:#00A8D8">Eng. Mutawakil</span> <span style="color:#C1272D">| Sidigi Systems v6</span></div>
+<div class="footer"><div class="footer-inner"><span>📞 +211 915 456 456 / 917 273 000 / 922 710 020</span><span>📍 Juba International Airport</span><span>✉️ sagishad@gmail.com</span></div></div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls",
-  authDomain: "sidigi-general-trading.firebaseapp.com",
-  projectId: "sidigi-general-trading",
-  storageBucket: "sidigi-general-trading.firebasestorage.app",
-  messagingSenderId: "1054004122944",
-  appId: "1:1054004122944:web:c66be702aed7f53f1dd6a5"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-const emailEl = document.getElementById('email');
-const passEl = document.getElementById('password');
-const btn = document.getElementById('loginBtn');
-const errEl = document.getElementById('error');
-const okEl = document.getElementById('success');
-
-function showError(msg){ okEl.style.display='none'; errEl.textContent=msg; errEl.style.display='block'; }
-function showSuccess(msg){ errEl.style.display='none'; okEl.textContent=msg; okEl.style.display='block'; }
-
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    showSuccess("Logged in, redirecting...");
-    setTimeout(()=> window.location.replace("./dashboard.html"), 500);
-  }
-});
-
+const firebaseConfig = { apiKey: "AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls", authDomain: "sidigi-general-trading.firebaseapp.com", projectId: "sidigi-general-trading", storageBucket: "sidigi-general-trading.firebasestorage.app", messagingSenderId: "1054004122944", appId: "1:1054004122944:web:c66be702aed7f53f1dd6a5" };
+const auth = getAuth(initializeApp(firebaseConfig));
+const errEl = document.getElementById('err'), btn = document.getElementById('loginBtn');
+onAuthStateChanged(auth, (u) => { if (u) window.location.replace("./dashboard.html"); });
 btn.addEventListener('click', async () => {
-  const email = emailEl.value.trim().toLowerCase();
-  const password = passEl.value;
-
-  if(!email || !password){ showError("Please enter email and password"); return; }
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showError("Invalid email format"); return; }
-  if(password.length < 6){ showError("Password must be at least 6 characters"); return; }
-
-  btn.disabled = true;
-  btn.textContent = "Signing in...";
-  errEl.style.display='none';
-
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    showSuccess("Success!");
-  } catch (e) {
-    let msg = "Login failed";
-    if(e.code === 'auth/invalid-credential') msg = "Wrong email or password. Check Firebase > Authentication > Users";
-    else if(e.code === 'auth/invalid-email') msg = "Invalid email";
-    else if(e.code === 'auth/user-disabled') msg = "Account disabled";
-    else if(e.code === 'auth/too-many-requests') msg = "Too many attempts, wait a minute";
-    else if(e.code === 'auth/network-request-failed') msg = "Network error, check connection";
-    else msg = e.code;
-    showError(msg);
-    btn.disabled = false;
-    btn.textContent = "LOGIN TO SYSTEM";
-  }
+  const email = document.getElementById('email').value.trim();
+  const pass = document.getElementById('password').value;
+  if (!email || !pass) { errEl.style.display='block'; errEl.textContent='Please enter email and password.'; return; }
+  if (pass.length < 6) { errEl.style.display='block'; errEl.textContent='Password must be at least 6 characters.'; return; }
+  btn.disabled=true; btn.textContent='AUTHENTICATING...'; errEl.style.display='none';
+  try { await signInWithEmailAndPassword(auth, email, pass); window.location.replace("./dashboard.html"); }
+  catch (e) { errEl.style.display='block'; errEl.textContent = e.code ? e.code.replace('auth/','').toUpperCase() + ' - ' + e.message : 'Login failed'; btn.disabled=false; btn.textContent='LOGIN TO SYSTEM →'; }
 });
-
-passEl.addEventListener('keydown', (ev)=>{ if(ev.key==='Enter') btn.click(); });
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
 </script>
 </body>
 </html>
