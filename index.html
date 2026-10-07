@@ -1,29 +1,25 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SIDIGI - Login</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui;background:#0F2F5A;display:grid;place-items:center;min-height:100vh;padding:14px}
-.card{background:#fff;border-radius:22px;padding:22px;width:100%;max-width:420px;box-shadow:0 8px 24px rgba(0,0,0,.25);border-top:4px solid #C1272D}
-input{width:100%;padding:14px 16px;border:1.8px solid #E2E8F0;border-radius:14px;margin-bottom:12px;font-size:15px;outline:none}
-input:focus{border-color:#C1272D;box-shadow:0 0 0 3px rgba(193,39,45,.15)}
-.btn{width:100%;padding:14px;background:#C1272D;color:#fff;border:none;border-radius:14px;font-weight:800;font-size:15px;cursor:pointer}
-.gold{margin-top:18px;text-align:center;font-weight:900;font-size:16px;letter-spacing:.3px;background:linear-gradient(90deg,#8C6A00,#FFD700,#FFF8C0,#FFD700,#B8860B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 8px rgba(255,215,0,.6));}
-.logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-</style></head><body>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SIDIGI Login</title>
+<style>:root{--red:#C1272D;--blue:#00AEEF;--dark:#0F2F5A}*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui;background:#F1F5F9;display:flex;align-items:center;justify-content:center;min-height:100vh}.card{background:#fff;border-radius:22px;padding:24px;width:92%;max-width:400px;box-shadow:0 10px 30px rgba(0,0,0,.1);border-top:4px solid var(--red)}input,select{width:100%;padding:14px 16px;border:1.8px solid #E2E8F0;border-radius:14px;font-size:14px;margin-bottom:10px;outline:none}input:focus{border-color:var(--red)}.btn{width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:14px;font-weight:800;cursor:pointer}</style></head><body>
 <div class="card">
-<div class="logo">
-<svg width="38" height="38" viewBox="0 0 120 100"><path d="M6 48 L26 38 L32 44 L14 56 Z" fill="#00AEEF"/><path d="M32 18 L58 4 L66 20 L48 34 Z" fill="#C1272D"/><path d="M46 26 L78 8 L68 26 L46 40 Z" fill="#00AEEF"/><path d="M28 52 L62 34 L74 48 L38 68 Z" fill="#C1272D"/></svg>
-<div><b style="color:#C1272D;font-size:18px">SIDIGI</b> <span style="color:#0F2F5A;font-size:12px;font-weight:800">GENERAL TRADING CO. LTD</span><br><small style="font-size:8px;color:#64748b">GENERAL TRADING • CARGO & LOGISTICS</small></div>
+<div style="text-align:center;margin-bottom:16px;display:flex;align-items:center;gap:10px;justify-content:center">
+<svg width="40" height="40" viewBox="0 0 120 100"><path d="M6 48 L26 38 L32 44 L14 56 Z" fill="#00AEEF"/><path d="M32 18 L58 4 L66 20 L48 34 Z" fill="#C1272D"/><path d="M46 26 L78 8 L68 26 L46 40 Z" fill="#00AEEF"/><path d="M28 52 L62 34 L74 48 L38 68 Z" fill="#C1272D"/></svg>
+<div style="text-align:left"><b style="color:var(--red);font-size:18px">SIDIGI</b><br><small style="color:var(--dark);font-weight:800">GENERAL TRADING CO. LTD</small></div>
 </div>
-<p style="font-size:11px;color:#64748b;margin-bottom:14px">Juba International Airport - Secure Login</p>
-<input id="email" placeholder="Email">
-<input id="pass" type="password" placeholder="Password">
-<button class="btn" onclick="login()">LOGIN</button>
-<p id="msg" style="font-size:12px;margin-top:10px;color:#C1272D"></p>
-<div class="gold">Developed by Eng. Mutwokil Sadik</div>
+<h3 style="text-align:center;color:var(--dark);margin-bottom:12px">Employee Login</h3>
+<input id="empName" placeholder="Employee Full Name *">
+<input id="empId" placeholder="ID Card No *">
+<select id="empRole"><option value="Operations">Operations</option><option value="Finance">Finance</option><option value="Branch Staff">Branch Staff</option><option value="Supervisor">Supervisor</option><option value="Weight Clerk">Weight Clerk</option></select>
+<select id="empBranch"><option value="Juba Main">Juba Main</option><option value="Malakal">Malakal</option><option value="Wau">Wau</option><option value="Rumbek">Rumbek</option><option value="Maban">Maban</option><option value="Bor">Bor</option></select>
+<button class="btn" onclick="login()">Login to Dashboard</button>
+<p style="font-size:10px;color:#64748b;text-align:center;margin-top:10px">Your name will be automatically attached to every cargo & ticket you create</p>
 </div>
-<script type="module">
-import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import {getAuth,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-const firebaseConfig={apiKey:"AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls",authDomain:"sidigi-general-trading.firebaseapp.com",projectId:"sidigi-general-trading",storageBucket:"sidigi-general-trading.firebasestorage.app",messagingSenderId:"1054004122944",appId:"1:1054004122944:web:c66be702aed7f53f1dd6a5"};
-const app=initializeApp(firebaseConfig);const auth=getAuth(app);
-window.login=async()=>{const e=document.getElementById('email').value.trim(),p=document.getElementById('pass').value.trim();if(!e||!p){document.getElementById('msg').textContent='Fill email and password';return;}try{await signInWithEmailAndPassword(auth,e,p);localStorage.setItem('sg_hello','1');location.href='./dashboard.html';}catch(err){document.getElementById('msg').textContent=err.message;}};
+<script>
+const esc=s=>{const d=document.createElement('div'); d.textContent=s||''; return d.textContent;};
+function login(){
+const name=esc(document.getElementById('empName').value.trim()), id=esc(document.getElementById('empId').value.trim()), role=esc(document.getElementById('empRole').value), branch=esc(document.getElementById('empBranch').value);
+if(!name||!id) return alert('Enter Name and ID Card No');
+const user={name, id, role, branch, loginAt:new Date().toISOString()};
+localStorage.setItem('sg_currentUser', JSON.stringify(user));
+location.href='./dashboard.html?v=sidigi-local-employee-08-10-2026';
+}
 </script></body></html>
