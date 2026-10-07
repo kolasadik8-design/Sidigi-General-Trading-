@@ -1,66 +1,248 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sidigi General Trading V16 English</title><script src="https://cdn.tailwindcss.com"></script><link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@700;900&display=swap" rel="stylesheet"><style>.signature{font-family:'Great Vibes',cursive; font-size:28px; font-weight:400; letter-spacing:1px; text-shadow: 0 2px 0 rgba(0,0,0,0.15), 0 4px 8px rgba(255,107,0,0.3), 0 8px 20px rgba(0,0,0,0.2); transform: rotate(-2deg); display:inline-block;}.signature-eng{font-family:'Poppins',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; opacity:0.7;}</style></head><body class="bg-[#0A2A5A]">
-<header class="bg-[#0A2A5A] text-white p-3 flex justify-between"><div><b>SIDIGI</b> <span class="text-[#FF6B00]">GENERAL TRADING</span> <span class="bg-[#FF6B00] text-[10px] px-2 py-1 rounded-full ml-2">V16 ENGLISH</span></div><div class="flex gap-2"><select id="loginAs" onchange="switchRole()" class="text-black text-xs p-1 rounded"><option value="admin">Login as: Admin</option><option value="warehouse">Warehouse</option><option value="driver">Driver</option><option value="finance">Finance</option><option value="reception">Reception</option></select></div></header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SIDIGI AVIATION - AIR TICKET</title>
+<link rel="manifest" href="manifest.json"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@700;900&display=swap" rel="stylesheet">
+<style>
+.signature{font-family:'Great Vibes',cursive;font-size:38px;text-shadow:0 2px 0 rgba(0,0,0,.2),0 8px 20px rgba(225,29,72,.35);transform:rotate(-2deg);display:inline-block}
+.ticket-card{background:#fff;border:3px solid #e11d48;border-radius:18px;overflow:hidden}
+.t-head{background:#e11d48;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:14px 18px}
+.t-grid{display:grid;grid-template-columns:repeat(12,1fr)}
+.f{border:1px solid #cbd5e1;padding:8px 10px;min-height:48px}
+.f b{font-size:9px;color:#1e3a8a;display:block;letter-spacing:.5px}
+.f input,.f select{width:100%;outline:none;font-weight:700;font-size:13px;background:transparent}
+</style>
+</head>
+<body class="bg-slate-100">
 
-<div class="max-w-7xl mx-auto p-3 grid grid-cols-12 gap-3">
+<!-- AUTH -->
+<div id="authPage" class="min-h-screen flex items-center justify-center p-4">
+<div class="w-full max-w-[420px] bg-white rounded-[28px] shadow-2xl overflow-hidden">
+<div class="bg-[#e11d48] p-7 text-white text-center">
+<h1 class="font-black text-[18px] leading-tight">SIDIGI GENERAL TRADING CO. LTD</h1>
+<p class="text-[10px] mt-1 opacity-90">Juba International Airport | sagishad@gmail.com</p>
+<p class="text-[10px] mt-1">+211 915 499 458 | +211 917 273 900 | +211 922 710 020</p>
+</div>
+<div class="p-6">
+<input id="loginEmail" type="email" placeholder="Staff Email" class="w-full p-3.5 border-2 rounded-xl mb-3 text-sm">
+<input id="loginPass" type="password" placeholder="Password" class="w-full p-3.5 border-2 rounded-xl mb-4 text-sm">
+<button onclick="login()" class="w-full bg-[#0A2A5A] text-white p-4 rounded-xl font-black">LOGIN</button>
+<p id="loginMsg" class="text-center text-xs text-red-600 mt-3"></p>
+
+<!-- التوقيع برة في صفحة التسجيل تحت حسب طلبك -->
+<div class="mt-10 text-center border-t pt-6">
+<div class="text-[9px] tracking-[5px] uppercase font-black opacity-50">Developed By</div>
+<div class="mt-2"><span class="signature text-[#0A2A5A]">Eng.</span> <span class="signature text-[#e11d48]">Mutwokil Sadik</span></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- APP -->
+<div id="appPage" class="hidden">
+<header class="bg-[#0A2A5A] text-white p-3 flex justify-between items-center sticky top-0 z-50">
+<div class="font-black text-sm">SIDIGI <span class="text-red-400">AVIATION</span> <span id="roleBadge" class="ml-2 bg-white/20 px-2 py-1 rounded-full text-[10px]"></span></div>
+<button onclick="logout()" class="bg-red-600 px-3 py-1.5 rounded-full text-xs font-bold">Logout</button>
+</header>
+
+<div class="max-w-6xl mx-auto p-3 grid grid-cols-12 gap-3">
 <div class="col-span-12 md:col-span-3">
-<div class="bg-white rounded-2xl p-3">
-<button onclick="show('booking')" class="w-full text-left p-3 rounded-xl bg-[#FF6B00] text-white font-bold">📦 Booking</button>
-<button onclick="show('trips')" class="w-full text-left p-3 rounded-xl hover:bg-slate-100 mt-1">🚚 Trips</button>
-<button onclick="show('finance')" class="w-full text-left p-3 rounded-xl hover:bg-slate-100 mt-1">💰 Finance</button>
-<button onclick="show('admin')" class="w-full text-left p-3 rounded-xl bg-[#0A2A5A] text-white font-bold mt-2">⚙️ Admin + Staff Passwords</button>
+<div class="bg-white rounded-2xl p-2 space-y-1">
+<button onclick="showPanel('booking')" class="nav w-full text-left p-3 rounded-xl bg-[#e11d48] text-white font-bold text-sm">📄 New Ticket</button>
+<button onclick="showPanel('tickets')" class="nav w-full text-left p-3 rounded-xl hover:bg-slate-100 text-sm">🎫 All Tickets</button>
+<button onclick="showPanel('finance')" id="btnFinance" class="nav w-full text-left p-3 rounded-xl hover:bg-slate-100 text-sm">💰 Finance</button>
+<button onclick="showPanel('staff')" id="btnStaff" class="nav w-full text-left p-3 rounded-xl bg-[#0A2A5A] text-white font-bold text-sm mt-2">⚙️ Admin - Staff</button>
 </div>
-<div class="bg-white rounded-2xl p-3 mt-3 text-[10px]"><b>Current Role:</b> <span id="currentRole" class="bg-[#0A2A5A] text-white px-2 rounded">ADMIN - Full Access</span><div id="roleInfo" class="mt-2 text-gray-600"></div></div>
 </div>
 
-<div class="col-span-12 md:col-span-9 space-y-3">
+<div class="col-span-12 md:col-span-9">
+<!-- BOOKING -->
+<div id="panel-booking" class="space-y-3">
+<div class="ticket-card">
+<div class="t-head">
+<div><div class="bg-white text-[#e11d48] px-3 py-1 rounded-full font-black text-xs inline-block">✈ AIR TICKET</div><div class="mt-1 font-black text-[14px]">SIDIGI GENERAL TRADING CO. LTD</div><div class="text-[8px] opacity-90">+211 915 499 458 | +211 917 273 900 | +211 922 710 020 | Juba International Airport</div></div>
+<div class="text-right"><div class="text-[10px] opacity-80">Serial NO.</div><div id="nextSerial" class="font-black text-2xl">0047</div><div class="text-[8px] mt-1">Thank You For Travelling With Us</div></div>
+</div>
+<div class="t-grid">
+<div class="f col-span-8"><b>PASSANGER NAME:</b><input id="p_name"></div>
+<div class="f col-span-4"><b>TEL:</b><input id="p_tel"></div>
+<div class="f col-span-3"><b>ORIGIN:</b><input id="p_origin" value="Juba"></div>
+<div class="f col-span-2"><b>WEIGHT (KGS):</b><input id="p_weight" type="number" min="1" max="100" oninput="calcFare()"></div>
+<div class="f col-span-3"><b>FLIGHT NO:</b><input id="p_flight" placeholder="e.g SG-101"></div>
+<div class="f col-span-4"><b>CHECK IN TIME:</b><input id="p_check" type="time"></div>
+<div class="f col-span-4"><b>DESTINATION:</b><select id="p_dest" onchange="calcFare()"></select></div>
+<div class="f col-span-4"><b>TOTAL FARE:</b><input id="p_fare" disabled class="bg-slate-50"></div>
+<div class="f col-span-4"><b>TRAVEL DATE:</b><input id="p_date" type="date"></div>
+</div>
+<div class="bg-[#e11d48] text-white p-3 text-[10px] leading-[1.3]">This ticket is valid for 30 days and is subject to the terms and conditions on the back, requiring check-in to start one hour before departure and close 30 minutes before departure, with a maximum luggage allowance of 15 kilograms, where any additional weight must be paid for.</div>
+</div>
+<button onclick="issueTicket()" class="w-full bg-[#e11d48] text-white p-4 rounded-xl font-black shadow-lg">ISSUE TICKET & PRINT - SH</button>
+<p id="msg" class="text-xs text-center font-bold"></p>
+<div id="printArea" class="hidden"></div>
+</div>
 
-<div id="p-booking" class="bg-white rounded-2xl p-5"><h2 class="font-black">1. Booking - New Shipment</h2><div class="grid md:grid-cols-2 gap-3 mt-4 text-sm"><input id="senderName" placeholder="Sender Name *" class="p-3 border-2 rounded-xl"><input id="senderPhone" placeholder="Sender Phone *" class="p-3 border-2 rounded-xl"><input id="receiverName" placeholder="Receiver Name *" class="p-3 border-2 rounded-xl"><input id="receiverPhone" placeholder="Receiver Phone *" class="p-3 border-2 rounded-xl"><select id="destSelect" class="p-3 border-2 rounded-xl"></select><input id="weight" type="number" placeholder="Weight KG *" class="p-3 border-2 rounded-xl" oninput="calcPrice()"><input id="priceDisplay" disabled placeholder="Price SSP Auto" class="p-3 border-2 rounded-xl bg-gray-100 md:col-span-2"><div class="md:col-span-2"><label class="text-[11px] font-bold">📸 Shipment Photo</label><input id="shipImage" type="file" accept="image/*" class="w-full mt-1 p-2 border-2 rounded-xl text-xs"><img id="preview" class="hidden mt-2 w-full h-40 object-cover rounded-xl border"></div></div><p id="priceInfo" class="text-[11px] text-gray-500 mt-2"></p><button onclick="addShipment()" class="w-full mt-4 bg-[#FF6B00] text-white p-4 rounded-xl font-black">Book & Generate SH-XXXXXX (6-Digit)</button><div id="bookingList" class="mt-6"></div></div>
+<!-- TICKETS -->
+<div id="panel-tickets" class="bg-white rounded-2xl p-4 hidden"><h3 class="font-black">All Air Tickets</h3><div id="ticketsList" class="mt-3 space-y-2"></div></div>
 
-<div id="p-finance" class="bg-white rounded-2xl p-5 hidden"><h2 class="font-black text-[#0A2A5A] text-lg">💰 Finance Dashboard - Admin & Finance Only</h2><div class="grid md:grid-cols-4 gap-3 mt-4"><div class="bg-[#0A2A5A] text-white rounded-xl p-4"><p class="text-[10px]">Total Revenue</p><p id="statRevenue" class="text-xl font-black">0 SSP</p></div><div class="bg-[#FF6B00] text-white rounded-xl p-4"><p class="text-[10px]">Total Shipments</p><p id="statShip" class="text-xl font-black">0</p></div><div class="bg-green-600 text-white rounded-xl p-4"><p class="text-[10px]">Paid Amount</p><p id="statPaid" class="text-xl font-black">0 SSP</p></div><div class="bg-gray-800 text-white rounded-xl p-4"><p class="text-[10px]">Avg per Shipment</p><p id="statAvg" class="text-xl font-black">0 SSP</p></div></div><div class="mt-5"><h3 class="font-bold text-sm">Revenue by Destination</h3><div id="financeByDest" class="mt-3"></div></div><div class="mt-5"><h3 class="font-bold text-sm">All Shipments Finance Details</h3><div id="financeList" class="mt-3"></div></div></div>
+<!-- FINANCE -->
+<div id="panel-finance" class="bg-white rounded-2xl p-4 hidden"><h3 class="font-black">Finance Dashboard</h3><div class="grid grid-cols-3 gap-2 mt-3"><div class="bg-[#0A2A5A] text-white p-3 rounded-xl"><div class="text-[10px]">Revenue</div><div id="finTotal" class="font-black">0 SSP</div></div><div class="bg-[#e11d48] text-white p-3 rounded-xl"><div class="text-[10px]">Tickets</div><div id="finCount" class="font-black">0</div></div><div class="bg-green-600 text-white p-3 rounded-xl"><div class="text-[10px]">Avg</div><div id="finAvg" class="font-black">0</div></div></div><div id="finList" class="mt-4 space-y-2"></div></div>
 
-<div id="p-trips" class="bg-white rounded-2xl p-5 hidden"><h2 class="font-black">2. Trips Management</h2><div id="tripsList" class="mt-4"></div></div>
+<!-- STAFF ADMIN -->
+<div id="panel-staff" class="bg-white rounded-2xl p-4 hidden">
+<h3 class="font-black text-[#0A2A5A]">Admin - Add Staff With Limited Permissions</h3>
+<div class="mt-3 bg-green-50 border-2 border-green-600 rounded-xl p-3">
+<div class="grid md:grid-cols-2 gap-2">
+<input id="st_name" placeholder="Full Name" class="p-3 border-2 rounded-xl text-sm">
+<input id="st_email" placeholder="Email" class="p-3 border-2 rounded-xl text-sm">
+<input id="st_pass" placeholder="Password (min 6)" class="p-3 border-2 rounded-xl text-sm">
+<select id="st_role" class="p-3 border-2 rounded-xl text-sm font-bold">
+<option value="reception">Reception - Issue Tickets Only</option>
+<option value="warehouse">Warehouse - View Tickets Only</option>
+<option value="driver">Driver - View Assigned Flights Only</option>
+<option value="finance">Finance - View Finance Only</option>
+<option value="admin">Admin - Full Access</option>
+</select>
+</div>
+<button onclick="createStaff()" class="w-full mt-3 bg-green-600 text-white p-3 rounded-xl font-black text-sm">Create Staff Account</button>
+<p id="st_msg" class="text-xs text-center font-bold mt-2"></p>
+</div>
+<div class="mt-4">
+<h4 class="font-bold text-sm">Destinations & Price per KG</h4>
+<div class="grid grid-cols-3 gap-2 mt-2"><input id="d_name" placeholder="Destination e.g Wau" class="p-2 border-2 rounded-lg text-xs"><input id="d_price" type="number" placeholder="Price/KG" class="p-2 border-2 rounded-lg text-xs"><button onclick="saveDest()" class="bg-[#0A2A5A] text-white p-2 rounded-lg text-xs font-bold">Add</button></div>
+<div id="destList" class="mt-2 flex flex-wrap gap-1"></div>
+</div>
+<div id="staffList" class="mt-4 space-y-2"></div>
+</div>
 
-<div id="p-admin" class="bg-white rounded-2xl p-5"><h2 class="font-black text-[#0A2A5A]">3. Admin - Create Staff with Passwords by Specialization</h2><div class="grid md:grid-cols-3 gap-3 mt-4"><div class="bg-[#0A2A5A] text-white rounded-xl p-4"><p class="text-[10px]">Total Revenue</p><p id="statRevenue2" class="text-xl font-black">0 SSP</p></div><div class="bg-[#FF6B00] text-white rounded-xl p-4"><p class="text-[10px]">Shipments</p><p id="statShip2" class="text-xl font-black">0</p></div><div class="bg-gray-800 text-white rounded-xl p-4"><p class="text-[10px]">Staff Count</p><p id="statStaff" class="text-xl font-black">0</p></div></div>
+</div>
+</div>
 
-<div class="mt-5 border-2 border-[#0A2A5A] rounded-2xl p-4 bg-blue-50/50"><h3 class="font-black text-sm">📍 Destinations & Price per KG</h3><div class="grid md:grid-cols-4 gap-2 mt-3"><input id="d_name" placeholder="State - e.g. Wau" class="p-2.5 border-2 rounded-xl text-sm"><input id="d_price" type="number" placeholder="Price/KG - 5000" class="p-2.5 border-2 rounded-xl text-sm"><input id="d_days" type="number" placeholder="Days - 2" class="p-2.5 border-2 rounded-xl text-sm"><button onclick="saveDestination()" class="bg-[#0A2A5A] text-white p-2.5 rounded-xl font-bold text-sm">Add / Update</button></div><div id="destList" class="mt-3 text-xs"></div></div>
-
-<div class="mt-5 border-2 border-green-600 rounded-2xl p-4 bg-green-50"><h3 class="font-black text-sm text-green-700">👥 Create Staff with Password by Specialization - Admin Only</h3><p class="text-[11px] text-gray-600 mt-1">Admin sets specialization and password - Staff login with that password</p><div class="grid md:grid-cols-3 gap-2 mt-3"><input id="s_name" placeholder="Full Name - Ahmed Ali" class="p-2.5 border-2 rounded-xl text-sm"><input id="s_email" placeholder="Email - ahmed@sidigi.com" class="p-2.5 border-2 rounded-xl text-sm"><input id="s_pass" placeholder="Password - e.g. Ware@123" class="p-2.5 border-2 rounded-xl text-sm"><select id="s_role" onchange="updateRoleHint()" class="p-2.5 border-2 rounded-xl text-sm md:col-span-2"><option value="reception">Reception - Booking Only</option><option value="warehouse">Warehouse - Warehouse Only</option><option value="driver">Driver - Delivery Only</option><option value="finance">Finance - Finance Only</option><option value="admin">Admin - Full Access</option></select><input id="s_phone" placeholder="Staff Phone" class="p-2.5 border-2 rounded-xl text-sm"></div><p id="roleHint" class="text-[11px] mt-2 p-2 bg-white rounded-xl border"></p><button onclick="createStaffDemo()" class="w-full mt-3 bg-green-600 text-white p-3 rounded-xl font-black">✅ Create Staff + Password</button><p id="s_msg" class="text-xs mt-2 font-bold text-center"></p><div id="staffList" class="mt-4"></div></div>
-
-<div class="mt-5 border-2 border-[#FF6B00] rounded-2xl p-4 bg-orange-50"><h3 class="font-black text-sm">🚚 Create Trip</h3><div class="grid md:grid-cols-5 gap-2 mt-3"><select id="t_dest" class="p-2.5 border-2 rounded-xl text-sm"></select><input id="t_date" type="date" class="p-2.5 border-2 rounded-xl text-sm"><input id="t_driver" placeholder="Driver Name" class="p-2.5 border-2 rounded-xl text-sm"><input id="t_cap" type="number" placeholder="Capacity KG" class="p-2.5 border-2 rounded-xl text-sm"><button onclick="createTrip()" class="bg-[#FF6B00] text-white p-2.5 rounded-xl font-bold text-sm">Create Trip</button></div><div id="tripAdminList" class="mt-3 text-xs"></div></div></div>
-</div></div>
-
-<!-- SIGNATURE WITH SHADOW - BIGGER FONT -->
 <div class="text-center py-10">
-<div class="signature-eng">Developed by</div>
-<div class="mt-2"><span class="signature text-[#0A2A5A]">Eng. </span><span class="signature text-[#FF6B00]">Mutwokil Sadik</span></div>
-<div class="signature-eng mt-1" style="font-size:9px; letter-spacing:4px;">SIDIGI GENERAL TRADING</div>
+<div class="text-[9px] tracking-[5px] uppercase font-black opacity-50">Developed By</div>
+<div class="mt-2"><span class="signature text-[#0A2A5A]">Eng.</span> <span class="signature text-[#e11d48]">Mutwokil Sadik</span></div>
+</div>
 </div>
 
-<script>
-let destinations=JSON.parse(localStorage.getItem('sidigi_dest')||'{}');
-let shipments=JSON.parse(localStorage.getItem('sidigi_ship')||'[]');
-let trips=JSON.parse(localStorage.getItem('sidigi_trips')||'[]');
-let staff=JSON.parse(localStorage.getItem('sidigi_staff_v16')||'[]');
-let imageBase64=""; let currentRole='admin';
-if(Object.keys(destinations).length===0){destinations={Juba:{name:'Juba',pricePerKg:3000,days:1},Wau:{name:'Wau',pricePerKg:8000,days:3},Malakal:{name:'Malakal',pricePerKg:9000,days:4},Bor:{name:'Bor',pricePerKg:5000,days:2},Yei:{name:'Yei',pricePerKg:4000,days:2}};}
-function saveAll(){localStorage.setItem('sidigi_dest',JSON.stringify(destinations));localStorage.setItem('sidigi_ship',JSON.stringify(shipments));localStorage.setItem('sidigi_trips',JSON.stringify(trips));localStorage.setItem('sidigi_staff_v16',JSON.stringify(staff));}
-function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
-function show(id){['booking','trips','admin','finance'].forEach(x=>{document.getElementById('p-'+x).classList.add('hidden');});document.getElementById('p-'+id).classList.remove('hidden');}
-function switchRole(){currentRole=loginAs.value;const r=currentRole;const el=document.getElementById('currentRole');if(r==='admin'){el.textContent='ADMIN - Full Access';el.className='bg-[#0A2A5A] text-white px-2 rounded';document.getElementById('roleInfo').textContent='Full access: booking, trips, finance, staff, pricing';}else if(r==='finance'){el.textContent='FINANCE - Finance Only';el.className='bg-green-600 text-white px-2 rounded';document.getElementById('roleInfo').textContent='Finance reports only';show('finance');}else if(r==='warehouse'){el.textContent='WAREHOUSE';document.getElementById('roleInfo').textContent='Warehouse only';}else if(r==='driver'){el.textContent='DRIVER';document.getElementById('roleInfo').textContent='Delivery only';}else{el.textContent='RECEPTION';document.getElementById('roleInfo').textContent='Booking only';}loadAll();}
-function updateRoleHint(){const r=s_role.value;let t='';if(r==='reception')t='📌 Reception: Can create new shipments only';if(r==='warehouse')t='🏭 Warehouse: View warehouse shipments and update status';if(r==='driver')t='🚚 Driver: View assigned trips and shipments for delivery';if(r==='finance')t='💰 Finance: View all financial reports and revenue';if(r==='admin')t='⚙️ Admin: Full access - create staff, set prices, view finance, create trips';roleHint.textContent=t;}updateRoleHint();
-document.getElementById('shipImage').addEventListener('change',function(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{imageBase64=ev.target.result;preview.src=imageBase64;preview.classList.remove('hidden');};reader.readAsDataURL(file);});
-function loadDestinations(){let opts='<option value="">Select Destination State</option>';Object.values(destinations).forEach(v=>{opts+=`<option value="${esc(v.name)}">${esc(v.name)} - ${v.pricePerKg} SSP/KG</option>`;});destSelect.innerHTML=opts;t_dest.innerHTML=opts;let h='';Object.values(destinations).forEach(v=>{h+=`<div class="flex justify-between border-b py-2"><span><b>${esc(v.name)}</b> - ${v.pricePerKg} SSP/KG - ${v.days} days</span><button onclick="delDest('${esc(v.name)}')" class="text-red-600 text-[10px]">Delete</button></div>`;});destList.innerHTML=h;}
-function calcPrice(){const dest=destSelect.value,kg=parseFloat(weight.value||0);if(!dest||!kg||!destinations[dest]){priceDisplay.value='';priceInfo.textContent='';return;}const total=kg*destinations[dest].pricePerKg;priceDisplay.value=total.toLocaleString()+' SSP';priceInfo.textContent=`${kg}KG x ${destinations[dest].pricePerKg} = ${total.toLocaleString()} SSP`;}
-function generateSerial(){let num;do{num=Math.floor(100000+Math.random()*900000);}while(shipments.find(s=>s.id==='SH-'+num));return 'SH-'+num;}
-function saveDestination(){if(currentRole!=='admin'){alert('Admin only');return;}const name=d_name.value.trim(),price=parseInt(d_price.value),days=parseInt(d_days.value||1);if(name.length<2||!price)return alert('Enter name & price');destinations[name]={name,pricePerKg:price,days};saveAll();loadDestinations();d_name.value='';d_price.value='';}
-function delDest(name){if(currentRole!=='admin')return;if(!confirm('Delete '+name+'?'))return;delete destinations[name];saveAll();loadDestinations();}
-function createTrip(){const dest=t_dest.value,date=t_date.value,driver=t_driver.value.trim();if(!dest||!date||!driver)return alert('Fill trip');trips.unshift({destination:dest,date,driver,status:'scheduled'});saveAll();loadTrips();}
-function loadTrips(){let h='<table class="w-full text-xs"><tr class="text-gray-400"><td>Trip</td><td>Dest</td><td>Date</td><td>Driver</td></tr>';trips.forEach(v=>{h+=`<tr class="border-b"><td>${esc(v.destination)}-${esc(v.date)}</td><td><b>${esc(v.destination)}</b></td><td>${esc(v.date)}</td><td>${esc(v.driver)}</td></tr>`;});h+='</table>';tripsList.innerHTML=h;tripAdminList.innerHTML=h;}
-function addShipment(){const sName=senderName.value.trim(),sPhone=senderPhone.value.trim(),rName=receiverName.value.trim(),rPhone=receiverPhone.value.trim(),dst=destSelect.value,wg=parseFloat(weight.value||0);if(sName.length<2||rName.length<2||!dst||!wg){alert('Fill all fields');return;}const total=wg*destinations[dst].pricePerKg;const id=generateSerial();shipments.unshift({id,senderName:sName,displaySender:sName,senderPhone:sPhone,receiverName:rName,displayReceiver:rName,receiverPhone:rPhone,destination:dst,weight:wg,pricePerKg:destinations[dst].pricePerKg,totalPrice:total,imageUrl:imageBase64,status:'booked',createdAt:new Date().toLocaleString()});saveAll();loadAll();priceInfo.innerHTML=`✅ <b>${id}</b> Booked ${total.toLocaleString()} SSP`;senderName.value='';senderPhone.value='';receiverName.value='';receiverPhone.value='';weight.value='';priceDisplay.value='';preview.classList.add('hidden');imageBase64='';}
-function loadBooking(){let h='<table class="w-full text-xs"><tr class="text-gray-400"><td>6-Digit Serial</td><td>Sender → Receiver</td><td>Dest</td><td>Price</td><td>Photo</td></tr>';shipments.forEach(v=>{h+=`<tr class="border-b"><td><b class="text-[#FF6B00]">${esc(v.id)}</b></td><td>${esc(v.displaySender)} → ${esc(v.displayReceiver)}</td><td>${esc(v.destination)}</td><td>${Number(v.totalPrice).toLocaleString()}</td><td>${v.imageUrl? `<img src="${v.imageUrl}" class="w-8 h-8 rounded object-cover">`:'-'}</td></tr>`;});h+='</table>';bookingList.innerHTML=h;}
-function loadFinance(){let total=0;shipments.forEach(v=>total+=v.totalPrice||0);statRevenue.textContent=total.toLocaleString()+' SSP';statRevenue2.textContent=total.toLocaleString()+' SSP';statShip.textContent=shipments.length;statShip2.textContent=shipments.length;statPaid.textContent=total.toLocaleString()+' SSP';statAvg.textContent=shipments.length? Math.round(total/shipments.length).toLocaleString()+' SSP':'0';let byDest={};shipments.forEach(v=>{byDest[v.destination]=(byDest[v.destination]||0)+v.totalPrice;});let h='<div class="grid gap-2">';Object.entries(byDest).forEach(([dest,rev])=>{h+=`<div class="flex justify-between bg-gray-50 p-2 rounded"><span><b>${esc(dest)}</b></span><span class="font-black text-[#FF6B00]">${rev.toLocaleString()} SSP</span></div>`;});h+='</div>';financeByDest.innerHTML=h||'No data';let f='<table class="w-full text-xs"><tr class="text-gray-400"><td>Serial</td><td>Customer</td><td>Dest</td><td>KG</td><td>Price/KG</td><td>Total</td></tr>';shipments.forEach(v=>{f+=`<tr class="border-b"><td><b>${esc(v.id)}</b></td><td>${esc(v.displaySender)} → ${esc(v.displayReceiver)}</td><td>${esc(v.destination)}</td><td>${v.weight}</td><td>${v.pricePerKg}</td><td class="font-bold">${Number(v.totalPrice).toLocaleString()}</td></tr>`;});f+='</table>';financeList.innerHTML=f;}
-function createStaffDemo(){if(currentRole!=='admin'){alert('Admin only');return;}const name=s_name.value.trim(),email=s_email.value.trim(),pass=s_pass.value,role=s_role.value,phone=s_phone.value.trim();if(name.length<2||email.length<5||pass.length<4){s_msg.textContent='❌ Fill name, email, password min 4';return;}staff.unshift({name,email,password:pass,role,phone,createdAt:new Date().toLocaleString()});saveAll();loadStaffDemo();s_msg.textContent=`✅ Created ${name} - Role: ${role} - Password: ${pass}`;s_name.value='';s_email.value='';s_pass.value='';s_phone.value='';}
-function loadStaffDemo(){statStaff.textContent=staff.length;let h='<div class="mt-3"><b class="text-[#0A2A5A]">Staff & Passwords (Admin View Only):</b><div class="mt-2 space-y-2">';staff.forEach(v=>{let color='bg-gray-100';if(v.role==='admin')color='bg-[#0A2A5A] text-white';if(v.role==='finance')color='bg-green-100';if(v.role==='warehouse')color='bg-blue-100';if(v.role==='driver')color='bg-orange-100';h+=`<div class="flex justify-between items-center ${color} p-3 rounded-xl border"><div><b>${esc(v.name)}</b> - <span class="text-[10px] px-2 py-1 rounded-full bg-black/10">${esc(v.role).toUpperCase()}</span><br><span class="text-[11px]">${esc(v.email)} | ${esc(v.phone||'No phone')}</span></div><div class="text-right"><span class="text-[10px]">PASSWORD</span><br><b class="font-mono text-sm bg-white px-2 py-1 rounded border text-black">${esc(v.password)}</b></div></div>`;});h+='</div></div>';staffList.innerHTML=h||'No staff';}
-function loadAll(){loadDestinations();loadBooking();loadTrips();loadFinance();loadStaffDemo();}
-loadAll();
-</script></body></html>
+<script type="module">
+import { initializeApp, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, getDocs, collection, runTransaction, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// 🔥 نفس الفايربيس العملنا بيهو - لو عملت مشروع جديد غير القيم دي
+const firebaseConfig = {
+  apiKey: "AIzaSyC3vR2vH_example_REPLACE_WITH_YOURS",
+  authDomain: "sidigi-trading.firebaseapp.com",
+  projectId: "sidigi-trading",
+  storageBucket: "sidigi-trading.appspot.com",
+  messagingSenderId: "000000000000",
+  appId: "1:000000000000:web:abc123"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// second app for creating staff without logging out admin
+let secondaryApp;
+try{ secondaryApp = initializeApp(firebaseConfig, "Secondary"); }catch(e){ secondaryApp = getApp("Secondary"); }
+const secondaryAuth = getAuth(secondaryApp);
+
+let role='admin', destMap={}, currentUser=null;
+const esc = (s)=>{ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; };
+
+window.showPanel=(id)=>{ document.querySelectorAll('[id^="panel-"]').forEach(p=>p.classList.add('hidden')); document.getElementById('panel-'+id)?.classList.remove('hidden'); }
+
+async function loadDests(){
+const snap=await getDocs(collection(db,"destinations"));
+destMap={}; let html=''; let opts='<option value="">Select Destination</option>';
+snap.forEach(d=>{ const data=d.data(); destMap[d.id]=data; opts+=`<option value="${d.id}">${esc(data.name)} - ${data.price}/KG</option>`; html+=`<span class="bg-slate-100 px-2 py-1 rounded-full text-[11px]">${esc(data.name)}:${data.price} SSP</span>`; });
+document.getElementById('p_dest').innerHTML=opts; document.getElementById('destList').innerHTML=html;
+}
+window.calcFare=()=>{
+const id=p_dest.value; const w=parseFloat(p_weight.value)||0;
+if(!id||!w){p_fare.value=''; return;}
+const price=destMap[id]?.price||0; let fare=w*price; if(w>15) fare+= (w-15)*price*0.5; // extra weight
+p_fare.value=fare.toFixed(0)+' SSP'; window._calcFareVal=fare;
+};
+
+window.login=async()=>{
+const email=loginEmail.value.trim(), pass=loginPass.value;
+if(!email||!pass){loginMsg.textContent='Enter email & password'; return;}
+try{ await signInWithEmailAndPassword(auth,email,pass); }catch(e){ loginMsg.textContent=e.message; }
+};
+window.logout=()=>signOut(auth);
+
+onAuthStateChanged(auth, async(user)=>{
+if(!user){ authPage.classList.remove('hidden'); appPage.classList.add('hidden'); return; }
+currentUser=user;
+const uDoc=await getDoc(doc(db,"users",user.uid));
+role=uDoc.exists()? uDoc.data().role : 'admin';
+roleBadge.textContent=role.toUpperCase();
+authPage.classList.add('hidden'); appPage.classList.remove('hidden');
+// permissions
+if(role!=='admin'){ btnStaff.classList.add('hidden'); if(role!=='finance' && role!=='admin') btnFinance.classList.add('hidden'); if(role==='finance') showPanel('finance'); else showPanel('booking'); }else{ showPanel('booking'); }
+loadDests(); loadNextSerial(); loadTickets(); loadStaff();
+});
+
+async function loadNextSerial(){
+try{ const c=await getDoc(doc(db,"counters","tickets")); const next=(c.exists()? c.data().value:0)+1; document.getElementById('nextSerial').textContent=String(next).padStart(4,'0'); }catch{ document.getElementById('nextSerial').textContent='----'; }
+}
+
+window.issueTicket=async()=>{
+const name=p_name.value.trim(), tel=p_tel.value.trim(), origin=p_origin.value.trim(), weight=parseFloat(p_weight.value), flight=p_flight.value.trim(), check=p_check.value, destId=p_dest.value, date=p_date.value;
+if(!name||!weight||!destId||!date||!flight){ msg.textContent='Fill all fields'; return; }
+if(weight<=0||weight>100){ msg.textContent='Weight 1-100 KG'; return; }
+msg.textContent='Issuing...';
+try{
+const newId=await runTransaction(db, async(tr)=>{
+const counterRef=doc(db,"counters","tickets"); const counterSnap=await tr.get(counterRef);
+let next=1; if(counterSnap.exists()) next=counterSnap.data().value+1;
+tr.set(counterRef,{value:next},{merge:true});
+const destPrice=destMap[destId]?.price||0; // SECURITY: price from server map, not client input
+let fare=weight*destPrice; if(weight>15) fare+= (weight-15)*destPrice*0.5;
+const ticketRef=doc(collection(db,"tickets"));
+tr.set(ticketRef,{serial:String(next).padStart(4,'0'), passengerName:name, tel:esc(tel), origin:esc(origin), weight, flightNo:esc(flight), checkInTime:check, destinationId:destId, destinationName:destMap[destId]?.name||'', fare:Math.round(fare), travelDate:date, issuedBy:currentUser.uid, createdAt:serverTimestamp()});
+return String(next).padStart(4,'0');
+});
+msg.textContent='Ticket SH-'+newId+' Issued!'; loadNextSerial(); loadTickets();
+// Print same design
+const html=document.querySelector('.ticket-card').outerHTML; const w=window.open('','','width=400,height=600'); w.document.write(html); w.document.close(); w.print();
+p_name.value=''; p_tel.value=''; p_weight.value=''; p_flight.value=''; p_fare.value='';
+}catch(e){ msg.textContent=e.message; }
+};
+
+async function loadTickets(){
+const snap=await getDocs(query(collection(db,"tickets"), orderBy("createdAt","desc")));
+let total=0, html=''; snap.forEach(d=>{ const t=d.data(); total+=t.fare||0; html+=`<div class="border p-2 rounded-xl text-xs flex justify-between"><div><b>SH-${esc(t.serial)}</b> - ${esc(t.passengerName)} - ${esc(t.destinationName)} - ${t.weight}KG</div><div class="font-black">${t.fare} SSP</div></div>`; });
+ticketsList.innerHTML=html||'No tickets'; finTotal.textContent=total+' SSP'; finCount.textContent=snap.size; finAvg.textContent=snap.size? Math.round(total/snap.size)+' SSP':'0'; finList.innerHTML=html;
+}
+
+window.saveDest=async()=>{
+const n=d_name.value.trim(), p=parseFloat(d_price.value); if(!n||!p) return;
+await setDoc(doc(db,"destinations", n.toLowerCase()),{name:n, price:p, createdAt:serverTimestamp()}); d_name.value=''; d_price.value=''; loadDests();
+};
+
+window.createStaff=async()=>{
+const name=st_name.value.trim(), email=st_email.value.trim(), pass=st_pass.value, r=st_role.value;
+if(!name||!email||pass.length<6){ st_msg.textContent='Fill name/email/pass min 6'; return; }
+if(role!=='admin'){ st_msg.textContent='Only admin can create staff'; return; }
+st_msg.textContent='Creating...';
+try{
+const cred=await createUserWithEmailAndPassword(secondaryAuth,email,pass);
+await setDoc(doc(db,"users",cred.user.uid),{name,email,role:r,phone:'',createdAt:serverTimestamp(),createdBy:currentUser.uid});
+st_msg.textContent='Staff '+email+' Created as '+r; st_name.value=''; st_email.value=''; st_pass.value=''; loadStaff();
+}catch(e){ st_msg.textContent=e.message; }
+};
+
+async function loadStaff(){
+if(role!=='admin') return;
+const snap=await getDocs(collection(db,"users"));
+let html=''; snap.forEach(d=>{ const u=d.data(); html+=`<div class="border p-2 rounded-xl text-xs flex justify-between"><div>${esc(u.name)} - ${esc(u.email)} - <span class="bg-[#0A2A5A] text-white px-2 rounded-full text-[10px]">${esc(u.role)}</span></div></div>`; });
+staffList.innerHTML=html;
+}
+</script>
+</body>
+</html>
