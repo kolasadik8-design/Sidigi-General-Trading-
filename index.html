@@ -2,205 +2,46 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SIDIGI Operations - Dashboard</title>
+<title>SIDIGI GENERAL TRADING - Login</title>
 <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#C1272D">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui,sans-serif;background:#f8fafc;color:#0f172a}
-header{background:#fff;border-bottom:4px solid transparent;border-image:linear-gradient(90deg,#C1272D 40%,#00A8D8 40%) 1;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20}
-.brand{color:#C1272D;font-weight:800;font-size:13px;line-height:1.1}.brand small{display:block;color:#334155;font-size:9px;letter-spacing:1px}.brand span{color:#00A8D8}
-.container{max-width:1200px;margin:auto;padding:16px}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.tab{padding:8px 14px;background:#fff;border:1px solid #cbd5e1;border-radius:999px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:.4px}
-.tab.active{background:#C1272D;color:#fff;border-color:#C1272D}
-.tab.blue.active{background:#00A8D8;border-color:#00A8D8}
-.sec{display:none}.sec.active{display:block}
-.card{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-@media(max-width:700px){.grid2,.grid3{grid-template-columns:1fr}}
-input,select{width:100%;padding:10px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;margin-bottom:8px;font-size:12px;outline:none}
-input:focus,select:focus{border-color:#00A8D8;background:#fff}
-.btn{padding:9px 14px;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:11px;letter-spacing:.3px}
-.b-red{background:#C1272D;color:#fff}.b-blue{background:#00A8D8;color:#fff}.b-dark{background:#0f172a;color:#fff}.b-outline{background:#fff;border:1px solid #cbd5e1}
-table{width:100%;border-collapse:collapse}th,td{padding:8px;border-bottom:1px solid #e2e8f0;text-align:left;font-size:11px;word-break:break-all}th{color:#64748b;font-size:10px;letter-spacing:.5px}
-.badge{padding:3px 8px;border-radius:999px;font-size:10px;color:#fff;font-weight:700}.bg-red{background:#C1272D}.bg-blue{background:#00A8D8}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
-.stat{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px;text-align:center}.stat b{display:block;font-size:18px;color:#C1272D}.stat small{font-size:10px;color:#64748b}
-@media print{.no-print{display:none!important}.print-paper{display:block!important}}
-.print-paper{display:none;background:#fff;padding:20px;color:#000}
-.paper-head{border-bottom:4px solid transparent;border-image:linear-gradient(90deg,#C1272D 40%,#00A8D8 40%) 1;padding-bottom:10px;display:flex;justify-content:space-between;align-items:flex-start}
-.paper-head h1{color:#C1272D;font-size:18px;letter-spacing:.5px}.paper-head small{color:#334155;font-size:9px}
-.paper-foot{border-top:3px solid #C1272D;margin-top:20px;padding-top:8px;font-size:10px;display:flex;justify-content:space-between;color:#334155}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#f1f5f9;min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
+.header{background:#fff;padding:18px 24px;box-shadow:0 1px 3px rgba(0,0,0,.06);position:relative}
+.header::after{content:"";position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#C1272D 0%,#C1272D 42%,#00A8D8 42%,#00A8D8 100%)}
+.head-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px}
+.logo{width:54px;height:54px;border-radius:8px;background:linear-gradient(135deg,#C1272D 0%,#C1272D 50%,#00A8D8 50%,#00A8D8 100%);display:grid;place-items:center;color:#fff;font-weight:800;font-size:13px;letter-spacing:.5px}
+.company{line-height:1.2}.company .name{color:#C1272D;font-weight:800;font-size:17px;letter-spacing:.3px}.company .tag{color:#475569;font-size:11px;font-weight:600;letter-spacing:1.2px;margin-top:3px;text-transform:uppercase}
+.main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 20px}
+.card{width:100%;max-width:440px;background:#fff;border-radius:16px;padding:32px;box-shadow:0 8px 30px rgba(15,23,42,.08),0 1px 3px rgba(15,23,42,.06);border:1px solid #e2e8f0}
+.card h2{font-size:16px;letter-spacing:.8px;font-weight:800;color:#0f172a;text-align:center}.sub{text-align:center;color:#64748b;font-size:12px;margin:8px 0 24px;font-weight:500;letter-spacing:.4px}
+label{font-size:11px;font-weight:700;color:#334155;letter-spacing:.6px;margin-bottom:8px;display:block;text-transform:uppercase}
+input{width:100%;padding:13px 14px;background:#f8fafc;border:1.5px solid #cbd5e1;border-radius:10px;margin-bottom:16px;font-size:14px;font-weight:500;transition:.2s;outline:none}
+input:focus{border-color:#00A8D8;background:#fff;box-shadow:0 0 0 3px rgba(0,168,216,.12)}
+.btn{width:100%;padding:13px;background:#C1272D;border:none;border-radius:10px;color:#fff;font-weight:700;font-size:13px;letter-spacing:.5px;cursor:pointer;transition:.2s}
+.btn:hover{background:#a01e24;transform:translateY(-1px)}.btn:disabled{opacity:.6;transform:none}
+.err{display:none;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:12px;border-radius:10px;font-size:12px;font-weight:500;margin-bottom:16px;line-height:1.4}
+.footer{background:#fff;border-top:1px solid #e2e8f0;padding:14px 24px}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:11px;font-weight:600;color:#475569;letter-spacing:.2px}
+.signature{text-align:center;padding:16px;font-size:12px;font-weight:700;letter-spacing:.6px;color:#64748b}
+.signature b{font-weight:800}
 </style>
 </head>
 <body>
-<header class="no-print"><div class="brand">SIDIGI GENERAL TRADING CO. LTD<small>TRAVEL • AIR CARGO • MULTIPLE STATES</small></div><div style="display:flex;gap:8px;align-items:center"><span id="uEmail" style="font-size:10px;color:#64748b"></span><span id="uRole" class="badge bg-blue">LOADING</span><button id="logout" class="btn b-dark">LOGOUT</button></div></header>
-
-<div class="container no-print">
-<div class="stats"><div class="stat"><b id="sTickets">0</b><small>TOTAL TICKETS</small></div><div class="stat"><b id="sCargo">0</b><small>TOTAL CARGO</small></div><div class="stat"><b id="sRev">0</b><small>TOTAL REVENUE</small></div><div class="stat"><b id="sDests">0</b><small>DESTINATIONS</small></div></div>
-
-<div class="tabs">
-<div class="tab active" data-t="tickets">Domestic Tickets</div>
-<div class="tab" data-t="cargo">Air Cargo</div>
-<div class="tab blue" data-t="admin">Admin - Destinations & Staff</div>
-<div class="tab" data-t="finance">Finance - Weekly Report</div>
-<div class="tab" data-t="search">Search by Code / Delete</div>
-</div>
-
-<!-- TICKETS -->
-<div id="tickets" class="sec active">
-<div class="card"><h3 style="color:#C1272D;font-size:12px;margin-bottom:8px;letter-spacing:.6px">ISSUE DOMESTIC TICKET - Internal Flights</h3>
-<div class="grid3"><select id="tFrom"></select><select id="tTo"></select><select id="tCurrency"><option value="USD">USD - Dollar</option><option value="SSP">SSP - South Sudanese Pound</option></select></div>
-<div class="grid3"><input id="tName" placeholder="Passenger Full Name"><input id="tPhone" placeholder="Phone Number"><input id="tPrice" type="number" step="0.01" placeholder="Ticket Price"></div>
-<button id="addTicket" class="btn b-red" style="width:100%">✈️ ISSUE TICKET</button></div>
-<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h4 style="font-size:11px">RECENT TICKETS</h4><span style="font-size:10px;color:#64748b">All staff can search/delete by code</span></div>
-<table><thead><tr><th>CODE</th><th>PASSENGER</th><th>ROUTE</th><th>PRICE</th><th>DATE</th><th>ACTION</th></tr></thead><tbody id="ticketTable"></tbody></table></div>
-</div>
-
-<!-- CARGO -->
-<div id="cargo" class="sec">
-<div class="card"><h3 style="color:#00A8D8;font-size:12px;margin-bottom:8px">AIR CARGO - Multiple Cities in South Sudan</h3>
-<div class="grid3"><select id="cFrom"></select><select id="cTo"></select><select id="cCurr"><option value="USD">USD - Dollar</option><option value="SSP">SSP - Pound</option></select></div>
-<div class="grid3"><input id="cSender" placeholder="Sender Name"><input id="cReceiver" placeholder="Receiver Name"><input id="cPhone" placeholder="Receiver Phone"></div>
-<div class="grid3"><input id="cWeight" type="number" step="0.1" placeholder="Weight KG"><input id="cKgPrice" type="number" step="0.01" placeholder="Price/KG Auto" disabled><input id="cTotal" placeholder="Total Auto" disabled></div>
-<button id="addCargo" class="btn b-blue" style="width:100%">📦 CREATE AIR WAYBILL (AWB)</button></div>
-<div class="card"><table><thead><tr><th>AWB CODE</th><th>SENDER→RECEIVER</th><th>ROUTE</th><th>KG</th><th>TOTAL</th><th>ACTION</th></tr></thead><tbody id="cargoTable"></tbody></table></div>
-<div class="card"><h4 style="font-size:11px;margin-bottom:6px">WAREHOUSE - Daily Report (Weight Staff)</h4><div class="grid2"><button id="dailyReport" class="btn b-dark">UPLOAD DAILY REPORT TO MANAGER</button><span id="dailyStatus" style="font-size:10px;color:#64748b;align-self:center"></span></div></div>
-</div>
-
-<!-- ADMIN -->
-<div id="admin" class="sec">
-<div class="card"><h3 style="color:#C1272D;font-size:12px">ADMIN - FULL ACCESS - Set Flights, Destinations, KG Price, Currency</h3>
-<p style="font-size:10px;color:#64748b;margin:6px 0">Example: Maban = 1.5 USD per KG. Admin controls all rates.</p>
-<div class="grid2"><input id="newDestName" placeholder="Destination Name e.g., Maban, Malakal, Wau, Rumbek"><input id="newDestKg" type="number" step="0.01" placeholder="KG Price e.g., 1.5"></div>
-<button id="addDest" class="btn b-red">+ ADD DESTINATION</button>
-<div id="destList" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px"></div></div>
-<div class="card"><h4 style="font-size:11px;margin-bottom:6px">GLOBAL CURRENCY CONTROL - USD / SSP</h4><div class="grid2"><select id="globalCurrency"><option value="USD">USD - US Dollar</option><option value="SSP">SSP - South Sudanese Pound</option></select><button id="saveCurrency" class="btn b-blue">SAVE CURRENCY SETTING</button></div><p style="font-size:10px;color:#64748b;margin-top:6px">Admin selection applies to all new tickets and cargo. Existing records keep original currency.</p></div>
-<div class="card"><h4 style="font-size:11px;margin-bottom:8px">ADD EMPLOYEE & ASSIGN LIMITED PERMISSIONS</h4>
-<div class="grid3"><input id="empEmail" placeholder="Employee Email e.g., staff@sidigi.com"><input id="empPass" placeholder="Temp Password (Create in Firebase Auth)"><select id="empRole"><option value="ticketing">Ticketing Staff - Tickets Only</option><option value="warehouse">Warehouse / Weight - Weigh + Daily Report</option><option value="finance">Finance - Review + Weekly Report</option><option value="driver">Driver - View Own Trips Only</option><option value="cargo">Cargo Staff - Air Cargo Only</option><option value="admin">Admin / Manager - Full Access</option></select></div>
-<button id="addEmp" class="btn b-dark" style="width:100%">+ CREATE EMPLOYEE RECORD</button>
-<p style="font-size:9px;color:#64748b;margin-top:6px">Step 1: Create user in Firebase Console > Authentication > Add User. Step 2: Add here to assign role. Roles stored in Firestore users collection + local.</p>
-<table style="margin-top:10px"><thead><tr><th>EMAIL</th><th>ROLE</th><th>ACTION</th></tr></thead><tbody id="empTable"></tbody></table></div>
-</div>
-
-<!-- FINANCE -->
-<div id="finance" class="sec">
-<div class="card"><h3 style="font-size:12px">FINANCE - REVIEW & WEEKLY AUTO REPORT TO MANAGER</h3><p id="financeSummary" style="font-size:11px;line-height:1.8;margin:8px 0"></p>
-<div class="grid2"><button id="weeklyToManager" class="btn b-red">UPLOAD WEEKLY REPORT TO MANAGER</button><span id="weeklyStatus" style="font-size:10px;color:#64748b"></span></div></div>
-</div>
-
-<!-- SEARCH -->
-<div id="search" class="sec">
-<div class="card"><h3 style="font-size:11px">SEARCH / DELETE BY CODE - All Staff Permission</h3><p style="font-size:10px;color:#64748b;margin:6px 0">Every employee can search or delete shipment or ticket by its code.</p>
-<div class="grid2"><input id="searchCode" placeholder="Enter Code e.g., TKT-1234 or AWB-12345"><button id="btnSearch" class="btn b-blue">SEARCH</button></div><div id="searchResult" style="margin-top:10px"></div></div>
-</div>
-</div>
-
-<!-- PRINT TEMPLATE - Letterhead Paper Style -->
-<div id="printArea" class="print-paper">
-<div class="paper-head"><div><h1>SIDIGI GENERAL TRADING CO. LTD</h1><small>GENERAL TRADING • TRAVEL • AIR CARGO - Juba International Airport | +211 915 456 456 / 917 273 000 / 922 710 020 | sagishad@gmail.com</small></div><div style="text-align:right"><div id="printCode" style="font-weight:800;color:#C1272D;font-size:13px"></div><div id="printDate" style="font-size:10px;color:#334155"></div></div></div>
-<div id="printBody" style="margin-top:16px;font-size:12px;line-height:1.9"></div>
-<div class="paper-foot"><span>Tel: +211 915 456 456 / 917 273 000 / 922 710 020</span><span>Juba International Airport</span><span>Email: sagishad@gmail.com</span></div>
-<div style="margin-top:16px;text-align:right;font-size:11px"><span style="color:#C1272D;font-weight:800">Authorized Signature:</span> <span style="display:inline-block;border-bottom:1px solid #000;min-width:180px;text-align:center;margin-left:10px">Eng. Mutawakil</span></div>
-<div style="margin-top:8px;text-align:center;font-size:9px;color:#64748b"><span style="color:#C1272D">●</span> Thank you for choosing SIDIGI GENERAL TRADING <span style="color:#00A8D8">●</span> Safe Travels & Secure Cargo</div>
-</div>
-
+<div class="header"><div class="head-inner"><div class="logo">SG</div><div class="company"><div class="name">SIDIGI GENERAL TRADING CO. LTD</div><div class="tag">Domestic Tickets • Air Cargo • Multiple States</div></div></div></div>
+<div class="main"><div class="card"><h2>OPERATIONS LOGIN</h2><p class="sub">Secure portal for ticketing and cargo operations</p><div id="err" class="err"></div><label>Email Address</label><input id="email" type="email" value="admin123@gmail.com"><label>Password</label><input id="password" type="password" placeholder="Enter your password"><button id="loginBtn" class="btn">LOGIN TO SYSTEM →</button></div></div>
+<div class="signature"><span style="color:#C1272D">Developed by <b>Eng. Mutawakil</b></span> <span style="color:#00A8D8">• Sidigi Systems v7 Pro</span></div>
+<div class="footer"><div class="footer-inner"><span>📞 +211 915 456 456 / 917 273 000 / 922 710 020</span><span>📍 Juba International Airport</span><span>✉️ sagishad@gmail.com</span></div></div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 const firebaseConfig = { apiKey: "AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls", authDomain: "sidigi-general-trading.firebaseapp.com", projectId: "sidigi-general-trading", storageBucket: "sidigi-general-trading.firebasestorage.app", messagingSenderId: "1054004122944", appId: "1:1054004122944:web:c66be702aed7f53f1dd6a5" };
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-// SECURE STORAGE - no direct eval, escaped
-let dests = JSON.parse(localStorage.getItem('sidigi_dests')||'[{"name":"Maban","kg":1.5},{"name":"Malakal","kg":2},{"name":"Wau","kg":2.5},{"name":"Rumbek","kg":2},{"name":"Juba","kg":1},{"name":"Bor","kg":1.8},{"name":"Bentiu","kg":2.2}]');
-let tickets = JSON.parse(localStorage.getItem('sidigi_tickets')||'[]');
-let cargos = JSON.parse(localStorage.getItem('sidigi_cargos')||'[]');
-let employees = JSON.parse(localStorage.getItem('sidigi_emps')||'[]');
-let currency = localStorage.getItem('sidigi_currency')||'USD';
-const save = () => { localStorage.setItem('sidigi_dests',JSON.stringify(dests)); localStorage.setItem('sidigi_tickets',JSON.stringify(tickets)); localStorage.setItem('sidigi_cargos',JSON.stringify(cargos)); localStorage.setItem('sidigi_emps',JSON.stringify(employees)); localStorage.setItem('sidigi_currency',currency); renderAll(); };
-const escapeHtml = (s) => String(s).replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
-
-let currentUser=null, currentRole='admin';
-onAuthStateChanged(auth, async (u)=>{
-  if(!u){ location.replace('./index.html'); return; }
-  currentUser=u;
-  document.getElementById('uEmail').textContent=u.email;
-  try{
-    const snap = await getDoc(doc(db,'users',u.uid));
-    currentRole = snap.exists()? (snap.data().role || 'admin') : (u.email==='admin123@gmail.com'? 'admin' : 'ticketing');
-  }catch{ currentRole='admin'; }
-  document.getElementById('uRole').textContent=currentRole.toUpperCase();
-  applyPermissions();
-  renderAll();
-});
-
-function applyPermissions(){
-  const isAdmin = currentRole==='admin';
-  const hide = (sel) => { const el=document.querySelector(`[data-t=${sel}]`); if(el) el.style.display='none'; };
-  if(!isAdmin) hide('admin');
-  if(currentRole==='ticketing'){ hide('cargo'); hide('finance'); }
-  if(currentRole==='cargo'){ hide('tickets'); hide('finance'); hide('admin'); }
-  if(currentRole==='driver'){ hide('tickets'); hide('cargo'); hide('admin'); hide('finance'); }
-  if(currentRole==='warehouse'){ hide('tickets'); hide('admin'); hide('finance'); }
-  if(currentRole==='finance'){ hide('tickets'); hide('cargo'); hide('admin'); }
-}
-
-document.getElementById('logout').onclick = async () => { await signOut(auth); location.replace('./index.html'); };
-document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
-  if(t.style.display==='none') return;
-  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.sec').forEach(x=>x.classList.remove('active'));
-  t.classList.add('active'); document.getElementById(t.dataset.t).classList.add('active');
-}));
-
-function renderAll(){
-  const opts = dests.map(d=>`<option value="${d.name}" data-kg="${d.kg}">${escapeHtml(d.name)} - $${d.kg}/KG</option>`).join('');
-  ['tFrom','tTo','cFrom','cTo'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=opts; });
-  document.getElementById('destList').innerHTML = dests.map(d=>`<span class="badge ${d.name==='Maban'?'bg-red':'bg-blue'}" style="display:inline-flex;gap:6px;align-items:center">${escapeHtml(d.name)} $${d.kg}/KG <button onclick="removeDest('${escapeHtml(d.name)}')" style="background:rgba(0,0,0,.2);border:none;color:#fff;border-radius:50%;width:16px;height:16px;cursor:pointer">×</button></span>`).join('');
-  document.getElementById('globalCurrency').value=currency;
-  document.getElementById('tCurrency').value=currency;
-  document.getElementById('cCurr').value=currency;
-  document.getElementById('ticketTable').innerHTML = tickets.slice().reverse().map(t=>`<tr><td>${escapeHtml(t.code)}</td><td>${escapeHtml(t.name)}</td><td>${escapeHtml(t.from)}→${escapeHtml(t.to)}</td><td>${escapeHtml(t.currency)} ${escapeHtml(String(t.price))}</td><td>${new Date(t.date).toLocaleDateString()}</td><td><button class="btn b-blue" onclick="printTicket('${escapeHtml(t.code)}')">Print</button> <button class="btn b-red" onclick="delTicket('${escapeHtml(t.code)}')">Delete</button></td></tr>`).join('') || `<tr><td colspan="6" style="text-align:center;color:#94a3b8">No tickets yet</td></tr>`;
-  document.getElementById('cargoTable').innerHTML = cargos.slice().reverse().map(c=>`<tr><td>${escapeHtml(c.code)}</td><td>${escapeHtml(c.sender)}→${escapeHtml(c.receiver)}</td><td>${escapeHtml(c.from)}→${escapeHtml(c.to)}</td><td>${escapeHtml(String(c.weight))}KG</td><td>${escapeHtml(c.currency)} ${escapeHtml(String(c.total))}</td><td><button class="btn b-blue" onclick="printCargo('${escapeHtml(c.code)}')">Print</button> <button class="btn b-red" onclick="delCargo('${escapeHtml(c.code)}')">Delete</button></td></tr>`).join('') || `<tr><td colspan="6" style="text-align:center;color:#94a3b8">No cargo yet</td></tr>`;
-  document.getElementById('empTable').innerHTML = employees.map((e,i)=>`<tr><td>${escapeHtml(e.email)}</td><td><span class="badge bg-blue">${escapeHtml(e.role)}</span></td><td><button class="btn b-red" onclick="removeEmp(${i})">Remove</button></td></tr>`).join('');
-  document.getElementById('sTickets').textContent=tickets.length;
-  document.getElementById('sCargo').textContent=cargos.length;
-  document.getElementById('sDests').textContent=dests.length;
-  const total = tickets.reduce((a,b)=>a+Number(b.price||0),0)+cargos.reduce((a,b)=>a+Number(b.total||0),0);
-  document.getElementById('sRev').textContent=currency+' '+total.toFixed(2);
-  document.getElementById('financeSummary').textContent=`Total Tickets: ${tickets.length} | Revenue: ${currency} ${tickets.reduce((a,b)=>a+Number(b.price||0),0).toFixed(2)} | Total Cargo: ${cargos.length} | Revenue: ${currency} ${cargos.reduce((a,b)=>a+Number(b.total||0),0).toFixed(2)} | Grand Total: ${currency} ${total.toFixed(2)} | Currency Mode: ${currency} | Reports auto-upload to Manager every Friday.`;
-  updateKgCalc();
-}
-function updateKgCalc(){
-  const toEl=document.getElementById('cTo'), kgEl=document.getElementById('cKgPrice'), wEl=document.getElementById('cWeight'), totEl=document.getElementById('cTotal');
-  const dest=dests.find(x=>x.name===toEl.value);
-  if(dest){ kgEl.value=dest.kg; const w=parseFloat(wEl.value)||0; totEl.value = w? (w*dest.kg).toFixed(2) : ''; }
-}
-document.getElementById('cTo').addEventListener('change', updateKgCalc);
-document.getElementById('cWeight').addEventListener('input', updateKgCalc);
-window.removeDest=(name)=>{ if(currentRole!=='admin') return alert('Admin only'); if(!confirm('Delete destination '+name+'?'))return; dests=dests.filter(d=>d.name!==name); save(); };
-window.removeEmp=(i)=>{ if(currentRole!=='admin') return alert('Admin only'); employees.splice(i,1); save(); };
-
-document.getElementById('addDest').onclick=()=>{ if(currentRole!=='admin') return alert('Admin only - Full Access required'); const name=document.getElementById('newDestName').value.trim(), kg=parseFloat(document.getElementById('newDestKg').value); if(!name||isNaN(kg)||kg<=0) return alert('Enter valid destination and KG price. Example: Maban 1.5'); if(dests.some(d=>d.name.toLowerCase()===name.toLowerCase())) return alert('Destination already exists'); dests.push({name,kg}); save(); document.getElementById('newDestName').value=''; document.getElementById('newDestKg').value=''; };
-document.getElementById('saveCurrency').onclick=()=>{ if(currentRole!=='admin') return alert('Admin only'); currency=document.getElementById('globalCurrency').value; save(); alert('Global currency set to '+currency); };
-document.getElementById('addEmp').onclick=async()=>{ if(currentRole!=='admin') return alert('Admin only'); const email=document.getElementById('empEmail').value.trim().toLowerCase(), role=document.getElementById('empRole').value; if(!email||!email.includes('@')) return alert('Enter valid employee email'); employees.push({email,role}); save(); try{ await setDoc(doc(db,'users',email),{email,role,createdAt:new Date().toISOString(),createdBy:currentUser.email}); }catch(e){} document.getElementById('empEmail').value=''; };
-
-document.getElementById('addTicket').onclick=()=>{ const from=document.getElementById('tFrom').value, to=document.getElementById('tTo').value, name=document.getElementById('tName').value.trim(), phone=document.getElementById('tPhone').value.trim(), price=parseFloat(document.getElementById('tPrice').value), curr=document.getElementById('tCurrency').value||currency; if(!name||isNaN(price)||price<=0) return alert('Enter passenger name and valid price'); const code='TKT-'+Math.floor(1000+Math.random()*9000)+'-'+Date.now().toString().slice(-3); tickets.push({code,from,to,name,phone,price,currency:curr,date:new Date().toISOString(),createdBy:currentUser.email}); save(); document.getElementById('tName').value=''; document.getElementById('tPhone').value=''; document.getElementById('tPrice').value=''; alert('Ticket issued: '+code); };
-document.getElementById('addCargo').onclick=()=>{ const from=document.getElementById('cFrom').value, to=document.getElementById('cTo').value, sender=document.getElementById('cSender').value.trim(), receiver=document.getElementById('cReceiver').value.trim(), phone=document.getElementById('cPhone').value.trim(), weight=parseFloat(document.getElementById('cWeight').value), kgPrice=parseFloat(document.getElementById('cKgPrice').value), curr=document.getElementById('cCurr').value||currency; if(!sender||!receiver||isNaN(weight)||weight<=0) return alert('Enter sender, receiver, valid weight'); const total=(weight*kgPrice).toFixed(2); const code='AWB-'+Math.floor(10000+Math.random()*90000)+'-'+Date.now().toString().slice(-3); cargos.push({code,from,to,sender,receiver,phone,weight,kgPrice,total,currency:curr,date:new Date().toISOString(),createdBy:currentUser.email}); save(); document.getElementById('cSender').value=''; document.getElementById('cReceiver').value=''; document.getElementById('cPhone').value=''; document.getElementById('cWeight').value=''; document.getElementById('cTotal').value=''; alert('Air Waybill created: '+code); };
-
-window.printTicket=(code)=>{ const t=tickets.find(x=>x.code===code); if(!t)return; document.getElementById('printCode').textContent=t.code; document.getElementById('printDate').textContent=new Date(t.date).toLocaleString(); document.getElementById('printBody').innerHTML=`<h3 style="color:#C1272D;margin-bottom:8px">DOMESTIC FLIGHT TICKET</h3><table style="width:100%;font-size:12px"><tr><td><b>Passenger:</b> ${escapeHtml(t.name)}</td><td><b>Phone:</b> ${escapeHtml(t.phone||'-')}</td></tr><tr><td><b>Route:</b> ${escapeHtml(t.from)} → ${escapeHtml(t.to)}</td><td><b>Code:</b> ${escapeHtml(t.code)}</td></tr><tr><td><b>Price:</b> ${escapeHtml(t.currency)} ${escapeHtml(String(t.price))}</td><td><b>Date:</b> ${new Date(t.date).toLocaleDateString()}</td></tr><tr><td><b>Issued By:</b> ${escapeHtml(t.createdBy||'')}</td><td><b>Status:</b> CONFIRMED</td></tr></table><p style="margin-top:12px;font-size:10px;color:#64748b">This ticket is valid for domestic travel within South Sudan. Please keep this code for check-in at Juba International Airport.</p>`; window.print(); };
-window.printCargo=(code)=>{ const c=cargos.find(x=>x.code===code); if(!c)return; document.getElementById('printCode').textContent=c.code; document.getElementById('printDate').textContent=new Date(c.date).toLocaleString(); document.getElementById('printBody').innerHTML=`<h3 style="color:#00A8D8;margin-bottom:8px">AIR CARGO WAYBILL - MULTIPLE STATES</h3><table style="width:100%;font-size:12px"><tr><td><b>Sender:</b> ${escapeHtml(c.sender)}</td><td><b>Receiver:</b> ${escapeHtml(c.receiver)}</td></tr><tr><td><b>Phone:</b> ${escapeHtml(c.phone||'-')}</td><td><b>AWB:</b> ${escapeHtml(c.code)}</td></tr><tr><td><b>Route:</b> ${escapeHtml(c.from)} → ${escapeHtml(c.to)}</td><td><b>Weight:</b> ${escapeHtml(String(c.weight))} KG</td></tr><tr><td><b>Rate:</b> ${escapeHtml(c.currency)} ${escapeHtml(String(c.kgPrice))} /KG</td><td><b>Total:</b> ${escapeHtml(c.currency)} ${escapeHtml(String(c.total))}</td></tr><tr><td><b>Issued By:</b> ${escapeHtml(c.createdBy||'')}</td><td><b>Date:</b> ${new Date(c.date).toLocaleDateString()}</td></tr></table>`; window.print(); };
-window.delTicket=(code)=>{ if(!confirm('Delete ticket '+code+'? This action requires code verification.'))return; tickets=tickets.filter(x=>x.code!==code); save(); };
-window.delCargo=(code)=>{ if(!confirm('Delete cargo '+code+'?'))return; cargos=cargos.filter(x=>x.code!==code); save(); };
-
-document.getElementById('btnSearch').onclick=()=>{ const code=document.getElementById('searchCode').value.trim().toUpperCase(); if(!code) return; const t=tickets.find(x=>x.code.toUpperCase()===code), c=cargos.find(x=>x.code.toUpperCase()===code); const res=document.getElementById('searchResult'); if(t) res.innerHTML=`<div class="card"><b>Ticket Found:</b> ${escapeHtml(t.code)} - ${escapeHtml(t.name)} - ${escapeHtml(t.from)}→${escapeHtml(t.to)} - ${escapeHtml(t.currency)} ${escapeHtml(String(t.price))} <div style="margin-top:8px;display:flex;gap:6px"><button class="btn b-blue" onclick="printTicket('${escapeHtml(t.code)}')">Print Ticket</button><button class="btn b-red" onclick="delTicket('${escapeHtml(t.code)}')">Delete</button></div></div>`; else if(c) res.innerHTML=`<div class="card"><b>Cargo Found:</b> ${escapeHtml(c.code)} - ${escapeHtml(c.sender)}→${escapeHtml(c.receiver)} - ${escapeHtml(String(c.weight))}KG - ${escapeHtml(c.currency)} ${escapeHtml(String(c.total))} <div style="margin-top:8px;display:flex;gap:6px"><button class="btn b-blue" onclick="printCargo('${escapeHtml(c.code)}')">Print AWB</button><button class="btn b-red" onclick="delCargo('${escapeHtml(c.code)}')">Delete</button></div></div>`; else res.innerHTML=`<div class="card" style="color:#C1272D">No record found for code ${escapeHtml(code)}</div>`; };
-document.getElementById('dailyReport').onclick=()=>{ document.getElementById('dailyStatus').textContent='Daily report uploaded to Manager at '+new Date().toLocaleString()+' - Total shipments today: '+cargos.filter(x=>new Date(x.date).toDateString()===new Date().toDateString()).length; localStorage.setItem('daily_report_'+new Date().toISOString(), JSON.stringify(cargos)); };
-document.getElementById('weeklyToManager').onclick=()=>{ document.getElementById('weeklyStatus').textContent='Weekly financial report auto-uploaded to Manager - '+new Date().toLocaleString(); localStorage.setItem('weekly_report_'+new Date().toISOString(), JSON.stringify({tickets,cargos,currency,total:tickets.length+cargos.length})); };
-
-renderAll();
+const auth = getAuth(initializeApp(firebaseConfig));
+const errEl=document.getElementById('err'),btn=document.getElementById('loginBtn');
+onAuthStateChanged(auth,u=>{if(u) location.replace("./dashboard.html")});
+btn.onclick=async()=>{const e=document.getElementById('email').value.trim(),p=document.getElementById('password').value;if(!e||!p){errEl.style.display='block';errEl.textContent='Please enter email and password.';return}btn.disabled=true;btn.textContent='VERIFYING...';errEl.style.display='none';try{await signInWithEmailAndPassword(auth,e,p);location.replace("./dashboard.html")}catch(x){errEl.style.display='block';errEl.textContent=x.code.replace('auth/','').toUpperCase()+' - '+x.message;btn.disabled=false;btn.textContent='LOGIN TO SYSTEM →'}};
+if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
 </script>
 </body>
-                    </html>
+</html>
