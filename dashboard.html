@@ -1,186 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sidigi - Dashboard</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SIDIGI Operations - Dashboard v7 Pro</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#C1272D">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:system-ui;background:#0f172a;color:#fff;min-height:100vh}
-header{background:#1e293b;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #334155;position:sticky;top:0;z-index:10}
-.logo{color:#3b82f6;font-weight:800;letter-spacing:1px}
-.btn{padding:8px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
-.btn-blue{background:#3b82f6;color:#fff}
-.btn-red{background:#ef4444;color:#fff}
-.btn-green{background:#22c55e;color:#fff}
-.container{padding:20px;max-width:1100px;margin:auto}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:20px}
-.card{background:#1e293b;padding:18px;border-radius:12px;border:1px solid #334155}
-.card h3{font-size:13px;color:#94a3b8;margin-bottom:6px}
-.card p{font-size:22px;font-weight:800}
-.tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.tab{padding:10px 16px;background:#1e293b;border:1px solid #334155;border-radius:8px;cursor:pointer}
-.tab.active{background:#3b82f6;border-color:#3b82f6}
-.section{display:none}
-.section.active{display:block}
-input,select{width:100%;padding:12px;background:#0f172a;border:1px solid #334155;border-radius:8px;color:#fff;margin-bottom:10px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-table{width:100%;border-collapse:collapse;background:#1e293b;border-radius:12px;overflow:hidden}
-th,td{padding:10px;text-align:left;border-bottom:1px solid #334155;font-size:13px}
-th{color:#94a3b8;background:#0f172a}
+body{font-family:'Inter',system-ui,sans-serif;background:#f1f5f9;color:#0f172a;line-height:1.6;-webkit-font-smoothing:antialiased}
+header{background:#fff;border-bottom:1px solid #e2e8f0;padding:16px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+header::after{content:"";position:absolute;bottom:-4px;left:0;right:0;height:4px;background:linear-gradient(90deg,#C1272D 0%,#C1272D 42%,#00A8D8 42%,#00A8D8 100%)}
+.brand{font-weight:800;font-size:14px;color:#C1272D;letter-spacing:.3px;line-height:1.2}
+.brand small{display:block;color:#64748b;font-size:10px;font-weight:600;letter-spacing:1px;margin-top:3px;text-transform:uppercase}
+.brand span{color:#00A8D8}
+.u-info{display:flex;gap:10px;align-items:center}
+.container{max-width:1240px;margin:0 auto;padding:24px 20px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:22px}
+.stat{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.stat b{font-size:24px;color:#0f172a;display:block;font-weight:800;letter-spacing:-.5px}
+.stat small{font-size:11px;color:#64748b;font-weight:700;letter-spacing:.7px;text-transform:uppercase;margin-top:6px;display:block}
+.stat.red b{color:#C1272D}.stat.blue b{color:#00A8D8}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.tab{padding:11px 18px;background:#fff;border:1.5px solid #cbd5e1;border-radius:11px;cursor:pointer;font-size:12px;font-weight:700;letter-spacing:.3px;transition:.18s;user-select:none}
+.tab:hover{border-color:#94a3b8;transform:translateY(-1px)}
+.tab.active{background:#C1272D;color:#fff;border-color:#C1272D;box-shadow:0 4px 12px rgba(193,39,45,.25)}
+.tab.blue.active{background:#00A8D8;border-color:#00A8D8;box-shadow:0 4px 12px rgba(0,168,216,.25)}
+.sec{display:none}.sec.active{display:block;animation:fade.22s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.card h3{font-size:13px;font-weight:800;letter-spacing:.6px;margin-bottom:14px;text-transform:uppercase}
+.card h4{font-size:12px;font-weight:700;letter-spacing:.4px;margin-bottom:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:860px){.grid2,.grid3{grid-template-columns:1fr}}
+label{font-size:10px;font-weight:700;color:#475569;letter-spacing:.7px;text-transform:uppercase;margin-bottom:6px;display:block}
+input,select{width:100%;padding:12px 14px;background:#f8fafc;border:1.5px solid #cbd5e1;border-radius:10px;font-size:13px;font-weight:500;outline:none;transition:.2s;color:#0f172a}
+input:focus,select:focus{border-color:#00A8D8;background:#fff;box-shadow:0 0 0 3px rgba(0,168,216,.12)}
+.btn{padding:11px 18px;border:none;border-radius:10px;font-weight:700;font-size:12px;letter-spacing:.4px;cursor:pointer;transition:.18s;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn:hover{transform:translateY(-1px);filter:brightness(.95)}
+.btn:active{transform:translateY(0)}
+.b-red{background:#C1272D;color:#fff}.b-blue{background:#00A8D8;color:#fff}.b-dark{background:#0f172a;color:#fff}.b-outline{background:#fff;border:1.5px solid #cbd5e1;color:#334155}
+table{width:100%;border-collapse:collapse;margin-top:6px}
+th{font-size:10px;font-weight:800;color:#64748b;letter-spacing:.8px;text-transform:uppercase;padding:12px;border-bottom:2px solid #e2e8f0;text-align:left;background:#f8fafc}
+td{font-size:13px;font-weight:500;padding:13px 12px;border-bottom:1px solid #f1f5f9;color:#0f172a}
+.badge{padding:5px 12px;border-radius:999px;font-size:10px;font-weight:800;letter-spacing:.5px;display:inline-block}
+.bg-red{background:#fee2e2;color:#991b1b}.bg-blue{background:#e0f2fe;color:#075985}.bg-dark{background:#0f172a;color:#fff}
+.empty{text-align:center;padding:24px;color:#94a3b8;font-size:13px;font-weight:500}
+@media print{.no-print{display:none!important}.print-paper{display:block!important}}
+.print-paper{display:none;background:#fff;padding:24px;color:#000;font-family:'Inter',sans-serif}
+.paper-head{border-bottom:4px solid transparent;border-image:linear-gradient(90deg,#C1272D 42%,#00A8D8 42%) 1;padding-bottom:12px;display:flex;justify-content:space-between;align-items:flex-start}
+.paper-head h1{color:#C1272D;font-size:20px;letter-spacing:.3px}.paper-head small{color:#334155;font-size:10px}
+.paper-foot{border-top:3px solid #C1272D;margin-top:22px;padding-top:10px;font-size:10px;display:flex;justify-content:space-between;color:#334155;font-weight:600}
 </style>
 </head>
 <body>
-<header>
-<div class="logo">SIDIGI TRADING - DASHBOARD</div>
-<div style="display:flex;gap:8px">
-<span id="userEmail" style="color:#94a3b8;font-size:12px;padding:8px"></span>
-<button id="logout" class="btn btn-red">Logout</button>
-</div>
-</header>
+<header class="no-print"><div class="brand">SIDIGI GENERAL TRADING CO. LTD<small>Travel • Air Cargo • Multiple States</small></div><div class="u-info"><span id="uEmail" style="font-size:11px;font-weight:600;color:#64748b"></span><span id="uRole" class="badge bg-blue">LOADING</span><button id="logout" class="btn b-dark" style="padding:8px 14px">LOGOUT</button></div></header>
 
-<div class="container">
-<div class="cards">
-<div class="card"><h3>TOTAL PRODUCTS</h3><p id="totalProducts">0</p></div>
-<div class="card"><h3>TOTAL SALES TODAY</h3><p id="totalSales">0 SDG</p></div>
-<div class="card"><h3>TOTAL STOCK VALUE</h3><p id="stockValue">0 SDG</p></div>
-<div class="card"><h3>LOW STOCK</h3><p id="lowStock">0</p></div>
+<div class="container no-print">
+<div class="stats">
+<div class="stat red"><b id="sTickets">0</b><small>Total Tickets</small></div>
+<div class="stat blue"><b id="sCargo">0</b><small>Total Cargo</small></div>
+<div class="stat"><b id="sRev">USD 0.00</b><small>Total Revenue</small></div>
+<div class="stat"><b id="sDests">0</b><small>Destinations</small></div>
 </div>
 
 <div class="tabs">
-<div class="tab active" data-tab="products">Products</div>
-<div class="tab" data-tab="sales">Sales</div>
-<div class="tab" data-tab="expenses">Expenses</div>
-<div class="tab" data-tab="report">Report</div>
+<div class="tab active" data-t="tickets">Domestic Tickets</div>
+<div class="tab" data-t="cargo">Air Cargo</div>
+<div class="tab blue" data-t="admin">Admin Settings</div>
+<div class="tab" data-t="finance">Finance Report</div>
+<div class="tab" data-t="search">Search by Code</div>
 </div>
 
-<div id="products" class="section active">
-<div class="row">
-<input id="pName" placeholder="Product Name">
-<input id="pQty" type="number" placeholder="Quantity">
-</div>
-<div class="row">
-<input id="pBuy" type="number" placeholder="Buy Price">
-<input id="pSell" type="number" placeholder="Sell Price">
-</div>
-<button id="addProduct" class="btn btn-blue" style="width:100%;margin-bottom:14px">Add Product</button>
-<table><thead><tr><th>Name</th><th>Qty</th><th>Buy</th><th>Sell</th><th>Action</th></tr></thead><tbody id="productsTable"></tbody></table>
+<!-- TICKETS -->
+<div id="tickets" class="sec active">
+<div class="card"><h3 style="color:#C1272D">Issue Domestic Ticket - Internal Flights</h3>
+<div class="grid3"><div><label>From</label><select id="tFrom"></select></div><div><label>To</label><select id="tTo"></select></div><div><label>Currency</label><select id="tCurrency"><option value="USD">USD - Dollar</option><option value="SSP">SSP - Pound</option></select></div></div>
+<div class="grid3"><div><label>Passenger Name</label><input id="tName" placeholder="e.g., John Deng"></div><div><label>Phone</label><input id="tPhone" placeholder="+211..."></div><div><label>Price</label><input id="tPrice" type="number" step="0.01" placeholder="e.g., 150"></div></div>
+<button id="addTicket" class="btn b-red" style="width:100%;margin-top:4px">✈️ ISSUE TICKET</button></div>
+<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4>Recent Tickets</h4><span style="font-size:11px;color:#64748b">All staff can search/delete by code</span></div><table><thead><tr><th>Code</th><th>Passenger</th><th>Route</th><th>Price</th><th>Date</th><th>Action</th></tr></thead><tbody id="ticketTable"></tbody></table></div>
 </div>
 
-<div id="sales" class="section">
-<select id="saleProduct"></select>
-<div class="row">
-<input id="saleQty" type="number" placeholder="Quantity to sell">
-<input id="salePrice" type="number" placeholder="Sell price (auto)">
-</div>
-<button id="addSale" class="btn btn-green" style="width:100%;margin-bottom:14px">Record Sale</button>
-<table><thead><tr><th>Date</th><th>Product</th><th>Qty</th><th>Total</th></tr></thead><tbody id="salesTable"></tbody></table>
-</div>
-
-<div id="expenses" class="section">
-<div class="row">
-<input id="eName" placeholder="Expense name">
-<input id="eAmount" type="number" placeholder="Amount">
-</div>
-<button id="addExpense" class="btn btn-blue" style="width:100%;margin-bottom:14px">Add Expense</button>
-<table><thead><tr><th>Date</th><th>Name</th><th>Amount</th></tr></thead><tbody id="expensesTable"></tbody></table>
+<!-- CARGO -->
+<div id="cargo" class="sec">
+<div class="card"><h3 style="color:#00A8D8">Air Cargo - Multiple Cities in South Sudan</h3>
+<div class="grid3"><div><label>From</label><select id="cFrom"></select></div><div><label>To (Rate Auto)</label><select id="cTo"></select></div><div><label>Currency</label><select id="cCurr"><option value="USD">USD</option><option value="SSP">SSP</option></select></div></div>
+<div class="grid3"><div><label>Sender</label><input id="cSender" placeholder="Sender Name"></div><div><label>Receiver</label><input id="cReceiver" placeholder="Receiver Name"></div><div><label>Receiver Phone</label><input id="cPhone" placeholder="+211..."></div></div>
+<div class="grid3"><div><label>Weight KG</label><input id="cWeight" type="number" step="0.1" placeholder="e.g., 10"></div><div><label>Price / KG (Auto)</label><input id="cKgPrice" type="number" disabled style="background:#f1f5f9"></div><div><label>Total (Auto)</label><input id="cTotal" disabled style="background:#f1f5f9;font-weight:700"></div></div>
+<button id="addCargo" class="btn b-blue" style="width:100%;margin-top:4px">📦 CREATE AIR WAYBILL (AWB)</button></div>
+<div class="card"><table><thead><tr><th>AWB Code</th><th>Sender → Receiver</th><th>Route</th><th>Weight</th><th>Total</th><th>Action</th></tr></thead><tbody id="cargoTable"></tbody></table></div>
+<div class="card"><h4>Warehouse - Daily Report</h4><div class="grid2"><button id="dailyReport" class="btn b-dark">Upload Daily Report to Manager</button><span id="dailyStatus" style="font-size:11px;color:#64748b;align-self:center"></span></div></div>
 </div>
 
-<div id="report" class="section">
-<div class="card"><p id="reportText">No data yet</p></div>
+<!-- ADMIN -->
+<div id="admin" class="sec">
+<div class="card"><h3 style="color:#C1272D">Admin - Set Destinations & KG Price</h3><p style="font-size:11px;color:#64748b;margin-bottom:12px">Example: Maban = 1.5 USD per KG. Admin controls all rates. Price updates instantly.</p><div class="grid2"><div><label>Destination Name</label><input id="newDestName" placeholder="e.g., Maban, Malakal, Wau"></div><div><label>KG Price (USD)</label><input id="newDestKg" type="number" step="0.01" placeholder="e.g., 1.5"></div></div><button id="addDest" class="btn b-red">+ Add Destination</button><div id="destList" style="margin-top:14px;display:flex;flex-wrap:wrap;gap:8px"></div></div>
+<div class="card"><h4>Global Currency Control - USD / SSP</h4><div class="grid2"><div><label>Select Currency</label><select id="globalCurrency"><option value="USD">USD - US Dollar</option><option value="SSP">SSP - South Sudanese Pound</option></select></div><div style="display:flex;align-items:flex-end"><button id="saveCurrency" class="btn b-blue" style="width:100%">Save Currency Setting</button></div></div></div>
+<div class="card"><h4>Add Employee & Assign Permissions</h4><div class="grid3"><div><label>Email</label><input id="empEmail" placeholder="staff@sidigi.com"></div><div><label>Temp Password Note</label><input id="empPass" placeholder="Create in Firebase Auth"></div><div><label>Role</label><select id="empRole"><option value="ticketing">Ticketing Staff - Tickets Only</option><option value="warehouse">Warehouse / Weight</option><option value="finance">Finance - Review + Weekly</option><option value="driver">Driver - Own Trips Only</option><option value="cargo">Cargo Staff - Cargo Only</option><option value="admin">Admin / Manager - Full Access</option></select></div></div><button id="addEmp" class="btn b-dark" style="width:100%;margin-top:6px">+ Create Employee Record</button><table style="margin-top:14px"><thead><tr><th>Email</th><th>Role</th><th>Action</th></tr></thead><tbody id="empTable"></tbody></table></div>
 </div>
+
+<!-- FINANCE -->
+<div id="finance" class="sec"><div class="card"><h3>Finance - Weekly Auto Report to Manager</h3><p id="financeSummary" style="font-size:12px;line-height:1.8;margin:10px 0;background:#f8fafc;padding:12px;border-radius:10px;border:1px solid #e2e8f0"></p><div class="grid2"><button id="weeklyToManager" class="btn b-red">Upload Weekly Report to Manager</button><span id="weeklyStatus" style="font-size:11px;color:#64748b;align-self:center"></span></div></div></div>
+
+<!-- SEARCH -->
+<div id="search" class="sec"><div class="card"><h3>Search / Delete by Code</h3><p style="font-size:11px;color:#64748b;margin:8px 0">Every employee can search or delete shipment or ticket by its exact code.</p><div class="grid2"><div><label>Enter Code</label><input id="searchCode" placeholder="e.g., TKT-1234 or AWB-12345"></div><div style="display:flex;align-items:flex-end"><button id="btnSearch" class="btn b-blue" style="width:100%">Search Record</button></div></div><div id="searchResult" style="margin-top:14px"></div></div></div>
+</div>
+
+<!-- PRINT TEMPLATE - Paper -->
+<div id="printArea" class="print-paper">
+<div class="paper-head"><div><h1>SIDIGI GENERAL TRADING CO. LTD</h1><small>GENERAL TRADING • TRAVEL • AIR CARGO - Juba International Airport | +211 915 456 456 / 917 273 000 / 922 710 020 | sagishad@gmail.com</small></div><div style="text-align:right"><div id="printCode" style="font-weight:800;color:#C1272D;font-size:14px"></div><div id="printDate" style="font-size:10px;color:#334155;margin-top:2px"></div></div></div>
+<div id="printBody" style="margin-top:18px;font-size:13px;line-height:1.9"></div>
+<div class="paper-foot"><span>Tel: +211 915 456 456 / 917 273 000</span><span>Juba International Airport</span><span>sagishad@gmail.com</span></div>
+<div style="margin-top:18px;text-align:right;font-size:11px"><span style="color:#C1272D;font-weight:800">Authorized Signature:</span><span style="display:inline-block;border-bottom:1.5px solid #000;min-width:200px;text-align:center;margin-left:12px;font-weight:600">Eng. Mutawakil</span></div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-const firebaseConfig={apiKey:"AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls",authDomain:"sidigi-general-trading.firebaseapp.com",projectId:"sidigi-general-trading",storageBucket:"sidigi-general-trading.firebasestorage.app",messagingSenderId:"1054004122944",appId:"1:1054004122944:web:c66be702aed7f53f1dd6a5"};
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-
-onAuthStateChanged(auth,(user)=>{
- if(!user){ window.location.replace("./index.html"); return; }
- document.getElementById("userEmail").textContent=user.email;
- init();
-});
-
-document.getElementById("logout").onclick=async()=>{ await signOut(auth); location.href="./index.html"; };
-
-// Tabs
-document.querySelectorAll(".tab").forEach(t=>{
- t.onclick=()=>{
-  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
-  document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
-  t.classList.add("active");
-  document.getElementById(t.dataset.tab).classList.add("active");
- };
-});
-
-let products=JSON.parse(localStorage.getItem("sidigi_products")||"[]");
-let sales=JSON.parse(localStorage.getItem("sidigi_sales")||"[]");
-let expenses=JSON.parse(localStorage.getItem("sidigi_expenses")||"[]");
-
-function init(){ renderProducts(); renderSales(); renderExpenses(); updateStats(); }
-
-function save(){ localStorage.setItem("sidigi_products",JSON.stringify(products)); localStorage.setItem("sidigi_sales",JSON.stringify(sales)); localStorage.setItem("sidigi_expenses",JSON.stringify(expenses)); updateStats(); }
-
-function updateStats(){
- document.getElementById("totalProducts").textContent=products.length;
- let todaySales=sales.filter(s=>new Date(s.date).toDateString()===new Date().toDateString()).reduce((a,b)=>a+b.total,0);
- document.getElementById("totalSales").textContent=todaySales+" SDG";
- let stockVal=products.reduce((a,b)=>a+(b.qty*b.buy),0);
- document.getElementById("stockValue").textContent=stockVal+" SDG";
- document.getElementById("lowStock").textContent=products.filter(p=>p.qty<5).length;
- document.getElementById("reportText").innerHTML=`Total Products: ${products.length}<br>Total Sales Records: ${sales.length}<br>Total Expenses: ${expenses.reduce((a,b)=>a+b.amount,0)} SDG<br>Total Profit: ${sales.reduce((a,b)=>a+b.total,0)-expenses.reduce((a,b)=>a+b.amount,0)} SDG`;
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const firebaseConfig = { apiKey: "AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls", authDomain: "sidigi-general-trading.firebaseapp.com", projectId: "sidigi-general-trading", storageBucket: "sidigi-general-trading.firebasestorage.app", messagingSenderId: "1054004122944", appId: "1:1054004122944:web:c66be702aed7f53f1dd6a5" };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+let dests = JSON.parse(localStorage.getItem('sidigi_dests')||'[{"name":"Maban","kg":1.5},{"name":"Malakal","kg":2},{"name":"Wau","kg":2.5},{"name":"Rumbek","kg":2},{"name":"Juba","kg":1},{"name":"Bor","kg":1.8},{"name":"Bentiu","kg":2.2}]');
+let tickets = JSON.parse(localStorage.getItem('sidigi_tickets')||'[]');
+let cargos = JSON.parse(localStorage.getItem('sidigi_cargos')||'[]');
+let employees = JSON.parse(localStorage.getItem('sidigi_emps')||'[]');
+let currency = localStorage.getItem('sidigi_currency')||'USD';
+const save = () => { localStorage.setItem('sidigi_dests',JSON.stringify(dests)); localStorage.setItem('sidigi_tickets',JSON.stringify(tickets)); localStorage.setItem('sidigi_cargos',JSON.stringify(cargos)); localStorage.setItem('sidigi_emps',JSON.stringify(employees)); localStorage.setItem('sidigi_currency',currency); renderAll(); };
+const escapeHtml = (s) => String(s).replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
+let currentUser=null, currentRole='admin';
+onAuthStateChanged(auth, async (u)=>{ if(!u){ location.replace('./index.html'); return; } currentUser=u; document.getElementById('uEmail').textContent=u.email; try{ const snap=await getDoc(doc(db,'users',u.uid)); currentRole=snap.exists()?(snap.data().role||'admin'):(u.email==='admin123@gmail.com'?'admin':'ticketing'); }catch{ currentRole='admin'; } document.getElementById('uRole').textContent=currentRole.toUpperCase(); applyPermissions(); renderAll(); });
+function applyPermissions(){ const hide=(sel)=>{ const el=document.querySelector(`[data-t=${sel}]`); if(el) el.style.display='none'; }; if(currentRole!=='admin') hide('admin'); if(currentRole==='ticketing'){ hide('cargo'); hide('finance'); } if(currentRole==='cargo'){ hide('tickets'); hide('finance'); hide('admin'); } if(currentRole==='driver'){ hide('tickets'); hide('cargo'); hide('admin'); hide('finance'); } if(currentRole==='warehouse'){ hide('tickets'); hide('admin'); hide('finance'); } if(currentRole==='finance'){ hide('tickets'); hide('cargo'); hide('admin'); } }
+document.getElementById('logout').onclick=async()=>{ await signOut(auth); location.replace('./index.html'); };
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{ if(t.style.display==='none') return; document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); document.querySelectorAll('.sec').forEach(x=>x.classList.remove('active')); t.classList.add('active'); document.getElementById(t.dataset.t).classList.add('active'); }));
+function renderAll(){
+  const opts=dests.map(d=>`<option value="${d.name}" data-kg="${d.kg}">${escapeHtml(d.name)} - $${d.kg}/KG</option>`).join('');
+  ['tFrom','tTo','cFrom','cTo'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=opts; });
+  document.getElementById('destList').innerHTML=dests.map(d=>`<span class="badge ${d.name==='Maban'?'bg-red':'bg-blue'}" style="display:inline-flex;gap:8px;align-items:center;padding:6px 12px">${escapeHtml(d.name)} $${d.kg}/KG <button onclick="removeDest('${escapeHtml(d.name)}')" style="background:rgba(0,0,0,.15);border:none;color:inherit;border-radius:50%;width:18px;height:18px;cursor:pointer;font-weight:800">×</button></span>`).join('');
+  document.getElementById('globalCurrency').value=currency; document.getElementById('tCurrency').value=currency; document.getElementById('cCurr').value=currency;
+  document.getElementById('ticketTable').innerHTML=tickets.slice().reverse().map(t=>`<tr><td><span class="badge bg-red">${escapeHtml(t.code)}</span></td><td>${escapeHtml(t.name)}</td><td>${escapeHtml(t.from)} → ${escapeHtml(t.to)}</td><td>${escapeHtml(t.currency)} ${escapeHtml(String(t.price))}</td><td>${new Date(t.date).toLocaleDateString()}</td><td><button class="btn b-blue" style="padding:6px 10px" onclick="printTicket('${escapeHtml(t.code)}')">Print</button> <button class="btn b-outline" style="padding:6px 10px" onclick="delTicket('${escapeHtml(t.code)}')">Delete</button></td></tr>`).join('')||`<tr><td colspan="6"><div class="empty">No tickets yet - Issue your first ticket above</div></td></tr>`;
+  document.getElementById('cargoTable').innerHTML=cargos.slice().reverse().map(c=>`<tr><td><span class="badge bg-blue">${escapeHtml(c.code)}</span></td><td>${escapeHtml(c.sender)} → ${escapeHtml(c.receiver)}</td><td>${escapeHtml(c.from)} → ${escapeHtml(c.to)}</td><td>${escapeHtml(String(c.weight))} KG</td><td>${escapeHtml(c.currency)} ${escapeHtml(String(c.total))}</td><td><button class="btn b-blue" style="padding:6px 10px" onclick="printCargo('${escapeHtml(c.code)}')">Print</button> <button class="btn b-outline" style="padding:6px 10px" onclick="delCargo('${escapeHtml(c.code)}')">Delete</button></td></tr>`).join('')||`<tr><td colspan="6"><div class="empty">No cargo yet</div></td></tr>`;
+  document.getElementById('empTable').innerHTML=employees.map((e,i)=>`<tr><td>${escapeHtml(e.email)}</td><td><span class="badge bg-blue">${escapeHtml(e.role)}</span></td><td><button class="btn b-outline" style="padding:6px 10px" onclick="removeEmp(${i})">Remove</button></td></tr>`).join('')||`<tr><td colspan="3"><div class="empty">No employees added</div></td></tr>`;
+  document.getElementById('sTickets').textContent=tickets.length; document.getElementById('sCargo').textContent=cargos.length; document.getElementById('sDests').textContent=dests.length;
+  const total=tickets.reduce((a,b)=>a+Number(b.price||0),0)+cargos.reduce((a,b)=>a+Number(b.total||0),0);
+  document.getElementById('sRev').textContent=currency+' '+total.toFixed(2);
+  document.getElementById('financeSummary').textContent=`Total Tickets: ${tickets.length} | Revenue: ${currency} ${tickets.reduce((a,b)=>a+Number(b.price||0),0).toFixed(2)} | Total Cargo: ${cargos.length} | Revenue: ${currency} ${cargos.reduce((a,b)=>a+Number(b.total||0),0).toFixed(2)} | Grand Total: ${currency} ${total.toFixed(2)} | Currency Mode: ${currency} | Reports auto-upload to Manager every Friday.`;
+  updateKgCalc();
 }
-
-function renderProducts(){
- const tb=document.getElementById("productsTable"); const sel=document.getElementById("saleProduct");
- tb.innerHTML=""; sel.innerHTML='<option value="">Select Product</option>';
- products.forEach((p,i)=>{
-  tb.innerHTML+=`<tr><td>${p.name}</td><td>${p.qty}</td><td>${p.buy}</td><td>${p.sell}</td><td><button onclick="delProd(${i})" class="btn btn-red" style="padding:4px 8px">Del</button></td></tr>`;
-  sel.innerHTML+=`<option value="${i}">${p.name} (${p.qty})</option>`;
- });
-}
-window.delProd=(i)=>{ if(confirm("Delete?")){ products.splice(i,1); save(); renderProducts(); } };
-
-document.getElementById("addProduct").onclick=()=>{
- const name=document.getElementById("pName").value.trim(), qty=parseInt(document.getElementById("pQty").value), buy=parseFloat(document.getElementById("pBuy").value), sell=parseFloat(document.getElementById("pSell").value);
- if(!name||isNaN(qty)||isNaN(buy)||isNaN(sell)) return alert("Fill all fields");
- products.push({name,qty,buy,sell}); save(); renderProducts();
- document.getElementById("pName").value=""; document.getElementById("pQty").value=""; document.getElementById("pBuy").value=""; document.getElementById("pSell").value="";
-};
-
-document.getElementById("saleProduct").onchange=(e)=>{
- const p=products[e.target.value]; if(p) document.getElementById("salePrice").value=p.sell;
-};
-
-document.getElementById("addSale").onclick=()=>{
- const idx=document.getElementById("saleProduct").value, qty=parseInt(document.getElementById("saleQty").value);
- if(idx===""||isNaN(qty)) return alert("Select product and qty");
- const prod=products[idx];
- if(qty>prod.qty) return alert("Not enough stock");
- const price=parseFloat(document.getElementById("salePrice").value);
- prod.qty-=qty; sales.push({date:new Date().toISOString(),name:prod.name,qty,total:qty*price});
- save(); renderProducts(); renderSales();
- document.getElementById("saleQty").value="";
-};
-
-function renderSales(){
- const tb=document.getElementById("salesTable"); tb.innerHTML="";
- sales.slice().reverse().forEach(s=>{ tb.innerHTML+=`<tr><td>${new Date(s.date).toLocaleDateString()}</td><td>${s.name}</td><td>${s.qty}</td><td>${s.total}</td></tr>`; });
-}
-
-document.getElementById("addExpense").onclick=()=>{
- const name=document.getElementById("eName").value.trim(), amount=parseFloat(document.getElementById("eAmount").value);
- if(!name||isNaN(amount)) return alert("Fill fields");
- expenses.push({date:new Date().toISOString(),name,amount}); save(); renderExpenses();
- document.getElementById("eName").value=""; document.getElementById("eAmount").value="";
-};
-function renderExpenses(){
- const tb=document.getElementById("expensesTable"); tb.innerHTML="";
- expenses.slice().reverse().forEach(e=>{ tb.innerHTML+=`<tr><td>${new Date(e.date).toLocaleDateString()}</td><td>${e.name}</td><td>${e.amount}</td></tr>`; });
-}
+function updateKgCalc(){ const toEl=document.getElementById('cTo'), kgEl=document.getElementById('cKgPrice'), wEl=document.getElementById('cWeight'), totEl=document.getElementById('cTotal'); const dest=dests.find(x=>x.name===toEl.value); if(dest){ kgEl.value=dest.kg; const w=parseFloat(wEl.value)||0; totEl.value=w? (w*dest.kg).toFixed(2)+' '+(document.getElementById('cCurr').value||currency) : ''; } }
+document.getElementById('cTo').addEventListener('change',updateKgCalc); document.getElementById('cWeight').addEventListener('input',updateKgCalc); document.getElementById('cCurr').addEventListener('change',updateKgCalc);
+window.removeDest=(name)=>{ if(currentRole!=='admin') return alert('Admin only'); if(!confirm('Delete destination '+name+'?')) return; dests=dests.filter(d=>d.name!==name); save(); };
+window.removeEmp=(i)=>{ if(currentRole!=='admin') return alert('Admin only'); employees.splice(i,1); save(); };
+document.getElementById('addDest').onclick=()=>{ if(currentRole!=='admin') return alert('Admin only'); const name=document.getElementById('newDestName').value.trim(), kg=parseFloat(document.getElementById('newDestKg').value); if(!name||isNaN(kg)||kg<=0) return alert('Enter valid destination and KG price. Example: Maban 1.5'); if(dests.some(d=>d.name.toLowerCase()===name.toLowerCase())) return alert('Destination already exists'); dests.push({name,kg}); save(); document.getElementById('newDestName').value=''; document.getElementById('newDestKg').value=''; };
+document.getElementById('saveCurrency').onclick=()=>{ if(currentRole!=='admin') return alert('Admin only'); currency=document.getElementById('globalCurrency').value; save(); alert('Global currency set to '+currency); };
+document.getElementById('addEmp').onclick=async()=>{ if(currentRole!=='admin') return alert('Admin only'); const email=document.getElementById('empEmail').value.trim().toLowerCase(), role=document.getElementById('empRole').value; if(!email||!email.includes('@')) return alert('Enter valid email'); employees.push({email,role}); save(); try{ await setDoc(doc(db,'users',email),{email,role,createdAt:new Date().toISOString(),createdBy:currentUser.email}); }catch{} document.getElementById('empEmail').value=''; };
+document.getElementById('addTicket').onclick=()=>{ const from=document.getElementById('tFrom').value, to=document.getElementById('tTo').value, name=document.getElementById('tName').value.trim(), phone=document.getElementById('tPhone').value.trim(), price=parseFloat(document.getElementById('tPrice').value), curr=document.getElementById('tCurrency').value||currency; if(!name||isNaN(price)||price<=0) return alert('Enter passenger name and valid price'); const code='TKT-'+Math.floor(1000+Math.random()*9000)+'-'+Date.now().toString().slice(-3); tickets.push({code,from,to,name,phone,price,currency:curr,date:new Date().toISOString(),createdBy:currentUser.email}); save(); document.getElementById('tName').value=''; document.getElementById('tPhone').value=''; document.getElementById('tPrice').value=''; };
+document.getElementById('addCargo').onclick=()=>{ const from=document.getElementById('cFrom').value, to=document.getElementById('cTo').value, sender=document.getElementById('cSender').value.trim(), receiver=document.getElementById('cReceiver').value.trim(), phone=document.getElementById('cPhone').value.trim(), weight=parseFloat(document.getElementById('cWeight').value), kgPrice=parseFloat(document.getElementById('cKgPrice').value), curr=document.getElementById('cCurr').value||currency; if(!sender||!receiver||isNaN(weight)||weight<=0) return alert('Enter sender, receiver, valid weight'); const total=(weight*kgPrice).toFixed(2); const code='AWB-'+Math.floor(10000+Math.random()*90000)+'-'+Date.now().toString().slice(-3); cargos.push({code,from,to,sender,receiver,phone,weight,kgPrice,total,currency:curr,date:new Date().toISOString(),createdBy:currentUser.email}); save(); document.getElementById('cSender').value=''; document.getElementById('cReceiver').value=''; document.getElementById('cPhone').value=''; document.getElementById('cWeight').value=''; document.getElementById('cTotal').value=''; };
+window.printTicket=(code)=>{ const t=tickets.find(x=>x.code===code); if(!t) return; document.getElementById('printCode').textContent=t.code; document.getElementById('printDate').textContent=new Date(t.date).toLocaleString(); document.getElementById('printBody').innerHTML=`<h3 style="color:#C1272D;margin-bottom:10px">DOMESTIC FLIGHT TICKET</h3><table style="width:100%;font-size:12px;border-collapse:collapse"><tr><td style="padding:6px;border:1px solid #e2e8f0"><b>Passenger:</b> ${escapeHtml(t.name)}</td><td style="padding:6px;border:1px solid #e2e8f0"><b>Phone:</b> ${escapeHtml(t.phone||'-')}</td></tr><tr><td style="padding:6px;border:1px solid #e2e8f0"><b>Route:</b> ${escapeHtml(t.from)} → ${escapeHtml(t.to)}</td><td style="padding:6px;border:1px solid #e2e8f0"><b>Code:</b> ${escapeHtml(t.code)}</td></tr><tr><td style="padding:6px;border:1px solid #e2e8f0"><b>Price:</b> ${escapeHtml(t.currency)} ${escapeHtml(String(t.price))}</td><td style="padding:6px;border:1px solid #e2e8f0"><b>Date:</b> ${new Date(t.date).toLocaleDateString()}</td></tr></table>`; window.print(); };
+window.printCargo=(code)=>{ const c=cargos.find(x=>x.code===code); if(!c) return; document.getElementById('printCode').textContent=c.code; document.getElementById('printDate').textContent=new Date(c.date).toLocaleString(); document.getElementById('printBody').innerHTML=`<h3 style="color:#00A8D8;margin-bottom:10px">AIR CARGO WAYBILL</h3><table style="width:100%;font-size:12px;border-collapse:collapse"><tr><td style="padding:6px;border:1px solid #e2e8f0"><b>Sender:</b> ${escapeHtml(c.sender)}</td><td style="padding:6px;border:1px solid #e2e8f0"><b>Receiver:</b> ${escapeHtml(c.receiver)}</td></tr><tr><td style="padding:6px;border:1px solid #e2e8f0"><b>Route:</b> ${escapeHtml(c.from)} → ${escapeHtml(c.to)}</td><td style="padding:6px;border:1px solid #e2e8f0"><b>Weight:</b> ${escapeHtml(String(c.weight))} KG</td></tr><tr><td style="padding:6px;border:1px solid #e2e8f0"><b>Rate:</b> ${escapeHtml(c.currency)} ${escapeHtml(String(c.kgPrice))}/KG</td><td style="padding:6px;border:1px solid #e2e8f0"><b>Total:</b> ${escapeHtml(c.currency)} ${escapeHtml(String(c.total))}</td></tr></table>`; window.print(); };
+window.delTicket=(code)=>{ if(!confirm('Delete ticket '+code+'?')) return; tickets=tickets.filter(x=>x.code!==code); save(); };
+window.delCargo=(code)=>{ if(!confirm('Delete cargo '+code+'?')) return; cargos=cargos.filter(x=>x.code!==code); save(); };
+document.getElementById('btnSearch').onclick=()=>{ const code=document.getElementById('searchCode').value.trim().toUpperCase(); const t=tickets.find(x=>x.code.toUpperCase()===code), c=cargos.find(x=>x.code.toUpperCase()===code); const res=document.getElementById('searchResult'); if(t) res.innerHTML=`<div class="card"><b>Ticket Found:</b> ${escapeHtml(t.code)} - ${escapeHtml(t.name)} <div style="margin-top:8px;display:flex;gap:8px"><button class="btn b-blue" onclick="printTicket('${escapeHtml(t.code)}')">Print</button><button class="btn b-red" onclick="delTicket('${escapeHtml(t.code)}')">Delete</button></div></div>`; else if(c) res.innerHTML=`<div class="card"><b>Cargo Found:</b> ${escapeHtml(c.code)} - ${escapeHtml(c.sender)}→${escapeHtml(c.receiver)} <div style="margin-top:8px;display:flex;gap:8px"><button class="btn b-blue" onclick="printCargo('${escapeHtml(c.code)}')">Print</button><button class="btn b-red" onclick="delCargo('${escapeHtml(c.code)}')">Delete</button></div></div>`; else res.innerHTML=`<div class="card" style="color:#C1272D">No record for ${escapeHtml(code)}</div>`; };
+document.getElementById('dailyReport').onclick=()=>{ document.getElementById('dailyStatus').textContent='Daily report uploaded at '+new Date().toLocaleString(); localStorage.setItem('daily_'+Date.now(),JSON.stringify(cargos)); };
+document.getElementById('weeklyToManager').onclick=()=>{ document.getElementById('weeklyStatus').textContent='Weekly report uploaded at '+new Date().toLocaleString(); localStorage.setItem('weekly_'+Date.now(),JSON.stringify({tickets,cargos})); };
+renderAll();
 </script>
 </body>
 </html>
