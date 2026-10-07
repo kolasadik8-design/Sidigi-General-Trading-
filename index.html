@@ -1,47 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SIDIGI GENERAL TRADING - Login</title>
-<link rel="manifest" href="./manifest.json">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SIDIGI - Login</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,sans-serif;background:#f1f5f9;min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased}
-.header{background:#fff;padding:18px 24px;box-shadow:0 1px 3px rgba(0,0,0,.06);position:relative}
-.header::after{content:"";position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#C1272D 0%,#C1272D 42%,#00A8D8 42%,#00A8D8 100%)}
-.head-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:16px}
-.logo{width:54px;height:54px;border-radius:8px;background:linear-gradient(135deg,#C1272D 0%,#C1272D 50%,#00A8D8 50%,#00A8D8 100%);display:grid;place-items:center;color:#fff;font-weight:800;font-size:13px;letter-spacing:.5px}
-.company{line-height:1.2}.company .name{color:#C1272D;font-weight:800;font-size:17px;letter-spacing:.3px}.company .tag{color:#475569;font-size:11px;font-weight:600;letter-spacing:1.2px;margin-top:3px;text-transform:uppercase}
-.main{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 20px}
-.card{width:100%;max-width:440px;background:#fff;border-radius:16px;padding:32px;box-shadow:0 8px 30px rgba(15,23,42,.08),0 1px 3px rgba(15,23,42,.06);border:1px solid #e2e8f0}
-.card h2{font-size:16px;letter-spacing:.8px;font-weight:800;color:#0f172a;text-align:center}.sub{text-align:center;color:#64748b;font-size:12px;margin:8px 0 24px;font-weight:500;letter-spacing:.4px}
-label{font-size:11px;font-weight:700;color:#334155;letter-spacing:.6px;margin-bottom:8px;display:block;text-transform:uppercase}
-input{width:100%;padding:13px 14px;background:#f8fafc;border:1.5px solid #cbd5e1;border-radius:10px;margin-bottom:16px;font-size:14px;font-weight:500;transition:.2s;outline:none}
-input:focus{border-color:#00A8D8;background:#fff;box-shadow:0 0 0 3px rgba(0,168,216,.12)}
-.btn{width:100%;padding:13px;background:#C1272D;border:none;border-radius:10px;color:#fff;font-weight:700;font-size:13px;letter-spacing:.5px;cursor:pointer;transition:.2s}
-.btn:hover{background:#a01e24;transform:translateY(-1px)}.btn:disabled{opacity:.6;transform:none}
-.err{display:none;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:12px;border-radius:10px;font-size:12px;font-weight:500;margin-bottom:16px;line-height:1.4}
-.footer{background:#fff;border-top:1px solid #e2e8f0;padding:14px 24px}
-.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:11px;font-weight:600;color:#475569;letter-spacing:.2px}
-.signature{text-align:center;padding:16px;font-size:12px;font-weight:700;letter-spacing:.6px;color:#64748b}
-.signature b{font-weight:800}
-</style>
-</head>
-<body>
-<div class="header"><div class="head-inner"><div class="logo">SG</div><div class="company"><div class="name">SIDIGI GENERAL TRADING CO. LTD</div><div class="tag">Domestic Tickets • Air Cargo • Multiple States</div></div></div></div>
-<div class="main"><div class="card"><h2>OPERATIONS LOGIN</h2><p class="sub">Secure portal for ticketing and cargo operations</p><div id="err" class="err"></div><label>Email Address</label><input id="email" type="email" value="admin123@gmail.com"><label>Password</label><input id="password" type="password" placeholder="Enter your password"><button id="loginBtn" class="btn">LOGIN TO SYSTEM →</button></div></div>
-<div class="signature"><span style="color:#C1272D">Developed by <b>Eng. Mutawakil</b></span> <span style="color:#00A8D8">• Sidigi Systems v7 Pro</span></div>
-<div class="footer"><div class="footer-inner"><span>📞 +211 915 456 456 / 917 273 000 / 922 710 020</span><span>📍 Juba International Airport</span><span>✉️ sagishad@gmail.com</span></div></div>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui;background:#0F2F5A;display:grid;place-items:center;min-height:100vh;padding:14px}
+.card{background:#fff;border-radius:22px;padding:22px;width:100%;max-width:420px;box-shadow:0 8px 24px rgba(0,0,0,.25);border-top:4px solid #C1272D}
+input{width:100%;padding:14px 16px;border:1.8px solid #E2E8F0;border-radius:14px;margin-bottom:12px;font-size:15px;outline:none}
+input:focus{border-color:#C1272D;box-shadow:0 0 0 3px rgba(193,39,45,.15)}
+.btn{width:100%;padding:14px;background:#C1272D;color:#fff;border:none;border-radius:14px;font-weight:800;font-size:15px;cursor:pointer}
+.gold{margin-top:18px;text-align:center;font-weight:900;font-size:16px;letter-spacing:.3px;background:linear-gradient(90deg,#8C6A00,#FFD700,#FFF8C0,#FFD700,#B8860B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 8px rgba(255,215,0,.6));}
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+</style></head><body>
+<div class="card">
+<div class="logo">
+<svg width="38" height="38" viewBox="0 0 120 100"><path d="M6 48 L26 38 L32 44 L14 56 Z" fill="#00AEEF"/><path d="M32 18 L58 4 L66 20 L48 34 Z" fill="#C1272D"/><path d="M46 26 L78 8 L68 26 L46 40 Z" fill="#00AEEF"/><path d="M28 52 L62 34 L74 48 L38 68 Z" fill="#C1272D"/></svg>
+<div><b style="color:#C1272D;font-size:18px">SIDIGI</b> <span style="color:#0F2F5A;font-size:12px;font-weight:800">GENERAL TRADING CO. LTD</span><br><small style="font-size:8px;color:#64748b">GENERAL TRADING • CARGO & LOGISTICS</small></div>
+</div>
+<p style="font-size:11px;color:#64748b;margin-bottom:14px">Juba International Airport - Secure Login</p>
+<input id="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Password">
+<button class="btn" onclick="login()">LOGIN</button>
+<p id="msg" style="font-size:12px;margin-top:10px;color:#C1272D"></p>
+<div class="gold">Developed by Eng. Mutwokil Sadik</div>
+</div>
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-const firebaseConfig = { apiKey: "AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls", authDomain: "sidigi-general-trading.firebaseapp.com", projectId: "sidigi-general-trading", storageBucket: "sidigi-general-trading.firebasestorage.app", messagingSenderId: "1054004122944", appId: "1:1054004122944:web:c66be702aed7f53f1dd6a5" };
-const auth = getAuth(initializeApp(firebaseConfig));
-const errEl=document.getElementById('err'),btn=document.getElementById('loginBtn');
-onAuthStateChanged(auth,u=>{if(u) location.replace("./dashboard.html")});
-btn.onclick=async()=>{const e=document.getElementById('email').value.trim(),p=document.getElementById('password').value;if(!e||!p){errEl.style.display='block';errEl.textContent='Please enter email and password.';return}btn.disabled=true;btn.textContent='VERIFYING...';errEl.style.display='none';try{await signInWithEmailAndPassword(auth,e,p);location.replace("./dashboard.html")}catch(x){errEl.style.display='block';errEl.textContent=x.code.replace('auth/','').toUpperCase()+' - '+x.message;btn.disabled=false;btn.textContent='LOGIN TO SYSTEM →'}};
-if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js');
-</script>
-</body>
-</html>
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {getAuth,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+const firebaseConfig={apiKey:"AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls",authDomain:"sidigi-general-trading.firebaseapp.com",projectId:"sidigi-general-trading",storageBucket:"sidigi-general-trading.firebasestorage.app",messagingSenderId:"1054004122944",appId:"1:1054004122944:web:c66be702aed7f53f1dd6a5"};
+const app=initializeApp(firebaseConfig);const auth=getAuth(app);
+window.login=async()=>{const e=document.getElementById('email').value.trim(),p=document.getElementById('pass').value.trim();if(!e||!p){document.getElementById('msg').textContent='Fill email and password';return;}try{await signInWithEmailAndPassword(auth,e,p);localStorage.setItem('sg_hello','1');location.href='./dashboard.html';}catch(err){document.getElementById('msg').textContent=err.message;}};
+</script></body></html>
