@@ -1,22 +1,290 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SIDIGI - Login v9.5 Golden</title>
-<style>:root{--red:#C1272D;--blue:#00A8D8;--dark:#0F2F5A;--gold:#FFD700;--gold2:#D4AF37}*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui;background:linear-gradient(135deg,#f1f5f9 0%,#e2e8f0 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}.card{background:#fff;width:100%;max-width:400px;border-radius:18px;padding:28px;box-shadow:0 20px 40px rgba(0,0,0,.12);border-top:4px solid var(--red);position:relative;overflow:hidden}.card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold))}.logo{text-align:center;margin-bottom:20px}.logo-icon{width:54px;height:42px;margin:0 auto 10px;background:linear-gradient(135deg,#00A8D8 45%,#C1272D 45%);clip-path:polygon(0 50%,25% 0,100% 0,75% 100%,0 100%)}input{width:100%;padding:14px;border:1.5px solid #cbd5e1;border-radius:12px;margin-bottom:12px;outline:none;font-size:14px}input:focus{border-color:var(--blue)}.btn{width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:12px;font-weight:800;cursor:pointer;font-size:15px;margin-top:8px}.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000}.gold-sig{background:linear-gradient(90deg,#000 0%,var(--gold) 50%,#000 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:900}.gold-bar{height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold));margin:12px 0;border-radius:2px}.err{background:#fef2f2;color:#dc2626;padding:10px;border-radius:8px;font-size:12px;margin-bottom:12px;display:none}.ok{background:#f0fdf4;color:#16A34A;padding:10px;border-radius:8px;font-size:12px;margin-bottom:12px;display:none}</style></head><body>
-<div class="card">
-<div class="logo"><div class="logo-icon"></div><h2 style="color:var(--red);font-weight:900">SIDIGI <span style="color:var(--blue)">GENERAL TRADING</span></h2><small style="color:#64748b">Cargo & Travel System</small><div class="gold-bar"></div><div class="gold-sig" style="font-size:11px">✨ v9.5 Golden - Eng. Mutawakil ✨</div></div>
-<div id="err" class="err"></div><div id="ok" class="ok"></div>
-<input id="email" type="email" placeholder="Email e.g. admin@sidigi.com"><input id="pass" type="password" placeholder="Password">
-<button class="btn" id="loginBtn">Login - Secure Check Active</button>
-<div style="text-align:center;margin-top:14px;font-size:11px;color:#64748b">Admin creates logins inside dashboard<br>Disabled accounts cannot login<br><span class="gold-sig">Secure v9.5 - USD Separate</span></div>
-<div class="gold-bar"></div><div style="text-align:center;font-size:9px;color:#94a3b8">Developed by Eng. Mutawakil - Golden Signature Edition<br>Juba International Airport • +211 915 456 456</div>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SIDIGI v9.6 Golden - Full Restored</title>
+<style>
+:root{--red:#C1272D;--blue:#00A8D8;--dark:#1a1a2e;--gold:#FFD700;--green:#0a7d2e}
+body{font-family:Arial;margin:0;background:#f1f5f9}
+.topbar{background:#fff;color:#111;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--red);position:sticky;top:0;z-index:99}
+.card{background:#fff;padding:16px;border-radius:16px;margin:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--red)}
+.card-blue{border-left-color:var(--blue)}.card-green{border-left-color:var(--green)}.card-gold{border-left-color:var(--gold);border:2px solid var(--gold)}
+.btn{border:none;padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:bold;margin:4px;color:#fff}
+.btn-red{background:var(--red)}.btn-blue{background:var(--blue)}.btn-dark{background:var(--dark)}.btn-green{background:var(--green)}.btn-yellow{background:var(--gold);color:#111}
+input,select{width:100%;padding:13px;margin:6px 0;border-radius:12px;border:1.5px solid #cbd5e1;box-sizing:border-box;font-size:15px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.badge{background:#f1f5f9;padding:4px 10px;border-radius:20px;font-size:12px}
+.totalBox{background:#f8fafc;padding:12px;border-radius:12px;font-weight:bold;margin:8px 0}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{border:1px solid #ddd;padding:6px;text-align:center}
+@media print{.no-print{display:none}}
+</style>
+</head>
+<body>
+<div class="topbar no-print">
+<div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:26px;background:linear-gradient(135deg,#00A8D8 50%,#C1272D 50%);clip-path:polygon(0 0,100% 0,70% 100%,0 100%)"></div><div><b style="color:var(--red)">SIDIGI</b> <b style="color:var(--blue)">GENERAL TRADING</b><br><small>✨ Eng. Mutawakil ✨</small></div><span class="badge" id="roleBadge">-</span></div>
+<div><small id="userInfo">-</small> <button class="btn btn-dark" id="logoutBtn" style="padding:8px 14px">Logout</button></div>
+</div>
+
+<div style="max-width:1150px;margin:0 auto">
+
+<!-- CARGO BOOKING -->
+<div class="card no-print">
+<h3 style="color:var(--red)">📦 Cargo Booking - Photo + Serial Auto</h3>
+<select id="cargoDest"></select>
+<input id="sName" placeholder="Sender Name *">
+<input id="sPhone" placeholder="Sender Phone * 0928813308">
+<input id="rName" placeholder="Receiver Name *">
+<input id="rPhone" placeholder="Receiver Phone *">
+<input id="weight" type="number" placeholder="Weight KG * 50">
+<input id="pricePerKg" placeholder="USD/KG auto" readonly>
+<div class="totalBox">Total: $<span id="cargoTotal">0.00</span> USD | Serial: <span id="cargoSerial">AWB-______</span></div>
+<div><b>📸 Capture Cargo Photo (Optional)</b><input id="cargoPhoto" type="file" accept="image/*" capture="environment"></div>
+<button class="btn btn-red" id="bookCargoBtn" style="width:100%">Book Cargo + Auto Serial + PDF + WhatsApp</button>
+<div class="grid2"><button class="btn btn-blue" onclick="printLastCargo()">Print / Download PDF</button><button class="btn btn-green" onclick="whatsappLastCargo()">WhatsApp Both</button></div>
+</div>
+
+<!-- TICKET BOOKING -->
+<div class="card card-blue no-print">
+<h3 style="color:var(--blue)">✈️ Ticket Booking (Separate from Cargo)</h3>
+<input id="pName" placeholder="Passenger Name * Mutwokil sadik">
+<input id="pPhone" placeholder="Passenger Phone 0928813308">
+<input id="pAddress" placeholder="JUBA, SOUTH SUDAN">
+<select id="ticketFrom"></select>
+<input id="ticketNo" placeholder="Ticket No / Flight No 0012">
+<input id="ticketFare" placeholder="Ticket Fare USD auto - editable">
+<select id="ticketAirline"></select>
+<div class="totalBox">Serial: <span id="ticketSerial">TKT-______</span> | Fare: $<span id="ticketFareShow">0</span></div>
+<button class="btn btn-blue" id="issueTicketBtn" style="width:100%">Issue Ticket + Auto Serial + PDF + WhatsApp</button>
+<div class="grid2"><button class="btn btn-dark" onclick="printLastTicket()">Print / Download Ticket PDF</button><button class="btn btn-green" onclick="whatsappLastTicket()">WhatsApp Ticket</button></div>
+</div>
+
+<!-- SEARCH -->
+<div class="card" style="border-left-color:var(--dark)">
+<h3>🔍 Search - Employee Tracking</h3>
+<input id="searchBox" placeholder="Search by AWB, TKT, Employee, Sender...">
+<div style="font-size:12px;color:#64748b">System auto logs employee who executed operation. Manager sees all except admin operations. Admin sees all.</div>
+<div id="searchResults" style="margin-top:10px"></div>
+</div>
+
+<!-- FINANCIAL REPORTS -->
+<div class="card card-green no-print">
+<h3 style="color:var(--green)">📊 Financial Reports (Weekly/Monthly)</h3>
+<div class="grid2"><button class="btn btn-green" onclick="genReport('weekly')">Weekly USD Report</button><button class="btn btn-dark" onclick="genReport('monthly')">Monthly USD Report</button></div>
+<div id="reportArea" style="background:#f8fafc;padding:12px;border-radius:10px;margin-top:10px;min-height:60px;border:1px dashed #cbd5e1"></div>
+<button class="btn btn-green no-print" onclick="printReportPDF()">🖨️ طباعة PDF</button>
+</div>
+
+<!-- ADMIN & MANAGER CONTROL -->
+<div class="card no-print" id="adminControl" style="display:none">
+<h3>⚙️ Admin & Manager Control - v9.5</h3>
+<div style="border:2px solid #fde047;padding:12px;border-radius:12px;margin-bottom:12px">
+<h4>💰 Cargo Prices USD/KG - Admin/Manager Only</h4>
+<div class="grid2"><input id="newCargoDest" placeholder="Cargo Dest e.g. Maban"><input id="newCargoPrice" type="number" placeholder="$/KG 1.5"></div>
+<button class="btn btn-dark" id="addCargoPriceBtn">Add Cargo</button>
+<div id="cargoPricesList"></div>
+</div>
+<div style="border:2px solid #7dd3fc;padding:12px;border-radius:12px;margin-bottom:12px">
+<h4>💰 Ticket Prices - Admin/Manager Only</h4>
+<div class="grid2"><input id="newTicketDest" placeholder="BOR $70 Ticket"><input id="newTicketPrice" type="number" placeholder="70"></div>
+<button class="btn btn-blue" id="addTicketPriceBtn">Add Ticket Price</button>
+<div id="ticketPricesList"></div>
+</div>
+<div style="background:#fff1f2;padding:12px;border-radius:12px">
+<h3>👥 Create Employee Logins Inside App - Admin/Manager Only</h3>
+<div class="grid2"><input id="newEmail" placeholder="Email"><input id="newPass" placeholder="Password min 6"></div>
+<div class="grid2"><select id="newRole"><option value="operations">Operations</option><option value="finance">Finance</option><option value="manager">Manager</option><option value="admin">Admin</option></select><select id="newBranch"><option>Juba Main</option><option>BOR</option><option>Maban</option></select></div>
+<button class="btn btn-yellow" id="createUserBtn" style="width:100%">✨ Create User + Password Inside App ✨</button>
+<div id="usersList" style="margin-top:10px"></div>
+</div>
+</div>
+
+<div style="text-align:center;padding:16px" class="no-print"><b>Developed by Eng. <span style="color:#bfa600">Mutawakil Sadik</span></b><br><small>Version: Sidigi General Trading | USD System | v9.6 Golden Restored</small></div>
+
+<div id="opsList" class="no-print"></div>
+
 </div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-const firebaseConfig={apiKey:"AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls",authDomain:"sidigi-general-trading.firebaseapp.com",projectId:"sidigi-general-trading",storageBucket:"sidigi-general-trading.firebasestorage.app",messagingSenderId:"1054004122944",appId:"1:1054004122944:web:c66be702aed7f53f1dd6a5"};
-const app=initializeApp(firebaseConfig); const auth=getAuth(app); const db=getFirestore(app);
-const emailEl=document.getElementById('email'), passEl=document.getElementById('pass'), errEl=document.getElementById('err'), okEl=document.getElementById('ok');
-function showErr(m){ errEl.textContent=m; errEl.style.display='block'; okEl.style.display='none'; } function showOk(m){ okEl.textContent=m; okEl.style.display='block'; errEl.style.display='none'; }
-onAuthStateChanged(auth, async(u)=>{ if(u){ try{ const snap=await getDoc(doc(db,"users",u.uid)); if(snap.exists() && snap.data().active===false){ showErr('Account disabled by Admin. Contact manager.'); return; } }catch(e){} location.replace('./dashboard.html?v=v9.5-golden-full'); } });
-document.getElementById('loginBtn').addEventListener('click', async()=>{ const email=emailEl.value.trim(), pass=passEl.value; if(!email.includes('@')||!pass) return showErr('Enter email and password'); showOk('Checking...'); try{ const cred=await signInWithEmailAndPassword(auth,email,pass); try{ const snap=await getDoc(doc(db,"users",cred.user.uid)); if(snap.exists() && snap.data().active===false){ showErr('Account disabled by Admin/Manager'); return; } }catch(e){} showOk('Success - Loading v9.5...'); setTimeout(()=>location.replace('./dashboard.html?v=v9.5-golden-full'),600); }catch(e){ if(e.code==='auth/invalid-credential') showErr('Wrong email or password'); else if(e.code==='auth/user-disabled') showErr('Account disabled'); else showErr(e.message); } });
-</script></body></html>
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import {getAuth,onAuthStateChanged,signOut,createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import {getFirestore,collection,addDoc,getDocs,deleteDoc,doc,query,orderBy,updateDoc,setDoc} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+const firebaseConfig={
+apiKey:"AIzaSyDrAyZXWqD3ymYQ...",
+authDomain:"sidigi-...",
+projectId:"sidigi-...",
+storageBucket:"sidigi-....",
+messagingSenderId:"...",
+appId:"..."
+};
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+function esc(s){if(!s)return'';let d=document.createElement('div');d.textContent=s;return d.innerHTML}
+let currentUser=null,role='operations',cargos=[],tickets=[],lastCargo=null,lastTicket=null;
+let cargoPrices=[{name:"Maban",price:2},{name:"BOR",price:1.5},{name:"Aweil",price:2},{name:"Malakal",price:2},{name:"Wau",price:2.5}];
+let ticketPrices=[{name:"BOR",price:70},{name:"Aweil",price:200},{name:"Maban",price:300}];
+
+function genSerial(prefix){return prefix+'-'+Math.floor(100000+Math.random()*899999)}
+
+onAuthStateChanged(auth,async(u)=>{
+if(!u){location.href='login.html';return}
+currentUser=u;
+try{
+let snap=await getDocs(collection(db,"users"));
+let me=snap.docs.find(d=>d.id===u.uid);
+if(me)role=me.data().role||'operations';
+}catch(e){}
+document.getElementById('userInfo').textContent=u.email;
+document.getElementById('roleBadge').textContent=role.toUpperCase();
+if(['admin','manager'].includes(role))document.getElementById('adminControl').style.display='block';
+loadDests();loadOps();loadUsers();
+});
+
+document.getElementById('logoutBtn').onclick=async()=>{await signOut(auth);location.href='index.html'};
+
+async function loadDests(){
+try{
+let s=await getDocs(collection(db,"destinations"));
+let list=s.docs.map(d=>d.data());
+if(list.length>0)cargoPrices=list;
+}catch(e){}
+document.getElementById('cargoDest').innerHTML=cargoPrices.map(d=>`<option value="${esc(d.name)}" data-price="${d.price}">${esc(d.name)} - $${d.price}/KG Cargo</option>`).join('');
+document.getElementById('ticketFrom').innerHTML=cargoPrices.map(d=>`<option>${esc(d.name)}</option>`).join('');
+document.getElementById('ticketAirline').innerHTML=`<option>Bade</option><option>Sky Jet</option><option>Tarco</option>`;
+document.getElementById('ticketPricesList').innerHTML=ticketPrices.map(t=>`<div>${esc(t.name)} $${t.price} Ticket <button onclick="delTicketPrice('${esc(t.name)}')" style="color:red;border:1px solid red">Del</button></div>`).join('');
+document.getElementById('cargoPricesList').innerHTML=cargoPrices.map(t=>`<div>${esc(t.name)} $${t.price}/KG <button onclick="delCargoPrice('${esc(t.name)}')" style="color:red;border:1px solid red">Del</button></div>`).join('');
+calcCargo();
+}
+window.calcCargo=()=>{
+let sel=document.getElementById('cargoDest');
+let price=Number(sel.options[sel.selectedIndex]?.dataset.price||2);
+document.getElementById('pricePerKg').value=price;
+let w=Number(document.getElementById('weight').value||0);
+let total=price*w;
+document.getElementById('cargoTotal').textContent=total.toFixed(2);
+let serial=genSerial('AWB');
+document.getElementById('cargoSerial').textContent=serial;
+};
+document.getElementById('cargoDest').addEventListener('change',calcCargo);
+document.getElementById('weight').addEventListener('input',calcCargo);
+window.calcTicket=()=>{
+let f=Number(document.getElementById('ticketFare').value||0);
+document.getElementById('ticketFareShow').textContent=f;
+document.getElementById('ticketSerial').textContent=genSerial('TKT');
+};
+document.getElementById('ticketFare').addEventListener('input',calcTicket);
+
+document.getElementById('bookCargoBtn').addEventListener('click',async()=>{
+let serial=document.getElementById('cargoSerial').textContent;
+let total=document.getElementById('cargoTotal').textContent;
+let file=document.getElementById('cargoPhoto').files[0];
+let photoBase64='';
+if(file){photoBase64=await new Promise(r=>{let fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(file)});}
+let data={
+serial,total:Number(total),pricePerKg:Number(document.getElementById('pricePerKg').value),
+cargoDest:document.getElementById('cargoDest').value,sName:document.getElementById('sName').value,sPhone:document.getElementById('sPhone').value,rName:document.getElementById('rName').value,rPhone:document.getElementById('rPhone').value,weight:Number(document.getElementById('weight').value),
+photo:photoBase64,date:new Date().toISOString().split('T')[0],employee:currentUser.email,createdAt:new Date()
+};
+if(!data.sName||!data.rName||!data.weight)return alert('Fill required');
+await addDoc(collection(db,"cargos"),data);
+lastCargo=data;
+alert('Booked '+serial);
+loadOps();
+printLastCargo();
+});
+
+document.getElementById('issueTicketBtn').addEventListener('click',async()=>{
+let serial=document.getElementById('ticketSerial').textContent;
+let data={
+serial, pName:document.getElementById('pName').value, pPhone:document.getElementById('pPhone').value, pAddress:document.getElementById('pAddress').value,
+from:document.getElementById('ticketFrom').value, ticketNo:document.getElementById('ticketNo').value, fare:Number(document.getElementById('ticketFare').value||0),
+airline:document.getElementById('ticketAirline').value,
+date:new Date().toISOString().split('T')[0],employee:currentUser.email,createdAt:new Date()
+};
+if(!data.pName)return alert('Passenger required');
+await addDoc(collection(db,"tickets"),data);
+lastTicket=data;
+alert('Issued '+serial);
+loadOps();
+});
+
+window.printLastCargo=()=>{
+if(!lastCargo)return alert('No cargo');
+let w=window.open('','','width=800,height=900');
+w.document.write(`<h1>${lastCargo.serial}</h1><p>${esc(lastCargo.sName)} → ${esc(lastCargo.rName)} • ${esc(lastCargo.cargoDest)} - $${lastCargo.total} USD</p>${lastCargo.photo?`<img src="${lastCargo.photo}" style="max-width:100%">`:''}<p>By ${esc(lastCargo.employee)}</p>`);
+w.print();
+};
+window.whatsappLastCargo=()=>{
+if(!lastCargo)return;
+let msg=`${lastCargo.serial} - ${lastCargo.sName} → ${lastCargo.rName} - ${lastCargo.cargoDest} $${lastCargo.total} USD`;
+window.open('https://wa.me/?text='+encodeURIComponent(msg));
+};
+window.printLastTicket=()=>{if(!lastTicket)return;let w=window.open('','','width=800,height=900');w.document.write(`<h1>${lastTicket.serial}</h1><p>${esc(lastTicket.pName)} - ${esc(lastTicket.from)} - $${lastTicket.fare}</p>`);w.print();};
+window.whatsappLastTicket=()=>{if(!lastTicket)return;let msg=`${lastTicket.serial} - ${lastTicket.pName} - ${lastTicket.from} - $${lastTicket.fare}`;window.open('https://wa.me/?text='+encodeURIComponent(msg));};
+
+async function loadOps(){
+let q=await getDocs(query(collection(db,"cargos"),orderBy("createdAt","desc")));
+cargos=q.docs.map(d=>({id:d.id,...d.data()}));
+let t=await getDocs(query(collection(db,"tickets"),orderBy("createdAt","desc")));
+tickets=t.docs.map(d=>({id:d.id,...d.data()}));
+renderOps();
+}
+function renderOps(){
+let html='';
+cargos.slice(0,20).forEach(c=>{html+=`<div class="card" style="border-left-color:var(--red)"><b style="color:var(--red)">${esc(c.serial||'AWB-')}</b> <span class="badge">${esc(c.employee||'')}</span><br>${esc(c.sName)} → ${esc(c.rName)} • ${esc(c.cargoDest)} - $${c.total||0} USD</div>`});
+tickets.slice(0,20).forEach(c=>{html+=`<div class="card" style="border-left-color:var(--blue)"><b>${esc(c.serial||'TKT-')}</b> ${esc(c.pName)} - ${esc(c.from||'')} $${c.fare||0}</div>`});
+document.getElementById('opsList').innerHTML=html;
+let q=document.getElementById('searchBox').value||'';
+if(q){let res=[...cargos,...tickets].filter(x=>JSON.stringify(x).toLowerCase().includes(q.toLowerCase()));document.getElementById('searchResults').innerHTML=res.map(r=>`<div>${esc(r.serial)} - ${esc(r.sName||r.pName)} - ${esc(r.employee||'')}</div>`).join('');}
+}
+document.getElementById('searchBox').addEventListener('input',renderOps);
+
+window.genReport=async(type)=>{
+let now=new Date();
+let fn=(d)=>{let dt=d.createdAt?.toDate?d.createdAt.toDate():new Date(d.date);if(type==='weekly')return (now-dt)/(1000*3600*24)<=7;if(type==='monthly')return dt.getMonth()===now.getMonth()&&dt.getFullYear()===now.getFullYear();return true;};
+let fC=cargos.filter(fn);let tot=fC.reduce((s,c)=>s+Number(c.total||0),0);
+document.getElementById('reportArea').innerHTML=`<h4>${type} Report</h4><p>Cargos: ${fC.length} - Total: $${tot} USD</p>`;
+};
+
+// Admin
+document.getElementById('addCargoPriceBtn').onclick=async()=>{
+let name=document.getElementById('newCargoDest').value;let price=Number(document.getElementById('newCargoPrice').value);
+if(!name||!price)return alert('Fill');
+await addDoc(collection(db,"destinations"),{name,price});
+loadDests();
+};
+document.getElementById('addTicketPriceBtn').onclick=()=>{
+let name=document.getElementById('newTicketDest').value;let price=Number(document.getElementById('newTicketPrice').value);
+ticketPrices.push({name,price});loadDests();
+};
+window.delCargoPrice=async(name)=>{if(!confirm('Delete?'))return;let s=await getDocs(collection(db,"destinations"));let f=s.docs.find(d=>d.data().name===name);if(f)await deleteDoc(doc(db,"destinations",f.id));loadDests();};
+window.delTicketPrice=(name)=>{ticketPrices=ticketPrices.filter(t=>t.name!==name);loadDests();};
+
+async function loadUsers(){
+try{
+let s=await getDocs(collection(db,"users"));
+document.getElementById('usersList').innerHTML=s.docs.map(d=>`<div>${esc(d.data().email)} - ${esc(d.data().role)} • ${esc(d.data().branch||'')} <button onclick="disableUser('${d.id}')" style="color:red;border:1px solid red">Disable</button><br><small>By: ${esc(d.data().createdBy||'')}</small></div>`).join('');
+}catch(e){}
+}
+window.disableUser=async(id)=>{await updateDoc(doc(db,"users",id),{disabled:true});loadUsers();};
+
+document.getElementById('createUserBtn').onclick=async()=>{
+let email=document.getElementById('newEmail').value;let pass=document.getElementById('newPass').value;let r=document.getElementById('newRole').value;let b=document.getElementById('newBranch').value;
+if(!email||pass.length<6)return alert('Email & pass min 6');
+try{
+let cred=await createUserWithEmailAndPassword(auth,email,pass);
+await setDoc(doc(db,"users",cred.user.uid),{email,role:r,branch:b,createdBy:currentUser.email,createdAt:new Date()});
+alert('Created '+email);
+loadUsers();
+}catch(e){alert(e.message)}
+};
+
+window.printReportPDF=()=>{
+let area=document.getElementById('reportArea');if(!area.innerHTML.trim())return alert('Generate report first');
+let w=window.open('','','width=1000,height=800');w.document.write(`<html><body>${area.innerHTML}<br><br><div style="display:flex;justify-content:space-around"><span>Finance: __________</span><span>Manager: __________</span></div></body></html>`);w.print();
+};
+</script>
+</body>
+  </html>
