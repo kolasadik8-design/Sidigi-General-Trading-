@@ -1,108 +1,136 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SIDIGI v9.6 Golden - Full Restored</title>
+<title>SIDIGI v11 - Final - No Bugs</title>
 <style>
 :root{--red:#C1272D;--blue:#00A8D8;--dark:#1a1a2e;--gold:#FFD700;--green:#0a7d2e}
 body{font-family:Arial;margin:0;background:#f1f5f9}
-.topbar{background:#fff;color:#111;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--red);position:sticky;top:0;z-index:99}
+.topbar{background:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid var(--red);position:sticky;top:0;z-index:99}
 .card{background:#fff;padding:16px;border-radius:16px;margin:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);border-left:6px solid var(--red)}
 .card-blue{border-left-color:var(--blue)}.card-green{border-left-color:var(--green)}.card-gold{border-left-color:var(--gold);border:2px solid var(--gold)}
-.btn{border:none;padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:bold;margin:4px;color:#fff}
+.btn{border:none;padding:11px 16px;border-radius:10px;cursor:pointer;font-weight:bold;margin:3px;color:#fff;font-size:13px}
 .btn-red{background:var(--red)}.btn-blue{background:var(--blue)}.btn-dark{background:var(--dark)}.btn-green{background:var(--green)}.btn-yellow{background:var(--gold);color:#111}
-input,select{width:100%;padding:13px;margin:6px 0;border-radius:12px;border:1.5px solid #cbd5e1;box-sizing:border-box;font-size:15px}
+input,select{width:100%;padding:12px;margin:5px 0;border-radius:10px;border:1.5px solid #cbd5e1;box-sizing:border-box;font-size:14px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.badge{background:#f1f5f9;padding:4px 10px;border-radius:20px;font-size:12px}
-.totalBox{background:#f8fafc;padding:12px;border-radius:12px;font-weight:bold;margin:8px 0}
-table{width:100%;border-collapse:collapse;font-size:13px}th,td{border:1px solid #ddd;padding:6px;text-align:center}
+.badge{background:#f1f5f9;padding:4px 10px;border-radius:20px;font-size:11px}
+.totalBox{background:#f8fafc;padding:11px;border-radius:10px;font-weight:bold;margin:6px 0;border:1px dashed #cbd5e1}
+.resultCard{border:2px solid var(--gold);background:#fffbeb;padding:12px;border-radius:12px;margin:8px 0}
+.cancelled{opacity:.6;background:#fee2e2;border-color:red}
 @media print{.no-print{display:none}}
 </style>
 </head>
 <body>
-<div class="topbar no-print">
-<div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:26px;background:linear-gradient(135deg,#00A8D8 50%,#C1272D 50%);clip-path:polygon(0 0,100% 0,70% 100%,0 100%)"></div><div><b style="color:var(--red)">SIDIGI</b> <b style="color:var(--blue)">GENERAL TRADING</b><br><small>✨ Eng. Mutawakil ✨</small></div><span class="badge" id="roleBadge">-</span></div>
-<div><small id="userInfo">-</small> <button class="btn btn-dark" id="logoutBtn" style="padding:8px 14px">Logout</button></div>
-</div>
+<div class="topbar no-print"><div><b style="color:var(--red)">SIDIGI</b> <b style="color:var(--blue)">GENERAL TRADING</b> <span class="badge" id="roleBadge">-</span></div><div><small id="userInfo"></small> <button class="btn btn-dark" id="logoutBtn">Logout</button></div></div>
 <div style="max-width:1150px;margin:0 auto">
+
+<!-- SEARCH + EDIT + CANCEL -->
+<div class="card card-gold no-print">
+<h3>🔍 بحث بالرقم المتسلسل + تعديل / إلغاء - Serial Search</h3>
+<input id="searchBox" placeholder="اكتب AWB-123456 او TKT-123456 او اسم العميل...">
+<div id="searchResults" style="margin-top:8px"><small>اكتب الرقم المتسلسل كامل...</small></div>
+<div id="editForm" style="display:none;background:#f0f9ff;padding:12px;border-radius:12px;margin-top:12px;border:2px dashed var(--blue)">
+<h4>✏️ تعديل الشحنة / التذكرة</h4>
+<input type="hidden" id="editId"><input type="hidden" id="editType">
+<div class="grid2"><input id="editSName" placeholder="Sender / Passenger Name"><input id="editRName" placeholder="Receiver / From"></div>
+<div class="grid2"><input id="editPhone" placeholder="Phone"><input id="editWeight" type="number" placeholder="Weight / Fare"></div>
+<div class="grid2"><input id="editPaid" type="number" placeholder="المدفوع $"><input id="editDest" placeholder="Destination / Airline"></div>
+<div class="grid2"><button class="btn btn-blue" id="saveEditBtn" style="width:100%">💾 حفظ التعديل</button><button class="btn btn-dark" onclick="document.getElementById('editForm').style.display='none'" style="width:100%">إغلاق</button></div>
+</div>
+</div>
+
+<!-- CARGO WITH PAID/REMAIN USD -->
 <div class="card no-print">
-<h3 style="color:var(--red)">📦 Cargo Booking - Photo + Serial Auto</h3>
+<h3 style="color:var(--red)">📦 Cargo Booking - USD + مدفوع/باقي</h3>
 <select id="cargoDest"></select>
 <input id="sName" placeholder="Sender Name *">
 <input id="sPhone" placeholder="Sender Phone * 0928813308">
 <input id="rName" placeholder="Receiver Name *">
-<input id="rPhone" placeholder="Receiver Phone *">
+<input id="rPhone" placeholder="Receiver Phone">
 <input id="weight" type="number" placeholder="Weight KG * 50">
 <input id="pricePerKg" placeholder="USD/KG auto" readonly>
-<div class="totalBox">Total: $<span id="cargoTotal">0.00</span> USD | Serial: <span id="cargoSerial">AWB-______</span></div>
-<div><b>📸 Capture Cargo Photo (Optional)</b><input id="cargoPhoto" type="file" accept="image/*" capture="environment"></div>
-<button class="btn btn-red" id="bookCargoBtn" style="width:100%">Book Cargo + Auto Serial + PDF + WhatsApp</button>
-<div class="grid2"><button class="btn btn-blue" onclick="printLastCargo()">Print / Download PDF</button><button class="btn btn-green" onclick="whatsappLastCargo()">WhatsApp Both</button></div>
+<div class="grid2">
+<input id="cargoPaid" type="number" placeholder="المدفوع $ مثلا 300">
+<input id="cargoRemain" type="number" placeholder="الباقي $ auto" readonly>
 </div>
+<div class="totalBox">Total: $<span id="cargoTotal">0.00</span> USD | Paid: $<span id="cargoPaidShow">0</span> | Remain: $<span id="cargoRemainShow">0</span> | Serial: <span id="cargoSerial">AWB-______</span> | العملة: USD</div>
+<div><b>📸 Cargo Photo</b><input id="cargoPhoto" type="file" accept="image/*" capture="environment"></div>
+<button class="btn btn-red" id="bookCargoBtn" style="width:100%">Book Cargo + إيصال مدفوع/باقي USD</button>
+<div class="grid2"><button class="btn btn-blue" onclick="printLastCargo()">🖨️ طباعة الإيصال PDF</button><button class="btn btn-green" onclick="whatsappLastCargo()">📱 WhatsApp</button></div>
+</div>
+
+<!-- TICKET WITH PAID/REMAIN USD -->
 <div class="card card-blue no-print">
-<h3 style="color:var(--blue)">✈️ Ticket Booking (Separate from Cargo)</h3>
-<input id="pName" placeholder="Passenger Name * Mutwokil sadik">
-<input id="pPhone" placeholder="Passenger Phone 0928813308">
+<h3 style="color:var(--blue)">✈️ Ticket Booking - USD + مدفوع/باقي</h3>
+<input id="pName" placeholder="Passenger Name *">
+<input id="pPhone" placeholder="Passenger Phone">
 <input id="pAddress" placeholder="JUBA, SOUTH SUDAN">
 <select id="ticketFrom"></select>
-<input id="ticketNo" placeholder="Ticket No / Flight No 0012">
-<input id="ticketFare" placeholder="Ticket Fare USD auto - editable">
-<select id="ticketAirline"></select>
-<div class="totalBox">Serial: <span id="ticketSerial">TKT-______</span> | Fare: $<span id="ticketFareShow">0</span></div>
-<button class="btn btn-blue" id="issueTicketBtn" style="width:100%">Issue Ticket + Auto Serial + PDF + WhatsApp</button>
-<div class="grid2"><button class="btn btn-dark" onclick="printLastTicket()">Print / Download Ticket PDF</button><button class="btn btn-green" onclick="whatsappLastTicket()">WhatsApp Ticket</button></div>
+<input id="ticketNo" placeholder="Ticket No / Flight No">
+<input id="ticketFare" type="number" placeholder="Ticket Fare USD *">
+<div class="grid2">
+<input id="ticketPaid" type="number" placeholder="المدفوع $">
+<input id="ticketRemain" type="number" placeholder="الباقي $ auto" readonly>
 </div>
-<div class="card" style="border-left-color:var(--dark)">
-<h3>🔍 Search - Employee Tracking</h3>
-<input id="searchBox" placeholder="Search by AWB, TKT, Employee, Sender...">
-<div style="font-size:12px;color:#64748b">System auto logs employee who executed operation. Admin sees all.</div>
-<div id="searchResults" style="margin-top:10px"></div>
+<select id="ticketAirline"><option>Bade</option><option>Sky Jet</option><option>Tarco</option><option>Other</option></select>
+<div class="totalBox">Serial: <span id="ticketSerial">TKT-______</span> | Total $<span id="ticketFareShow">0</span> USD | Paid $<span id="ticketPaidShow">0</span> | Remain $<span id="ticketRemainShow">0</span></div>
+<button class="btn btn-blue" id="issueTicketBtn" style="width:100%">Issue Ticket + إيصال مدفوع/باقي USD</button>
+<div class="grid2"><button class="btn btn-dark" onclick="printLastTicket()">🖨️ طباعة التذكرة</button><button class="btn btn-green" onclick="whatsappLastTicket()">📱 WhatsApp Ticket</button></div>
 </div>
+
+<!-- EXPENSES + REPORTS -->
 <div class="card card-green no-print">
-<h3 style="color:var(--green)">📊 Financial Reports (Weekly/Monthly)</h3>
-<div class="grid2"><button class="btn btn-green" onclick="genReport('weekly')">Weekly USD Report</button><button class="btn btn-dark" onclick="genReport('monthly')">Monthly USD Report</button></div>
-<div id="reportArea" style="background:#f8fafc;padding:12px;border-radius:10px;margin-top:10px;min-height:60px;border:1px dashed #cbd5e1"></div>
-<button class="btn btn-green no-print" onclick="printReportPDF()">🖨️ طباعة PDF</button>
+<h3 style="color:var(--green)">📊 Financial Reports + مصاريف رحلات (Finance/Manager/Admin فقط)</h3>
+<div id="expenseForm" style="display:none;border:2px solid var(--green);padding:12px;border-radius:12px;background:#f0fdf4;margin-bottom:12px">
+<h4>✈️ تسجيل مصروف رحلة شحن - مثال: 500 كيلو مابان</h4>
+<div class="grid2"><input id="expDate" type="date"><input id="expTime" type="time"></div>
+<div class="grid2"><select id="expAirline"><option>Bade</option><option>Sky Jet</option><option>Tarco</option></select><input id="expDest" placeholder="الوجهة BOR / Maban"></div>
+<div class="grid2"><input id="expKg" type="number" placeholder="الوزن الكلي KG 500"><input id="expCostPerKg" type="number" placeholder="تكلفة الكيلو $ 1.2"></div>
+<div class="grid2"><input id="expPaid" type="number" placeholder="دفعنا لشركة الطيران $ 600"><input id="expRemain" type="number" placeholder="الباقي $ auto" readonly></div>
+<input id="expNote" placeholder="ملاحظات: رحلة يوم كذا الساعة كذا">
+<div class="totalBox">اجمالي تكلفة الرحلة: $<span id="expTotal">0</span> USD</div>
+<button class="btn btn-green" id="addExpenseBtn" style="width:100%">💰 حفظ مصروف الرحلة</button>
+<div id="expList" style="margin-top:8px"></div>
 </div>
+<div class="grid2"><button class="btn btn-green" onclick="genReport('weekly')">Weekly دخل - مصاريف = صافي</button><button class="btn btn-dark" onclick="genReport('monthly')">Monthly</button></div>
+<div id="reportArea" style="background:#fff;padding:12px;border-radius:10px;margin-top:10px;min-height:70px;border:1px dashed #cbd5e1"></div>
+<button class="btn btn-green no-print" onclick="printReport()">🖨️ طباعة التقرير + توقيع المالية والمدير</button>
+</div>
+
 <div class="card no-print" id="adminControl" style="display:none">
-<h3>⚙️ Admin Control Only - v9.6 👑</h3>
-<div style="border:2px solid #fde047;padding:12px;border-radius:12px;margin-bottom:12px">
-<h4>💰 Cargo Prices USD/KG - Admin Only</h4>
-<div class="grid2"><input id="newCargoDest" placeholder="Cargo Dest e.g. Maban"><input id="newCargoPrice" type="number" placeholder="$/KG 1.5"></div>
-<button class="btn btn-dark" id="addCargoPriceBtn">Add Cargo</button>
-<div id="cargoPricesList"></div>
+<h3>👑 Admin Only - Users + Prices</h3>
+<div style="border:2px solid #fde047;padding:10px;border-radius:10px;margin-bottom:10px">
+<div class="grid2"><input id="newCargoDest" placeholder="Cargo Dest Maban"><input id="newCargoPrice" type="number" placeholder="$/KG 2"></div>
+<button class="btn btn-dark" id="addCargoPriceBtn">Add Cargo Price</button><div id="cargoPricesList"></div>
 </div>
-<div style="border:2px solid #7dd3fc;padding:12px;border-radius:12px;margin-bottom:12px">
-<h4>💰 Ticket Prices - Admin Only</h4>
-<div class="grid2"><input id="newTicketDest" placeholder="BOR $70 Ticket"><input id="newTicketPrice" type="number" placeholder="70"></div>
-<button class="btn btn-blue" id="addTicketPriceBtn">Add Ticket Price</button>
-<div id="ticketPricesList"></div>
-</div>
-<div style="background:#fff1f2;padding:12px;border-radius:12px;border:2px solid #C1272D">
-<h3>👥 Create Employee Logins - Admin Only</h3>
-<p style="font-size:12px;color:red">Only Admin can see passwords and create finance/manager</p>
+<div style="background:#fff1f2;padding:10px;border-radius:10px;border:2px solid #C1272D">
+<h4>👥 Create Users - Admin Only - Passwords Visible for Admin Only</h4>
 <div class="grid2"><input id="newEmail" placeholder="Email"><input id="newPass" placeholder="Password min 6"></div>
-<div class="grid2"><select id="newRole"><option value="operations">Operations</option><option value="finance">Finance</option><option value="manager">Manager</option><option value="admin">Admin</option></select><select id="newBranch"><option>Juba Main</option><option>BOR</option><option>Maban</option></select></div>
-<button class="btn btn-yellow" id="createUserBtn" style="width:100%">✨ Create User + Password (Admin Only) ✨</button>
-<div id="usersList" style="margin-top:10px"></div>
+<div class="grid2"><select id="newRole"><option value="operations">Operations</option><option value="finance">Finance</option><option value="manager">Manager</option><option value="admin">Admin</option></select><select id="newBranch"><option>Juba Main</option><option>BOR</option><option>Maban</option><option>Aweil</option></select></div>
+<button class="btn btn-yellow" id="createUserBtn" style="width:100%">Create User + Show Password</button>
+<div id="usersList"></div>
 </div>
 </div>
-<div style="text-align:center;padding:16px" class="no-print"><b>Developed by Eng. <span style="color:#bfa600">Mutawakil Sadik</span></b><br><small>Version: Sidigi General Trading | USD System | v9.6 Admin-Only</small></div>
+
 <div id="opsList" class="no-print"></div>
+<div style="text-align:center;padding:16px" class="no-print"><b>Developed by Eng. <span style="color:#bfa600">Mutawakil Sadik</span></b><br><small>SIDIGI v11 - No Bugs - USD + مدفوع/باقي + تعديل/إلغاء + مصاريف رحلات</small></div>
 </div>
+
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import {getAuth,onAuthStateChanged,signOut,createUserWithEmailAndPassword,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
-import {getFirestore,collection,addDoc,getDocs,deleteDoc,doc,query,orderBy,updateDoc,setDoc} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import {getFirestore,collection,addDoc,getDocs,doc,setDoc,query,orderBy,updateDoc,deleteDoc} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+
+// === بدل الـ 6 أسطر دي بالحقيقي من History - لا تخلي... ===
 const firebaseConfig={apiKey:"AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls",authDomain:"sidigi-general-trading.firebaseapp.com",projectId:"sidigi-general-trading",storageBucket:"sidigi-general-trading.firebasestorage.app",messagingSenderId:"1054004122944",appId:"1:1054004122944:web:c66be702aed7f53f1dd6a5"};
 const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
 const db=getFirestore(app);
 function esc(s){if(!s)return'';let d=document.createElement('div');d.textContent=s;return d.innerHTML}
-let currentUser=null,role='operations',cargos=[],tickets=[],lastCargo=null,lastTicket=null;
+let currentUser=null,role='operations',cargos=[],tickets=[],expenses=[],lastCargo=null,lastTicket=null;
 let cargoPrices=[{name:"Maban",price:2},{name:"BOR",price:1.5},{name:"Aweil",price:2},{name:"Malakal",price:2},{name:"Wau",price:2.5}];
-let ticketPrices=[{name:"BOR",price:70},{name:"Aweil",price:200},{name:"Maban",price:300}];
-function genSerial(prefix){return prefix+'-'+Math.floor(100000+Math.random()*899999)}
+function genSerial(p){return p+'-'+Math.floor(100000+Math.random()*899999)}
+
 onAuthStateChanged(auth,async(u)=>{
 if(!u){
 let email=prompt("Login Email:");let pass=prompt("Password:");
@@ -115,127 +143,410 @@ try{
 let snap=await getDocs(collection(db,"users"));
 let me=snap.docs.find(d=>d.id===u.uid);
 if(me)role=me.data().role||'operations';
-}catch(e){}
+}catch(e){console.log(e.message)}
 document.getElementById('userInfo').textContent=u.email;
 document.getElementById('roleBadge').textContent=role.toUpperCase();
 if(role==='admin')document.getElementById('adminControl').style.display='block';
-loadDests();loadOps();loadUsers();
+if(['finance','manager','admin'].includes(role))document.getElementById('expenseForm').style.display='block';
+loadDests();loadAll();loadUsers();loadExpenses();
 });
-document.getElementById('logoutBtn').onclick=async()=>{await signOut(auth);location.reload()};
+document.getElementById('logoutBtn').onclick=async()=>{await signOut(auth);location.reload();};
+
 async function loadDests(){
 try{
 let s=await getDocs(collection(db,"destinations"));
 let list=s.docs.map(d=>d.data());
 if(list.length>0)cargoPrices=list;
-}catch(e){}
-document.getElementById('cargoDest').innerHTML=cargoPrices.map(d=>`<option value="${esc(d.name)}" data-price="${d.price}">${esc(d.name)} - $${d.price}/KG Cargo</option>`).join('');
+}catch(e){console.log("dest fallback")}
+document.getElementById('cargoDest').innerHTML=cargoPrices.map(d=>`<option value="${esc(d.name)}" data-price="${d.price}">${esc(d.name)} - $${d.price}/KG</option>`).join('');
 document.getElementById('ticketFrom').innerHTML=cargoPrices.map(d=>`<option>${esc(d.name)}</option>`).join('');
-document.getElementById('ticketAirline').innerHTML=`<option>Bade</option><option>Sky Jet</option><option>Tarco</option>`;
-document.getElementById('ticketPricesList').innerHTML=ticketPrices.map(t=>`<div>${esc(t.name)} $${t.price} Ticket <button onclick="delTicketPrice('${esc(t.name)}')" style="color:red;border:1px solid red">Del</button></div>`).join('');
-document.getElementById('cargoPricesList').innerHTML=cargoPrices.map(t=>`<div>${esc(t.name)} $${t.price}/KG <button onclick="delCargoPrice('${esc(t.name)}')" style="color:red;border:1px solid red">Del</button></div>`).join('');
+document.getElementById('cargoPricesList').innerHTML=cargoPrices.map(t=>`<div style="font-size:12px">${esc(t.name)} $${t.price}/KG <button onclick="delCargoPrice('${esc(t.name)}')" style="color:red;border:1px solid red">Del</button></div>`).join('');
 calcCargo();calcTicket();
 }
 window.calcCargo=()=>{
 let sel=document.getElementById('cargoDest');
+if(!sel||!sel.options.length)return;
 let price=Number(sel.options[sel.selectedIndex]?.dataset.price||2);
 document.getElementById('pricePerKg').value=price;
 let w=Number(document.getElementById('weight').value||0);
-document.getElementById('cargoTotal').textContent=(price*w).toFixed(2);
+let total=price*w;
+document.getElementById('cargoTotal').textContent=total.toFixed(2);
+let paid=Number(document.getElementById('cargoPaid').value||0);
+let remain=total-paid;
+document.getElementById('cargoRemain').value=remain.toFixed(2);
+document.getElementById('cargoPaidShow').textContent=paid.toFixed(2);
+document.getElementById('cargoRemainShow').textContent=remain.toFixed(2);
 document.getElementById('cargoSerial').textContent=genSerial('AWB');
+};
+window.calcTicket=()=>{
+let fare=Number(document.getElementById('ticketFare').value||0);
+let paid=Number(document.getElementById('ticketPaid').value||0);
+let remain=fare-paid;
+document.getElementById('ticketFareShow').textContent=fare.toFixed(2);
+document.getElementById('ticketPaidShow').textContent=paid.toFixed(2);
+document.getElementById('ticketRemainShow').textContent=remain.toFixed(2);
+document.getElementById('ticketRemain').value=remain.toFixed(2);
+document.getElementById('ticketSerial').textContent=genSerial('TKT');
 };
 document.getElementById('cargoDest').addEventListener('change',calcCargo);
 document.getElementById('weight').addEventListener('input',calcCargo);
-window.calcTicket=()=>{
-let f=Number(document.getElementById('ticketFare').value||0);
-document.getElementById('ticketFareShow').textContent=f;
-document.getElementById('ticketSerial').textContent=genSerial('TKT');
-};
+document.getElementById('cargoPaid').addEventListener('input',calcCargo);
 document.getElementById('ticketFare').addEventListener('input',calcTicket);
+document.getElementById('ticketPaid').addEventListener('input',calcTicket);
+
 document.getElementById('bookCargoBtn').addEventListener('click',async()=>{
-let serial=document.getElementById('cargoSerial').textContent;
-let total=document.getElementById('cargoTotal').textContent;
 let file=document.getElementById('cargoPhoto').files[0];
 let photoBase64='';
 if(file){photoBase64=await new Promise(r=>{let fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(file)});}
-let data={serial,total:Number(total),pricePerKg:Number(document.getElementById('pricePerKg').value),cargoDest:document.getElementById('cargoDest').value,sName:document.getElementById('sName').value,sPhone:document.getElementById('sPhone').value,rName:document.getElementById('rName').value,rPhone:document.getElementById('rPhone').value,weight:Number(document.getElementById('weight').value),photo:photoBase64,date:new Date().toISOString().split('T')[0],employee:currentUser.email,createdAt:new Date()};
-if(!data.sName||!data.rName||!data.weight)return alert('Fill required');
+let total=Number(document.getElementById('cargoTotal').textContent||0);
+let paid=Number(document.getElementById('cargoPaid').value||0);
+let remain=Number(document.getElementById('cargoRemain').value||0);
+let data={
+serial:document.getElementById('cargoSerial').textContent,
+total, paid, remain, currency:'USD',
+pricePerKg:Number(document.getElementById('pricePerKg').value||0),
+cargoDest:document.getElementById('cargoDest').value,
+sName:document.getElementById('sName').value.trim(),
+sPhone:document.getElementById('sPhone').value.trim(),
+rName:document.getElementById('rName').value.trim(),
+rPhone:document.getElementById('rPhone').value.trim(),
+weight:Number(document.getElementById('weight').value||0),
+photo:photoBase64,
+status:'active',
+date:new Date().toISOString().split('T')[0],
+employee:currentUser.email,
+createdAt:new Date()
+};
+if(!data.sName||!data.rName||!data.weight)return alert('املأ المرسل والمستلم والوزن');
+if(paid>total)return alert('المدفوع اكبر من الإجمالي!');
 await addDoc(collection(db,"cargos"),data);
-lastCargo=data;alert('Booked '+serial);loadOps();printLastCargo();
+lastCargo=data;
+alert('✅ Booked '+data.serial+' - مدفوع $'+paid+' - باقي $'+remain+' USD');
+loadAll();
+printLastCargo();
 });
+
 document.getElementById('issueTicketBtn').addEventListener('click',async()=>{
-let serial=document.getElementById('ticketSerial').textContent;
-let data={serial,pName:document.getElementById('pName').value,pPhone:document.getElementById('pPhone').value,pAddress:document.getElementById('pAddress').value,from:document.getElementById('ticketFrom').value,ticketNo:document.getElementById('ticketNo').value,fare:Number(document.getElementById('ticketFare').value||0),airline:document.getElementById('ticketAirline').value,date:new Date().toISOString().split('T')[0],employee:currentUser.email,createdAt:new Date()};
-if(!data.pName)return alert('Passenger required');
+let fare=Number(document.getElementById('ticketFare').value||0);
+let paid=Number(document.getElementById('ticketPaid').value||0);
+let remain=Number(document.getElementById('ticketRemain').value||0);
+let data={
+serial:document.getElementById('ticketSerial').textContent,
+pName:document.getElementById('pName').value.trim(),
+pPhone:document.getElementById('pPhone').value.trim(),
+pAddress:document.getElementById('pAddress').value.trim(),
+from:document.getElementById('ticketFrom').value,
+ticketNo:document.getElementById('ticketNo').value.trim(),
+fare, paid, remain, currency:'USD',
+airline:document.getElementById('ticketAirline').value,
+status:'active',
+date:new Date().toISOString().split('T')[0],
+employee:currentUser.email,
+createdAt:new Date()
+};
+if(!data.pName||!fare)return alert('املأ اسم المسافر وسعر التذكرة');
+if(paid>fare)return alert('المدفوع اكبر من سعر التذكرة!');
 await addDoc(collection(db,"tickets"),data);
-lastTicket=data;alert('Issued '+serial);loadOps();
+lastTicket=data;
+alert('✅ Issued '+data.serial+' - مدفوع $'+paid+' - باقي $'+remain+' USD');
+loadAll();
+printLastTicket();
 });
-window.printLastCargo=()=>{if(!lastCargo)return alert('No cargo');let w=window.open('','','width=800,height=900');w.document.write(`<h1>${lastCargo.serial}</h1><p>${esc(lastCargo.sName)} → ${esc(lastCargo.rName)} • ${esc(lastCargo.cargoDest)} - $${lastCargo.total} USD</p>${lastCargo.photo?`<img src="${lastCargo.photo}" style="max-width:100%">`:''}<p>By ${esc(lastCargo.employee)}</p>`);w.print();};
-window.whatsappLastCargo=()=>{if(!lastCargo)return;let msg=`${lastCargo.serial} - ${lastCargo.sName} → ${lastCargo.rName} - ${lastCargo.cargoDest} $${lastCargo.total} USD`;window.open('https://wa.me/?text='+encodeURIComponent(msg));};
-window.printLastTicket=()=>{if(!lastTicket)return;let w=window.open('','','width=800,height=900');w.document.write(`<h1>${lastTicket.serial}</h1><p>${esc(lastTicket.pName)} - ${esc(lastTicket.from)} - $${lastTicket.fare}</p>`);w.print();};
-window.whatsappLastTicket=()=>{if(!lastTicket)return;let msg=`${lastTicket.serial} - ${lastTicket.pName} - ${lastTicket.from} - $${lastTicket.fare}`;window.open('https://wa.me/?text='+encodeURIComponent(msg));};
-async function loadOps(){
-let q=await getDocs(query(collection(db,"cargos"),orderBy("createdAt","desc")));
-cargos=q.docs.map(d=>({id:d.id,...d.data()}));
-let t=await getDocs(query(collection(db,"tickets"),orderBy("createdAt","desc")));
-tickets=t.docs.map(d=>({id:d.id,...d.data()}));
+
+async function loadAll(){
+try{
+let q1=await getDocs(query(collection(db,"cargos"),orderBy("createdAt","desc")));
+cargos=q1.docs.map(d=>({id:d.id,...d.data()}));
+let q2=await getDocs(query(collection(db,"tickets"),orderBy("createdAt","desc")));
+tickets=q2.docs.map(d=>({id:d.id,...d.data()}));
 renderOps();
+}catch(e){console.log(e.message)}
 }
 function renderOps(){
 let html='';
-cargos.slice(0,20).forEach(c=>{html+=`<div class="card" style="border-left-color:var(--red)"><b style="color:var(--red)">${esc(c.serial||'AWB-')}</b> <span class="badge">${esc(c.employee||'')}</span><br>${esc(c.sName)} → ${esc(c.rName)} • ${esc(c.cargoDest)} - $${c.total||0} USD</div>`});
-tickets.slice(0,20).forEach(c=>{html+=`<div class="card" style="border-left-color:var(--blue)"><b>${esc(c.serial||'TKT-')}</b> ${esc(c.pName)} - ${esc(c.from||'')} $${c.fare||0}</div>`});
+cargos.slice(0,20).forEach(c=>{
+html+=`<div class="card ${c.status==='cancelled'?'cancelled':''}"><b style="color:var(--red)">${esc(c.serial)}</b> ${esc(c.sName)} → ${esc(c.rName)} • ${esc(c.cargoDest)} - $${c.total} USD (مدفوع $${c.paid||0} باقي $${c.remain||0}) ${c.status==='cancelled'?'(ملغي)':''} <br><small>By ${esc(c.employee)}</small></div>`;
+});
+tickets.slice(0,20).forEach(c=>{
+html+=`<div class="card card-blue ${c.status==='cancelled'?'cancelled':''}"><b>${esc(c.serial)}</b> ${esc(c.pName)} - ${esc(c.from)} $${c.fare} USD (مدفوع $${c.paid||0} باقي $${c.remain||0}) ${c.status==='cancelled'?'(ملغي)':''}<br><small>By ${esc(c.employee)}</small></div>`;
+});
 document.getElementById('opsList').innerHTML=html;
-let q=document.getElementById('searchBox').value||'';
-if(q){let res=[...cargos,...tickets].filter(x=>JSON.stringify(x).toLowerCase().includes(q.toLowerCase()));document.getElementById('searchResults').innerHTML=res.map(r=>`<div>${esc(r.serial)} - ${esc(r.sName||r.pName)} - ${esc(r.employee||'')}</div>`).join('');}
+doSearch();
 }
-document.getElementById('searchBox').addEventListener('input',renderOps);
+
+// SEARCH + EDIT + CANCEL
+function doSearch(){
+let q=document.getElementById('searchBox').value.trim().toLowerCase();
+if(!q){document.getElementById('searchResults').innerHTML='<small>اكتب الرقم المتسلسل كامل AWB-xxxxxx</small>';return;}
+let all=[...cargos.map(c=>({...c,_type:'cargo'})),...tickets.map(t=>({...t,_type:'ticket'}))];
+let res=all.filter(x=> (x.serial||'').toLowerCase().includes(q) || (x.sName||'').toLowerCase().includes(q) || (x.pName||'').toLowerCase().includes(q) || (x.rName||'').toLowerCase().includes(q) || (x.employee||'').toLowerCase().includes(q));
+if(res.length===0){document.getElementById('searchResults').innerHTML=`<div style="color:red">لا يوجد نتيجة لـ ${esc(q)}</div>`;return;}
+document.getElementById('searchResults').innerHTML=res.slice(0,10).map(r=>`
+<div class="resultCard ${r.status==='cancelled'?'cancelled':''}">
+<b style="font-size:16px">${esc(r.serial)}</b> <span class="badge">${r._type}</span> <span class="badge">${esc(r.status||'active')}</span><br>
+${r._type==='cargo'?`
+${esc(r.sName)} (${esc(r.sPhone)}) → ${esc(r.rName)} (${esc(r.rPhone)})<br>
+${esc(r.cargoDest)} - ${r.weight}KG × $${r.pricePerKg} = $${r.total} USD<br>
+<span style="color:green">مدفوع: $${r.paid||0} USD</span> | <span style="color:red">باقي: $${r.remain||0} USD</span> | العملة: ${esc(r.currency||'USD')}
+`:`
+${esc(r.pName)} - ${esc(r.from)} - ${esc(r.airline)}<br>
+<span style="color:green">مدفوع: $${r.paid||0}</span> | <span style="color:red">باقي: $${r.remain||0}</span> - إجمالي: $${r.fare} ${esc(r.currency||'USD')}
+`}<br>
+<small>بواسطة: ${esc(r.employee)} | ${esc(r.date||'')}</small><br>
+<div style="margin-top:8px">
+<button class="btn btn-blue" onclick="openEdit('${r.id}','${r._type}')">✏️ تعديل</button>
+${['finance','manager','admin'].includes(role)?`<button class="btn btn-red" onclick="cancelDoc('${r.id}','${r._type}')">${r.status==='cancelled'?'إعادة تفعيل':'❌ إلغاء'}</button>`:''}
+${role==='admin'?`<button class="btn btn-dark" onclick="deleteDocPermanent('${r.id}','${r._type}')">🗑️ حذف نهائي</button>`:''}
+</div>
+</div>`).join('');
+}
+document.getElementById('searchBox').addEventListener('input',doSearch);
+
+window.openEdit=(id,type)=>{
+let all=type==='cargo'?cargos:tickets;
+let item=all.find(x=>x.id===id);if(!item)return;
+document.getElementById('editId').value=id;
+document.getElementById('editType').value=type;
+document.getElementById('editSName').value=item.sName||item.pName||'';
+document.getElementById('editRName').value=item.rName||item.from||'';
+document.getElementById('editPhone').value=item.sPhone||item.pPhone||'';
+document.getElementById('editWeight').value=item.weight||item.fare||'';
+document.getElementById('editPaid').value=item.paid||0;
+document.getElementById('editDest').value=item.cargoDest||item.airline||'';
+document.getElementById('editForm').style.display='block';
+document.getElementById('editForm').scrollIntoView({behavior:'smooth'});
+};
+document.getElementById('saveEditBtn').onclick=async()=>{
+let id=document.getElementById('editId').value;
+let type=document.getElementById('editType').value;
+let col=type==='cargo'?'cargos':'tickets';
+let weight=Number(document.getElementById('editWeight').value||0);
+let paid=Number(document.getElementById('editPaid').value||0);
+let updates={};
+if(type==='cargo'){
+let perKg=cargos.find(c=>c.id===id)?.pricePerKg||2;
+let total=weight*perKg;
+if(paid>total)return alert('المدفوع اكبر من الإجمالي!');
+updates={sName:document.getElementById('editSName').value,rName:document.getElementById('editRName').value,sPhone:document.getElementById('editPhone').value,weight,cargoDest:document.getElementById('editDest').value,total,paid,remain:total-paid};
+}else{
+if(paid>weight)return alert('المدفوع اكبر من سعر التذكرة!');
+updates={pName:document.getElementById('editSName').value,from:document.getElementById('editRName').value,pPhone:document.getElementById('editPhone').value,fare:weight,paid,remain:weight-paid,airline:document.getElementById('editDest').value};
+}
+updates.updatedBy=currentUser.email;updates.updatedAt=new Date();
+await updateDoc(doc(db,col,id),updates);
+alert('✅ تم التعديل - مدفوع $'+paid+' - باقي $'+updates.remain+' USD');
+document.getElementById('editForm').style.display='none';
+loadAll();
+};
+window.cancelDoc=async(id,type)=>{
+if(!['finance','manager','admin'].includes(role))return alert('فقط المالية والمدير والادمن يقدرو يلغو');
+let col=type==='cargo'?'cargos':'tickets';
+let item=(type==='cargo'?cargos:tickets).find(x=>x.id===id);
+let newStatus=item.status==='cancelled'?'active':'cancelled';
+if(!confirm(newStatus==='cancelled'?'تأكيد إلغاء '+item.serial+' ؟':'إعادة تفعيل '+item.serial+' ؟'))return;
+await updateDoc(doc(db,col,id),{status:newStatus,cancelledBy:currentUser.email,cancelledAt:new Date()});
+loadAll();
+};
+window.deleteDocPermanent=async(id,type)=>{
+if(role!=='admin')return alert('Admin only - حذف نهائي للادمن بس');
+if(!confirm('⚠️ حذف نهائي؟ لا يمكن الرجوع - هل انت متأكد؟'))return;
+let col=type==='cargo'?'cargos':'tickets';
+await deleteDoc(doc(db,col,id));
+loadAll();
+};
+
+// PRINT RECEIPTS WITH PAID/REMAIN USD
+window.printLastCargo=()=>{
+if(!lastCargo)return alert('لا يوجد شحنة');
+let w=window.open('','','width=850,height=950');
+w.document.write(`<html><head><meta charset="UTF-8"><style>body{font-family:Arial;padding:20px;line-height:1.6}.header{text-align:center;border-bottom:3px solid #C1272D;padding-bottom:10px;margin-bottom:15px}.row{display:flex;justify-content:space-between;margin:7px 0;padding:5px 0;border-bottom:1px dashed #eee}.totalBox{background:#f8fafc;padding:15px;border-radius:10px;border:2px solid #C1272D;margin:15px 0}.green{color:green}.red{color:red;font-weight:bold}.footer{display:flex;justify-content:space-around;margin-top:50px}</style></head><body>
+<div class="header"><h1 style="color:#C1272D;margin:0">SIDIGI GENERAL TRADING</h1><p>✨ Eng. Mutawakil ✨ | Juba, South Sudan | 0928813308</p><h2>إيصال شحن - CARGO RECEIPT</h2><h2 style="color:#C1272D">${esc(lastCargo.serial)}</h2></div>
+<div class="row"><span>المرسل:</span><span><b>${esc(lastCargo.sName)}</b> - ${esc(lastCargo.sPhone)}</span></div>
+<div class="row"><span>المستلم:</span><span><b>${esc(lastCargo.rName)}</b> - ${esc(lastCargo.rPhone)}</span></div>
+<div class="row"><span>الوجهة:</span><span>${esc(lastCargo.cargoDest)}</span></div>
+<div class="row"><span>الوزن وسعر الكيلو:</span><span>${lastCargo.weight} KG × $${lastCargo.pricePerKg}/KG</span></div>
+<div class="totalBox">
+<div class="row"><span>الإجمالي الكلي:</span><span><b>$${lastCargo.total} USD</b></span></div>
+<div class="row"><span>المدفوع:</span><span class="green"><b>$${lastCargo.paid} USD</b></span></div>
+<div class="row"><span>الباقي:</span><span class="red"><b>$${lastCargo.remain} USD</b></span></div>
+<div class="row"><span>العملة المستخدمة:</span><span><b>${esc(lastCargo.currency)}</b></span></div>
+</div>
+<p><b>الموظف:</b> ${esc(lastCargo.employee)} | <b>التاريخ:</b> ${esc(lastCargo.date)} | <b>الحالة:</b> ${esc(lastCargo.status)}</p>
+${lastCargo.photo?`<div style="text-align:center;margin-top:15px"><img src="${lastCargo.photo}" style="max-width:100%;max-height:300px;border:2px solid #ddd;border-radius:10px"></div>`:''}
+<div class="footer"><span>توقيع العميل<br><br>__________</span><span>توقيع الموظف<br><br>__________</span><span>الختم<br><br>__________</span></div>
+</body></html>`);
+w.document.close();w.print();
+};
+window.whatsappLastCargo=()=>{
+if(!lastCargo)return;
+let msg=`*SIDIGI CARGO RECEIPT*%0A${lastCargo.serial}%0A${lastCargo.sName} → ${lastCargo.rName}%0A${lastCargo.cargoDest} - ${lastCargo.weight}KG × $${lastCargo.pricePerKg} = $${lastCargo.total} USD%0A*المدفوع:* $${lastCargo.paid} USD%0A*الباقي:* $${lastCargo.remain} USD%0A*العملة:* USD%0ABy ${lastCargo.employee}`;
+window.open('https://wa.me/?text='+msg);
+};
+window.printLastTicket=()=>{
+if(!lastTicket)return alert('لا يوجد تذكرة');
+let w=window.open('','','width=850,height=900');
+w.document.write(`<html><head><meta charset="UTF-8"><style>body{font-family:Arial;padding:20px}.header{text-align:center;border-bottom:3px solid #00A8D8}.totalBox{background:#f0f9ff;padding:15px;border-radius:10px;border:2px solid #00A8D8;margin:15px 0}.green{color:green}.red{color:red}</style></head><body>
+<div class="header"><h1 style="color:#00A8D8">SIDIGI - TICKET</h1><h2>${esc(lastTicket.serial)}</h2></div>
+<p>المسافر: <b>${esc(lastTicket.pName)}</b> - ${esc(lastTicket.pPhone)}</p>
+<p>من: ${esc(lastTicket.from)} | شركة: ${esc(lastTicket.airline)} | رقم التذكرة: ${esc(lastTicket.ticketNo)}</p>
+<div class="totalBox">
+<div>الإجمالي: <b>$${lastTicket.fare} ${esc(lastTicket.currency)}</b></div>
+<div class="green">المدفوع: <b>$${lastTicket.paid} USD</b></div>
+<div class="red">الباقي: <b>$${lastTicket.remain} USD</b></div>
+<div>العملة: <b>${esc(lastTicket.currency)}</b></div>
+</div>
+<p>الموظف: ${esc(lastTicket.employee)} | التاريخ: ${esc(lastTicket.date)}</p>
+</body></html>`);
+w.document.close();w.print();
+};
+window.whatsappLastTicket=()=>{
+if(!lastTicket)return;
+let msg=`*SIDIGI TICKET*%0A${lastTicket.serial}%0A${lastTicket.pName} - ${lastTicket.from}%0A${lastTicket.airline} - $${lastTicket.fare} USD%0A*المدفوع:* $${lastTicket.paid} USD%0A*الباقي:* $${lastTicket.remain} USD`;
+window.open('https://wa.me/?text='+msg);
+};
+
+// EXPENSES
+function calcExpense(){
+let kg=Number(document.getElementById('expKg').value||0);
+let perKg=Number(document.getElementById('expCostPerKg').value||0);
+let total=kg*perKg;
+document.getElementById('expTotal').textContent=total.toFixed(2);
+let paid=Number(document.getElementById('expPaid').value||0);
+document.getElementById('expRemain').value=(total-paid).toFixed(2);
+}
+['expKg','expCostPerKg','expPaid'].forEach(id=>document.getElementById(id)?.addEventListener('input',calcExpense));
+async function loadExpenses(){
+try{
+let q=await getDocs(query(collection(db,"expenses"),orderBy("createdAt","desc")));
+expenses=q.docs.map(d=>({id:d.id,...d.data()}));
+document.getElementById('expList').innerHTML=expenses.slice(0,15).map(e=>`<div style="font-size:12px;border-bottom:1px solid #ddd;padding:5px">${esc(e.date)} ${esc(e.time)} - ${esc(e.airline)} → ${esc(e.dest)} - ${e.kg}KG × $${e.costPerKg} = $${e.total} USD | دفعنا $${e.paid} | باقي $${e.remain} | ${esc(e.employee)} <button onclick="delExp('${e.id}')" style="color:red;border:1px solid red;font-size:10px">حذف</button></div>`).join('')||'<small>لا يوجد مصاريف</small>';
+}catch(e){}
+}
+window.delExp=async(id)=>{
+if(!['finance','manager','admin'].includes(role))return alert('Finance/Manager only');
+if(!confirm('حذف مصروف الرحلة؟'))return;
+await deleteDoc(doc(db,"expenses",id));
+loadExpenses();
+};
+document.getElementById('addExpenseBtn').onclick=async()=>{
+if(!['finance','manager','admin'].includes(role))return alert('فقط المالية والمدير والادمن');
+let kg=Number(document.getElementById('expKg').value||0);
+let perKg=Number(document.getElementById('expCostPerKg').value||0);
+let total=kg*perKg;
+let paid=Number(document.getElementById('expPaid').value||0);
+let remain=total-paid;
+let data={
+date:document.getElementById('expDate').value||new Date().toISOString().split('T')[0],
+time:document.getElementById('expTime').value||new Date().toLocaleTimeString(),
+airline:document.getElementById('expAirline').value,
+dest:document.getElementById('expDest').value.trim(),
+kg, costPerKg:perKg, total, paid, remain,
+currency:'USD',
+note:document.getElementById('expNote').value.trim(),
+employee:currentUser.email,
+createdAt:new Date()
+};
+if(!data.dest||!kg)return alert('املأ الوجهة والوزن - مثال: BOR 500KG');
+if(paid>total)return alert('المدفوع اكبر من الإجمالي!');
+await addDoc(collection(db,"expenses"),data);
+alert(`✅ تم حفظ مصروف رحلة ${data.dest} - ${kg}KG - $${total} USD - دفعنا $${paid} - باقي $${remain}`);
+document.getElementById('expDest').value='';document.getElementById('expKg').value='';document.getElementById('expPaid').value='';
+loadExpenses();
+};
 window.genReport=async(type)=>{
 let now=new Date();
-let fn=(d)=>{let dt=d.createdAt?.toDate?d.createdAt.toDate():new Date(d.date);if(type==='weekly')return (now-dt)/(1000*3600*24)<=7;if(type==='monthly')return dt.getMonth()===now.getMonth()&&dt.getFullYear()===now.getFullYear();return true;};
-let fC=cargos.filter(fn);let tot=fC.reduce((s,c)=>s+Number(c.total||0),0);
-document.getElementById('reportArea').innerHTML=`<h4>${type} Report</h4><p>Cargos: ${fC.length} - Total: $${tot} USD</p>`;
+let fn=(d)=>{
+let dt=d.createdAt?.toDate?d.createdAt.toDate():new Date(d.date);
+if(type==='weekly')return (now-dt)/(1000*3600*24)<=7;
+if(type==='monthly')return dt.getMonth()===now.getMonth()&&dt.getFullYear()===now.getFullYear();
+return true;
 };
-document.getElementById('addCargoPriceBtn').onclick=async()=>{
-if(role!=='admin')return alert('Admin only');
-let name=document.getElementById('newCargoDest').value;let price=Number(document.getElementById('newCargoPrice').value);
-if(!name||!price)return alert('Fill');
-await addDoc(collection(db,"destinations"),{name,price});
-loadDests();
+let fC=cargos.filter(fn).filter(c=>c.status!=='cancelled');
+let fT=tickets.filter(fn).filter(c=>c.status!=='cancelled');
+let fE=expenses.filter(fn);
+let incomeCargo=fC.reduce((s,c)=>s+Number(c.total||0),0);
+let incomeTicket=fT.reduce((s,c)=>s+Number(c.fare||0),0);
+let income=incomeCargo+incomeTicket;
+let expTotal=fE.reduce((s,c)=>s+Number(c.total||0),0);
+let expPaid=fE.reduce((s,c)=>s+Number(c.paid||0),0);
+let expRemain=fE.reduce((s,c)=>s+Number(c.remain||0),0);
+let profit=income-expTotal;
+document.getElementById('reportArea').innerHTML=`
+<h4>${type.toUpperCase()} Report - ${new Date().toLocaleDateString()} - USD</h4>
+<table style="width:100%;border-collapse:collapse"><tr><th style="border:1px solid #ddd;padding:6px">البند</th><th style="border:1px solid #ddd;padding:6px">القيمة USD</th></tr>
+<tr><td style="border:1px solid #ddd;padding:6px">عدد الشحنات (غير ملغية)</td><td style="border:1px solid #ddd;padding:6px">${fC.length}</td></tr>
+<tr><td style="border:1px solid #ddd;padding:6px">دخل الشحنات (الإجمالي)</td><td style="border:1px solid #ddd;padding:6px">$${incomeCargo.toFixed(2)}</td></tr>
+<tr><td style="border:1px solid #ddd;padding:6px">دخل التذاكر</td><td style="border:1px solid #ddd;padding:6px">$${incomeTicket.toFixed(2)}</td></tr>
+<tr style="background:#dcfce7"><td style="border:1px solid #ddd;padding:6px"><b>إجمالي الدخل</b></td><td style="border:1px solid #ddd;padding:6px"><b>$${income.toFixed(2)} USD</b></td></tr>
+<tr><td style="border:1px solid #ddd;padding:6px">عدد رحلات الطيران</td><td style="border:1px solid #ddd;padding:6px">${fE.length}</td></tr>
+<tr><td style="border:1px solid #ddd;padding:6px">إجمالي مصاريف الطيران</td><td style="border:1px solid #ddd;padding:6px;color:red">-$${expTotal.toFixed(2)}</td></tr>
+<tr><td style="border:1px solid #ddd;padding:6px">مدفوع لشركات الطيران</td><td style="border:1px solid #ddd;padding:6px">$${expPaid.toFixed(2)}</td></tr>
+<tr><td style="border:1px solid #ddd;padding:6px">باقي لشركات الطيران</td><td style="border:1px solid #ddd;padding:6px;color:orange">$${expRemain.toFixed(2)}</td></tr>
+<tr style="background:#fef9c3;font-weight:bold"><td style="border:1px solid #ddd;padding:6px">صافي الربح (دخل - مصاريف)</td><td style="border:1px solid #ddd;padding:6px">$${profit.toFixed(2)} USD</td></tr>
+</table>
+<div style="font-size:11px;margin-top:10px;max-height:150px;overflow:auto;border:1px solid #eee;padding:6px">
+${fE.map(e=>`${e.date} ${e.time} - ${e.airline} → ${e.dest} : ${e.kg}KG $${e.total} (دفعنا $${e.paid} باقي $${e.remain})`).join('<br>')}
+</div>
+<div style="display:flex;justify-content:space-around;margin-top:25px;font-size:13px"><span>المالية: __________</span><span>المدير: __________</span><span>التاريخ: ${new Date().toLocaleDateString()}</span></div>
+`;
 };
-document.getElementById('addTicketPriceBtn').onclick=()=>{
-if(role!=='admin')return alert('Admin only');
-let name=document.getElementById('newTicketDest').value;let price=Number(document.getElementById('newTicketPrice').value);
-ticketPrices.push({name,price});loadDests();
+window.printReport=()=>{
+let area=document.getElementById('reportArea');
+if(!area.innerHTML.trim()||area.innerHTML.includes('min-height'))return alert('اعمل Weekly او Monthly اول');
+let w=window.open('','','width=1000,height=900');
+w.document.write(`<html><head><meta charset="UTF-8"><style>body{font-family:Arial;padding:20px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:8px}</style></head><body><h2 style="text-align:center">SIDIGI - Financial Report USD</h2>${area.innerHTML}</body></html>`);
+w.document.close();w.print();
 };
-window.delCargoPrice=async(name)=>{if(role!=='admin')return alert('Admin only');if(!confirm('Delete?'))return;let s=await getDocs(collection(db,"destinations"));let f=s.docs.find(d=>d.data().name===name);if(f)await deleteDoc(doc(db,"destinations",f.id));loadDests();};
-window.delTicketPrice=(name)=>{if(role!=='admin')return alert('Admin only');ticketPrices=ticketPrices.filter(t=>t.name!==name);loadDests();};
+
+// USERS
 async function loadUsers(){
 try{
 let s=await getDocs(collection(db,"users"));
-let html='';
-s.docs.forEach(d=>{
+let html=s.docs.map(d=>{
 let data=d.data();
-if(role==='admin'){
-html+=`<div style="border:1px solid #ddd;padding:8px;margin:6px 0;border-radius:10px;background:#fff"><b>${esc(data.email)}</b> - ${esc(data.role)} • ${esc(data.branch||'')}<br><span style="color:#C1272D;font-weight:bold">🔑 Password: ${esc(data.password||'قديم - مخفي')}</span><br><small>By: ${esc(data.createdBy||'')}</small> <button onclick="disableUser('${d.id}')" style="color:red;border:1px solid red">Disable</button></div>`;
+let showPass=role==='admin'?` - 🔑 <b style="color:#C1272D">${esc(data.password||'قديم-مخفي')}</b>`:'';
+return `<div style="font-size:12px;border-bottom:1px solid #eee;padding:6px;background:${data.disabled?'#fee2e2':''}"><b>${esc(data.email)}</b> - ${esc(data.role)} - ${esc(data.branch||'')}${showPass}<br><small>By: ${esc(data.createdBy||'')} | ${data.disabled?'<b style="color:red">DISABLED</b>':''}</small> ${role==='admin'?`<button onclick="toggleUser('${d.id}',${!!data.disabled})" style="font-size:10px;border:1px solid ${data.disabled?'green':'red'};color:${data.disabled?'green':'red'}">${data.disabled?'تفعيل':'تعطيل'}</button>`:''}</div>`;
+}).join('');
+document.getElementById('usersList').innerHTML=html||'No users';
+}catch(e){document.getElementById('usersList').innerHTML='Error: '+esc(e.message)}
 }
-});
-if(role==='admin')document.getElementById('usersList').innerHTML=html||'<div>No users</div>';
-else document.getElementById('usersList').innerHTML='<div style="color:#999">🔒 Admin only</div>';
-}catch(e){document.getElementById('usersList').innerHTML='Error: '+e.message;}
-}
-window.disableUser=async(id)=>{if(role!=='admin')return alert('Admin only');await updateDoc(doc(db,"users",id),{disabled:true});loadUsers();};
+window.toggleUser=async(id,disabled)=>{
+if(role!=='admin')return;
+await updateDoc(doc(db,"users",id),{disabled:!disabled});
+loadUsers();
+};
 document.getElementById('createUserBtn').onclick=async()=>{
 if(role!=='admin')return alert('فقط الادمن براو بيقدر يضيف - انت '+role);
-let email=document.getElementById('newEmail').value;let pass=document.getElementById('newPass').value;let r=document.getElementById('newRole').value;let b=document.getElementById('newBranch').value;
-if(!email||pass.length<6)return alert('Email & pass min 6');
+let email=document.getElementById('newEmail').value.trim();
+let pass=document.getElementById('newPass').value.trim();
+let r=document.getElementById('newRole').value;
+let b=document.getElementById('newBranch').value;
+if(!email||pass.length<6)return alert('Email و Password min 6');
 try{
 let cred=await createUserWithEmailAndPassword(auth,email,pass);
-await setDoc(doc(db,"users",cred.user.uid),{email,role:r,branch:b,password:pass,createdBy:currentUser.email,createdAt:new Date()});
+await setDoc(doc(db,"users",cred.user.uid),{email,role:r,branch:b,password:pass,createdBy:currentUser.email,createdAt:new Date(),disabled:false});
 alert('✅ Created: '+email+' | Pass: '+pass+' | Role: '+r);
+document.getElementById('newEmail').value='';document.getElementById('newPass').value='';
 loadUsers();
 }catch(e){alert(e.message)}
 };
-window.printReportPDF=()=>{let area=document.getElementById('reportArea');if(!area.innerHTML.trim())return alert('Generate report first');let w=window.open('','','width=1000,height=800');w.document.write(`<html><body>${area.innerHTML}<br><br><div style="display:flex;justify-content:space-around"><span>Finance: __________</span><span>Manager: __________</span></div></body></html>`);w.print();};
+document.getElementById('addCargoPriceBtn').onclick=async()=>{
+if(role!=='admin')return alert('Admin only');
+let name=document.getElementById('newCargoDest').value.trim();
+let price=Number(document.getElementById('newCargoPrice').value);
+if(!name||!price)return alert('املأ الوجهة والسعر');
+await addDoc(collection(db,"destinations"),{name,price,createdBy:currentUser.email,createdAt:new Date()});
+document.getElementById('newCargoDest').value='';document.getElementById('newCargoPrice').value='';
+loadDests();
+};
+window.delCargoPrice=async(name)=>{
+if(role!=='admin')return alert('Admin only');
+if(!confirm('حذف سعر '+name+' ؟'))return;
+let s=await getDocs(collection(db,"destinations"));
+let f=s.docs.find(d=>d.data().name===name);
+if(f)await deleteDoc(doc(db,"destinations",f.id));
+loadDests();
+};
 </script>
 </body>
-</html>
+  </html>
