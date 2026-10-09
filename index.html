@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SIDIGI v9.6 Golden - Admin Only</title>
+<title>SIDIGI v9.6 Golden - Full Restored</title>
 <style>
 :root{--red:#C1272D;--blue:#00A8D8;--dark:#1a1a2e;--gold:#FFD700;--green:#0a7d2e}
 body{font-family:Arial;margin:0;background:#f1f5f9}
@@ -15,6 +15,7 @@ input,select{width:100%;padding:13px;margin:6px 0;border-radius:12px;border:1.5p
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .badge{background:#f1f5f9;padding:4px 10px;border-radius:20px;font-size:12px}
 .totalBox{background:#f8fafc;padding:12px;border-radius:12px;font-weight:bold;margin:8px 0}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{border:1px solid #ddd;padding:6px;text-align:center}
 @media print{.no-print{display:none}}
 </style>
 </head>
@@ -54,7 +55,7 @@ input,select{width:100%;padding:13px;margin:6px 0;border-radius:12px;border:1.5p
 <div class="card" style="border-left-color:var(--dark)">
 <h3>🔍 Search - Employee Tracking</h3>
 <input id="searchBox" placeholder="Search by AWB, TKT, Employee, Sender...">
-<div style="font-size:12px;color:#64748b">System auto logs employee who executed operation. Manager sees all except admin operations. Admin sees all.</div>
+<div style="font-size:12px;color:#64748b">System auto logs employee who executed operation. Admin sees all.</div>
 <div id="searchResults" style="margin-top:10px"></div>
 </div>
 <div class="card card-green no-print">
@@ -63,9 +64,8 @@ input,select{width:100%;padding:13px;margin:6px 0;border-radius:12px;border:1.5p
 <div id="reportArea" style="background:#f8fafc;padding:12px;border-radius:10px;margin-top:10px;min-height:60px;border:1px dashed #cbd5e1"></div>
 <button class="btn btn-green no-print" onclick="printReportPDF()">🖨️ طباعة PDF</button>
 </div>
-<!-- ADMIN ONLY CONTROL -->
 <div class="card no-print" id="adminControl" style="display:none">
-<h3>⚙️ Admin Control Only - v9.6</h3>
+<h3>⚙️ Admin Control Only - v9.6 👑</h3>
 <div style="border:2px solid #fde047;padding:12px;border-radius:12px;margin-bottom:12px">
 <h4>💰 Cargo Prices USD/KG - Admin Only</h4>
 <div class="grid2"><input id="newCargoDest" placeholder="Cargo Dest e.g. Maban"><input id="newCargoPrice" type="number" placeholder="$/KG 1.5"></div>
@@ -78,21 +78,21 @@ input,select{width:100%;padding:13px;margin:6px 0;border-radius:12px;border:1.5p
 <button class="btn btn-blue" id="addTicketPriceBtn">Add Ticket Price</button>
 <div id="ticketPricesList"></div>
 </div>
-<div style="background:#fff1f2;padding:12px;border-radius:12px;border:2px solid var(--red)">
-<h3>👥 Create Employee Logins - Admin Only 👑</h3>
-<p style="font-size:12px;color:red">Only Admin can see passwords and create finance/manager users</p>
+<div style="background:#fff1f2;padding:12px;border-radius:12px;border:2px solid #C1272D">
+<h3>👥 Create Employee Logins - Admin Only</h3>
+<p style="font-size:12px;color:red">Only Admin can see passwords and create finance/manager</p>
 <div class="grid2"><input id="newEmail" placeholder="Email"><input id="newPass" placeholder="Password min 6"></div>
 <div class="grid2"><select id="newRole"><option value="operations">Operations</option><option value="finance">Finance</option><option value="manager">Manager</option><option value="admin">Admin</option></select><select id="newBranch"><option>Juba Main</option><option>BOR</option><option>Maban</option></select></div>
 <button class="btn btn-yellow" id="createUserBtn" style="width:100%">✨ Create User + Password (Admin Only) ✨</button>
 <div id="usersList" style="margin-top:10px"></div>
 </div>
 </div>
-<div style="text-align:center;padding:16px" class="no-print"><b>Developed by Eng. <span style="color:#bfa600">Mutawakil Sadik</span></b><br><small>Version: Sidigi General Trading | USD System | v9.6 Admin-Only Passwords</small></div>
+<div style="text-align:center;padding:16px" class="no-print"><b>Developed by Eng. <span style="color:#bfa600">Mutawakil Sadik</span></b><br><small>Version: Sidigi General Trading | USD System | v9.6 Admin-Only</small></div>
 <div id="opsList" class="no-print"></div>
 </div>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import {getAuth,onAuthStateChanged,signOut,createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import {getAuth,onAuthStateChanged,signOut,createUserWithEmailAndPassword,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
 import {getFirestore,collection,addDoc,getDocs,deleteDoc,doc,query,orderBy,updateDoc,setDoc} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
 const firebaseConfig={apiKey:"AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls",authDomain:"sidigi-general-trading.firebaseapp.com",projectId:"sidigi-general-trading",storageBucket:"sidigi-general-trading.firebasestorage.app",messagingSenderId:"1054004122944",appId:"1:1054004122944:web:c66be702aed7f53f1dd6a5"};
 const app=initializeApp(firebaseConfig);
@@ -104,7 +104,12 @@ let cargoPrices=[{name:"Maban",price:2},{name:"BOR",price:1.5},{name:"Aweil",pri
 let ticketPrices=[{name:"BOR",price:70},{name:"Aweil",price:200},{name:"Maban",price:300}];
 function genSerial(prefix){return prefix+'-'+Math.floor(100000+Math.random()*899999)}
 onAuthStateChanged(auth,async(u)=>{
-if(!u){location.href='login.html';return}
+if(!u){
+let email=prompt("Login Email:");let pass=prompt("Password:");
+if(!email||!pass)return;
+try{await signInWithEmailAndPassword(auth,email,pass);}catch(e){alert(e.message)}
+return;
+}
 currentUser=u;
 try{
 let snap=await getDocs(collection(db,"users"));
@@ -113,13 +118,10 @@ if(me)role=me.data().role||'operations';
 }catch(e){}
 document.getElementById('userInfo').textContent=u.email;
 document.getElementById('roleBadge').textContent=role.toUpperCase();
-// تعديل أساسي: فقط الادمن براو
-if(role==='admin'){
-document.getElementById('adminControl').style.display='block';
-}
+if(role==='admin')document.getElementById('adminControl').style.display='block';
 loadDests();loadOps();loadUsers();
 });
-document.getElementById('logoutBtn').onclick=async()=>{await signOut(auth);location.href='index.html'};
+document.getElementById('logoutBtn').onclick=async()=>{await signOut(auth);location.reload()};
 async function loadDests(){
 try{
 let s=await getDocs(collection(db,"destinations"));
@@ -131,17 +133,15 @@ document.getElementById('ticketFrom').innerHTML=cargoPrices.map(d=>`<option>${es
 document.getElementById('ticketAirline').innerHTML=`<option>Bade</option><option>Sky Jet</option><option>Tarco</option>`;
 document.getElementById('ticketPricesList').innerHTML=ticketPrices.map(t=>`<div>${esc(t.name)} $${t.price} Ticket <button onclick="delTicketPrice('${esc(t.name)}')" style="color:red;border:1px solid red">Del</button></div>`).join('');
 document.getElementById('cargoPricesList').innerHTML=cargoPrices.map(t=>`<div>${esc(t.name)} $${t.price}/KG <button onclick="delCargoPrice('${esc(t.name)}')" style="color:red;border:1px solid red">Del</button></div>`).join('');
-calcCargo();
+calcCargo();calcTicket();
 }
 window.calcCargo=()=>{
 let sel=document.getElementById('cargoDest');
 let price=Number(sel.options[sel.selectedIndex]?.dataset.price||2);
 document.getElementById('pricePerKg').value=price;
 let w=Number(document.getElementById('weight').value||0);
-let total=price*w;
-document.getElementById('cargoTotal').textContent=total.toFixed(2);
-let serial=genSerial('AWB');
-document.getElementById('cargoSerial').textContent=serial;
+document.getElementById('cargoTotal').textContent=(price*w).toFixed(2);
+document.getElementById('cargoSerial').textContent=genSerial('AWB');
 };
 document.getElementById('cargoDest').addEventListener('change',calcCargo);
 document.getElementById('weight').addEventListener('input',calcCargo);
@@ -157,43 +157,20 @@ let total=document.getElementById('cargoTotal').textContent;
 let file=document.getElementById('cargoPhoto').files[0];
 let photoBase64='';
 if(file){photoBase64=await new Promise(r=>{let fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(file)});}
-let data={
-serial,total:Number(total),pricePerKg:Number(document.getElementById('pricePerKg').value),
-cargoDest:document.getElementById('cargoDest').value,sName:document.getElementById('sName').value,sPhone:document.getElementById('sPhone').value,rName:document.getElementById('rName').value,rPhone:document.getElementById('rPhone').value,weight:Number(document.getElementById('weight').value),
-photo:photoBase64,date:new Date().toISOString().split('T')[0],employee:currentUser.email,createdAt:new Date()
-};
+let data={serial,total:Number(total),pricePerKg:Number(document.getElementById('pricePerKg').value),cargoDest:document.getElementById('cargoDest').value,sName:document.getElementById('sName').value,sPhone:document.getElementById('sPhone').value,rName:document.getElementById('rName').value,rPhone:document.getElementById('rPhone').value,weight:Number(document.getElementById('weight').value),photo:photoBase64,date:new Date().toISOString().split('T')[0],employee:currentUser.email,createdAt:new Date()};
 if(!data.sName||!data.rName||!data.weight)return alert('Fill required');
 await addDoc(collection(db,"cargos"),data);
-lastCargo=data;
-alert('Booked '+serial);
-loadOps();
-printLastCargo();
+lastCargo=data;alert('Booked '+serial);loadOps();printLastCargo();
 });
 document.getElementById('issueTicketBtn').addEventListener('click',async()=>{
 let serial=document.getElementById('ticketSerial').textContent;
-let data={
-serial, pName:document.getElementById('pName').value, pPhone:document.getElementById('pPhone').value, pAddress:document.getElementById('pAddress').value,
-from:document.getElementById('ticketFrom').value, ticketNo:document.getElementById('ticketNo').value, fare:Number(document.getElementById('ticketFare').value||0),
-airline:document.getElementById('ticketAirline').value,
-date:new Date().toISOString().split('T')[0],employee:currentUser.email,createdAt:new Date()
-};
+let data={serial,pName:document.getElementById('pName').value,pPhone:document.getElementById('pPhone').value,pAddress:document.getElementById('pAddress').value,from:document.getElementById('ticketFrom').value,ticketNo:document.getElementById('ticketNo').value,fare:Number(document.getElementById('ticketFare').value||0),airline:document.getElementById('ticketAirline').value,date:new Date().toISOString().split('T')[0],employee:currentUser.email,createdAt:new Date()};
 if(!data.pName)return alert('Passenger required');
 await addDoc(collection(db,"tickets"),data);
-lastTicket=data;
-alert('Issued '+serial);
-loadOps();
+lastTicket=data;alert('Issued '+serial);loadOps();
 });
-window.printLastCargo=()=>{
-if(!lastCargo)return alert('No cargo');
-let w=window.open('','','width=800,height=900');
-w.document.write(`<h1>${lastCargo.serial}</h1><p>${esc(lastCargo.sName)} → ${esc(lastCargo.rName)} • ${esc(lastCargo.cargoDest)} - $${lastCargo.total} USD</p>${lastCargo.photo?`<img src="${lastCargo.photo}" style="max-width:100%">`:''}<p>By ${esc(lastCargo.employee)}</p>`);
-w.print();
-};
-window.whatsappLastCargo=()=>{
-if(!lastCargo)return;
-let msg=`${lastCargo.serial} - ${lastCargo.sName} → ${lastCargo.rName} - ${lastCargo.cargoDest} $${lastCargo.total} USD`;
-window.open('https://wa.me/?text='+encodeURIComponent(msg));
-};
+window.printLastCargo=()=>{if(!lastCargo)return alert('No cargo');let w=window.open('','','width=800,height=900');w.document.write(`<h1>${lastCargo.serial}</h1><p>${esc(lastCargo.sName)} → ${esc(lastCargo.rName)} • ${esc(lastCargo.cargoDest)} - $${lastCargo.total} USD</p>${lastCargo.photo?`<img src="${lastCargo.photo}" style="max-width:100%">`:''}<p>By ${esc(lastCargo.employee)}</p>`);w.print();};
+window.whatsappLastCargo=()=>{if(!lastCargo)return;let msg=`${lastCargo.serial} - ${lastCargo.sName} → ${lastCargo.rName} - ${lastCargo.cargoDest} $${lastCargo.total} USD`;window.open('https://wa.me/?text='+encodeURIComponent(msg));};
 window.printLastTicket=()=>{if(!lastTicket)return;let w=window.open('','','width=800,height=900');w.document.write(`<h1>${lastTicket.serial}</h1><p>${esc(lastTicket.pName)} - ${esc(lastTicket.from)} - $${lastTicket.fare}</p>`);w.print();};
 window.whatsappLastTicket=()=>{if(!lastTicket)return;let msg=`${lastTicket.serial} - ${lastTicket.pName} - ${lastTicket.from} - $${lastTicket.fare}`;window.open('https://wa.me/?text='+encodeURIComponent(msg));};
 async function loadOps(){
@@ -239,45 +216,26 @@ let html='';
 s.docs.forEach(d=>{
 let data=d.data();
 if(role==='admin'){
-html+=`<div style="border:1px solid #ddd;padding:8px;margin:6px 0;border-radius:10px;background:#fff">
-<b>${esc(data.email)}</b> - ${esc(data.role)} • ${esc(data.branch||'')}<br>
-<span style="color:#C1272D;font-weight:bold">🔑 Password: ${esc(data.password||'قديم - مخفي')}</span><br>
-<small>By: ${esc(data.createdBy||'')}</small>
-<button onclick="disableUser('${d.id}')" style="color:red;border:1px solid red;margin-left:6px">Disable</button>
-</div>`;
+html+=`<div style="border:1px solid #ddd;padding:8px;margin:6px 0;border-radius:10px;background:#fff"><b>${esc(data.email)}</b> - ${esc(data.role)} • ${esc(data.branch||'')}<br><span style="color:#C1272D;font-weight:bold">🔑 Password: ${esc(data.password||'قديم - مخفي')}</span><br><small>By: ${esc(data.createdBy||'')}</small> <button onclick="disableUser('${d.id}')" style="color:red;border:1px solid red">Disable</button></div>`;
 }
 });
-if(role==='admin'){
-document.getElementById('usersList').innerHTML=html || '<div>No users</div>';
-}else{
-document.getElementById('usersList').innerHTML='<div style="color:#999;padding:10px">🔒 فقط الادمن براو بيشوف الموظفين والباسوردات</div>';
+if(role==='admin')document.getElementById('usersList').innerHTML=html||'<div>No users</div>';
+else document.getElementById('usersList').innerHTML='<div style="color:#999">🔒 Admin only</div>';
+}catch(e){document.getElementById('usersList').innerHTML='Error: '+e.message;}
 }
-}catch(e){
-document.getElementById('usersList').innerHTML='Error: '+e.message;
-}
-}
-window.disableUser=async(id)=>{
-if(role!=='admin')return alert('Admin only');
-await updateDoc(doc(db,"users",id),{disabled:true});loadUsers();
-};
+window.disableUser=async(id)=>{if(role!=='admin')return alert('Admin only');await updateDoc(doc(db,"users",id),{disabled:true});loadUsers();};
 document.getElementById('createUserBtn').onclick=async()=>{
-if(role!=='admin')return alert('فقط الادمن براو بيقدر يضيف موظفين - انت '+role);
-let email=document.getElementById('newEmail').value;
-let pass=document.getElementById('newPass').value;
-let r=document.getElementById('newRole').value;
-let b=document.getElementById('newBranch').value;
+if(role!=='admin')return alert('فقط الادمن براو بيقدر يضيف - انت '+role);
+let email=document.getElementById('newEmail').value;let pass=document.getElementById('newPass').value;let r=document.getElementById('newRole').value;let b=document.getElementById('newBranch').value;
 if(!email||pass.length<6)return alert('Email & pass min 6');
 try{
 let cred=await createUserWithEmailAndPassword(auth,email,pass);
 await setDoc(doc(db,"users",cred.user.uid),{email,role:r,branch:b,password:pass,createdBy:currentUser.email,createdAt:new Date()});
-alert('✅ تم انشاء: '+email+' باسورد: '+pass+' دور: '+r);
+alert('✅ Created: '+email+' | Pass: '+pass+' | Role: '+r);
 loadUsers();
 }catch(e){alert(e.message)}
 };
-window.printReportPDF=()=>{
-let area=document.getElementById('reportArea');if(!area.innerHTML.trim())return alert('Generate report first');
-let w=window.open('','','width=1000,height=800');w.document.write(`<html><body>${area.innerHTML}<br><br><div style="display:flex;justify-content:space-around"><span>Finance: __________</span><span>Manager: __________</span></div></body></html>`);w.print();
-};
+window.printReportPDF=()=>{let area=document.getElementById('reportArea');if(!area.innerHTML.trim())return alert('Generate report first');let w=window.open('','','width=1000,height=800');w.document.write(`<html><body>${area.innerHTML}<br><br><div style="display:flex;justify-content:space-around"><span>Finance: __________</span><span>Manager: __________</span></div></body></html>`);w.print();};
 </script>
 </body>
 </html>
