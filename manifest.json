@@ -1,13 +1,18 @@
 {
-  "name": "Sidigi General Trading Co. LTD",
+  "name": "SIDIGI GENERAL TRADING CO. LTD",
   "short_name": "SIDIGI",
-  "description": "Domestic Tickets & Air Cargo across South Sudan States",
+  "short_name": "SIDIGI",
+  "description": "Cargo & Tickets USD System v14.4",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#C1272D",
+  "background_color": "#0f172a",
+  "theme_color": "#E11D2D",
   "icons": [
-    { "src": "https://cdn-icons-png.flaticon.com/512/3774/3774083.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "https://cdn-icons-png.flaticon.com/512/3774/3774083.png", "sizes": "512x512", "type": "image/png" }
+    {
+      "src": "sidigi_header.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
   ]
 }
