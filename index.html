@@ -11,7 +11,14 @@
 </div><div style="background:#fff;padding:10px;border-top:3px solid #D93A4B;text-align:center;margin-top:16px"><img src="./sidigi_footer.jpg" onerror="this.style.display='none'" style="width:100%;max-width:1150px;max-height:55px;object-fit:contain"><div style="font-size:10px;color:#64748b">SIDIGI GENERAL TRADING CO. LTD | sidigigeneraltrading@gmail.com | WA +211917273900 | Tel +21192271002</div></div></div>
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";import{getFirestore,collection,addDoc,getDocs,query,orderBy,limit}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";import{getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-const firebaseConfig={apiKey:"AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls",authDomain:"sidigi-general-trading.firebaseapp.com",projectId:"sidigi-general-trading",storageBucket:"sidigi-general-trading.firebasestorage.app",messagingSenderId:"1054004122944",appId:"1:1054004122944:web:c66be702aed7f53f1dd6a5"};
+const firebaseConfig = {
+  apiKey: "AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls",
+  authDomain: "sidigi-general-trading.firebaseapp.com",
+  projectId: "sidigi-general-trading",
+  storageBucket: "sidigi-general-trading.firebasestorage.app",
+  messagingSenderId: "1054004122944",
+  appId: "1:1054004122944:web:c66be702aed7f53f1dd6a5"
+};
 const fbApp=initializeApp(firebaseConfig);const db=getFirestore(fbApp);const auth=getAuth(fbApp);
 const C={name:"SIDIGI GENERAL TRADING CO. LTD",email:"sidigigeneraltrading@gmail.com",wa:"+211917273900",phone:"+21192271002",loc:"Juba International Airport"};
 let role=localStorage.getItem('sidigi_role')||'',currentEmail=localStorage.getItem('sidigi_email')||'',cacheCargo={},cacheTicket={};const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
