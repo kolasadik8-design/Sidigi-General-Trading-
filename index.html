@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SIDIGI v14.9.2 SIMPLE</title>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SIDIGI v14.9.3 PAPER MATCH</title>
 <style>
-:root{--red:#E11D2D;--dark:#0f172a}*{box-sizing:border-box;font-family:Arial,Inter}body{margin:0;background:#f1f5f9}
+:root{--red:#D94A5A;--dark:#0f172a}*{box-sizing:border-box;font-family:Arial}body{margin:0;background:#f1f5f9}
 .top{position:sticky;top:0;z-index:50;background:var(--dark);color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
 .cont{max-width:1200px;margin:10px auto;padding:0 10px}.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;border:1px solid #e2e8f0}
-.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer}.btn-red{background:var(--red);color:#fff}.btn-dark{background:var(--dark);color:#fff}.btn-outline{background:#fff;border:1px solid #fecdd3;color:var(--red)}
+.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer}.btn-red{background:#D94A5A;color:#fff}.btn-dark{background:var(--dark);color:#fff}.btn-outline{background:#fff;border:1px solid #fecdd3;color:var(--red)}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
 input,select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:10px;font-weight:600}
 .input-red{border:1.5px solid #fca5a5!important;background:#fff1f2!important}
@@ -15,66 +13,27 @@ input,select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:10px
 .field-box-label{font-size:11px;color:#0f4c81;font-weight:800;text-transform:uppercase;margin-bottom:3px}
 #loginPage{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#f1f5f9}
 .login-card{width:100%;max-width:420px;background:#fff;border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.1)}
-.summary{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:10px}
-.summary div{background:#fff;border-radius:12px;padding:10px;border-left:4px solid var(--red)}
-@media print{*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}.no-print{display:none!important} @page{size:A4;margin:6mm} }
-@media(max-width:640px){.g3,.g4,.summary{grid-template-columns:1fr 1fr}}
-</style>
-</head>
-<body>
-<div id="loginPage"><div class="login-card"><img src="./sidigi_header.jpg" onerror="this.src='./sidigi_header.JPG';this.onerror=function(){this.src='https://sadik8-design.github.io/Sidigi-General-Trading-/sidigi_header.jpg'}" style="width:100%;border-radius:10px"><h3 style="text-align:center;margin:12px 0">SIDIGI GENERAL TRADING CO. LTD<br><small style="color:var(--red)">Juba International Airport</small></h3><input id="u" type="email" placeholder="admin123@gmail.com"><input id="p" type="password" placeholder="Password" style="margin-top:8px"><button class="btn btn-red" style="width:100%;margin-top:12px" onclick="login()">Login</button><small id="loginMsg" style="color:red;display:block;margin-top:8px;text-align:center"></small></div></div>
-<div id="app" style="display:none"><div class="top no-print"><div><b>SIDIGI v14.9.2 SIMPLE</b> <span id="roleBadge" style="background:var(--red);padding:2px 8px;border-radius:10px;font-size:11px"></span></div><div style="display:flex;gap:8px;align-items:center"><span id="emailBadge" style="font-size:12px;opacity:.8"></span><button class="btn btn-outline" style="padding:6px 10px" onclick="logout()">Logout</button></div></div>
+@media print{.no-print{display:none!important}}
+</style></head><body>
+<div id="loginPage"><div class="login-card"><h3 style="text-align:center">SIDIGI GENERAL TRADING CO. LTD<br><small style="color:#D94A5A">Juba International Airport</small></h3><input id="u" type="email" placeholder="admin123@gmail.com"><input id="p" type="password" placeholder="Password" style="margin-top:8px"><button class="btn btn-red" style="width:100%;margin-top:12px" onclick="login()">Login</button><small id="loginMsg" style="color:red;display:block;margin-top:8px;text-align:center"></small></div></div>
+<div id="app" style="display:none"><div class="top no-print"><div><b>SIDIGI v14.9.3 PAPER</b> <span id="roleBadge" style="background:#D94A5A;padding:2px 8px;border-radius:10px;font-size:11px"></span></div><div style="display:flex;gap:8px"><span id="emailBadge" style="font-size:12px;opacity:.8"></span><button class="btn btn-outline" style="padding:6px 10px" onclick="logout()">Logout</button></div></div>
 <div class="cont no-print">
-<div class="tabs">
-<button class="active" data-tab="cargo" onclick="showTab('cargo',this)">📦 Cargo</button><button data-tab="ticket" onclick="showTab('ticket',this)">🎫 Ticket</button><button data-tab="payroll" onclick="showTab('payroll',this)">💰 Payment Roll</button><button data-tab="office" onclick="showTab('office',this)">🏢 Office</button><button data-tab="flight" onclick="showTab('flight',this)">✈️ Flight Exp</button><button data-tab="reports" onclick="showTab('reports',this)">📊 Reports</button><button data-tab="search" onclick="showTab('search',this)">🔍 Search</button><button id="adminTabBtn" data-tab="admin" onclick="showTab('admin',this)" style="display:none">⚙️ Admin</button>
-</div>
-<div id="tab-cargo" class="tab active"><div class="card"><h3>📦 Cargo</h3>
-<div class="g2"><div><div class="field-box-label">Date *</div><input id="c_date" type="date"></div><div><div class="field-box-label">AWB/Serial *</div><input id="c_awb" class="input-red"></div></div>
-<div class="g2" style="margin-top:8px"><div><div class="field-box-label">Origin *</div><input id="c_origin" class="input-red" list="destList"></div><div><div class="field-box-label">Destination *</div><input id="c_dest" class="input-red" list="destList"></div></div><datalist id="destList"></datalist>
-<div class="g3" style="margin-top:8px"><div><div class="field-box-label">Shipper *</div><input id="c_shipper" class="input-red"></div><div><div class="field-box-label">Consignee *</div><input id="c_consignee" class="input-red"></div><div><div class="field-box-label">Phone</div><input id="c_phone" class="input-red"></div></div>
-<div class="g4" style="margin-top:8px"><div><div class="field-box-label">Weight KGS *</div><input id="c_weight" type="number" step="0.1" class="input-red" oninput="calcCargoRate()"></div><div><div class="field-box-label">Rate/KG *</div><input id="c_rate" type="number" step="0.1" class="input-red" oninput="calcCargoRate()"></div><div><div class="field-box-label">Total USD *</div><input id="c_total" type="number" class="input-red" oninput="calcCargo()"></div><div><div class="field-box-label">Paid USD</div><input id="c_paid" type="number" class="input-red" oninput="calcCargo()"></div></div>
-<div class="g2" style="margin-top:8px"><div><div class="field-box-label">Balance</div><input id="c_balance" readonly style="background:#fee2e2!important;font-weight:900;color:#b91c1c;border:1.5px solid #fca5a5;border-radius:10px;padding:10px"></div><div><div class="field-box-label">Note</div><input id="c_desc" class="input-red"></div></div>
-<button class="btn btn-red" style="width:100%;margin-top:12px" onclick="saveCargo()">Save Cargo</button></div></div>
-<div id="tab-ticket" class="tab"><div class="card"><h3>🎫 Ticket</h3>
-<div class="g2"><div><div class="field-box-label">Date *</div><input id="t_date" type="date"></div><div><div class="field-box-label">Serial *</div><input id="t_no" class="input-red"></div></div>
-<div class="g2" style="margin-top:8px"><div><div class="field-box-label">Passenger *</div><input id="t_pass" class="input-red"></div><div><div class="field-box-label">TEL</div><input id="t_phone" class="input-red"></div></div>
-<div class="g4" style="margin-top:8px"><div><div class="field-box-label">Origin *</div><input id="t_origin" class="input-red" list="destList"></div><div><div class="field-box-label">Destination *</div><input id="t_dest" class="input-red" list="destList"></div><div><div class="field-box-label">Flight No</div><input id="t_flight" class="input-red"></div><div><div class="field-box-label">Check-in</div><input id="t_checkin" type="time" class="input-red"></div></div>
-<div class="g4" style="margin-top:8px"><div><div class="field-box-label">Weight KGS</div><input id="t_weight" type="number" class="input-red"></div><div><div class="field-box-label">Total USD *</div><input id="t_total" type="number" class="input-red" oninput="calcTicket()"></div><div><div class="field-box-label">Paid USD</div><input id="t_paid" type="number" class="input-red" oninput="calcTicket()"></div><div><div class="field-box-label">Balance</div><input id="t_balance" readonly style="background:#fee2e2!important;font-weight:900;color:#b91c1c;border:1.5px solid #fca5a5;border-radius:10px;padding:10px"></div></div>
-<button class="btn btn-red" style="width:100%;margin-top:10px" onclick="saveTicket()">Save Ticket</button></div></div>
-<div id="tab-payroll" class="tab"><div class="card"><h3>💰 Payment Roll</h3>
-<div style="display:flex;gap:6px;flex-wrap:wrap"><input id="pay_serial" placeholder="Enter Serial e.g 0014" style="flex:1"><button class="btn btn-dark" onclick="loadPaymentRoll()">Load</button></div>
-<div id="pay_roll_out" style="margin-top:10px"></div>
-<div style="margin-top:12px;background:#fff;border:1.5px solid #0f172a;border-radius:10px;padding:10px">
-<b>Add New Payment</b>
-<div class="g3" style="margin-top:6px"><input id="pay_date" type="date"><input id="pay_amount" type="number" placeholder="Amount USD" class="input-red"><select id="pay_method"><option>Cash</option><option>Bank Transfer</option><option>Mobile Money</option><option>Credit</option></select></div>
-<input id="pay_note" placeholder="Note" style="margin-top:6px"><button class="btn btn-red" style="width:100%;margin-top:8px" onclick="addPayment()">Add Payment</button>
-</div></div></div>
-<div id="tab-office" class="tab"><div class="card"><h3>Office Expenses</h3><div class="g3"><input id="o_date" type="date"><select id="o_cat"><option>Breakfast</option><option>Lunch</option><option>Transport</option><option>Internet</option><option>Airtime</option><option>Rent</option><option>Salary</option><option>Stationery</option><option>Other</option></select><input id="o_amount" type="number" placeholder="Amount" class="input-red"></div><div class="g2" style="margin-top:8px"><input id="o_to" placeholder="Paid To" class="input-red"><input id="o_note" placeholder="Note"></div><button class="btn btn-dark" style="width:100%;margin-top:8px" onclick="saveOffice()">Save</button><div id="officeList" style="margin-top:10px"></div></div></div>
-<div id="tab-flight" class="tab"><div class="card"><h3>Flight Expenses</h3><div class="g2"><input id="f_date" type="date"><input id="f_amount" type="number" placeholder="Amount USD" class="input-red"></div><input id="f_desc" placeholder="Desc" style="margin-top:6px"><button class="btn btn-dark" style="width:100%;margin-top:8px" onclick="saveFlight()">Save</button><div id="flightList" style="margin-top:10px"></div></div></div>
-<div id="tab-reports" class="tab"><div class="card"><h3>📊 Reports v14.9.2 SIMPLE</h3>
-<div class="summary">
-<div><small>Total Income</small><b id="sumIncome">$0</b></div>
-<div style="border-left-color:#b91c1c"><small>Total Expenses</small><b id="sumExp">$0</b></div>
-<div style="border-left-color:#15803d"><small>Net Profit</small><b id="sumProfit">$0</b></div>
-<div style="border-left-color:#f59e0b"><small>Balance Due</small><b id="sumBal">$0</b></div>
-</div>
-<div style="display:flex;gap:6px;flex-wrap:wrap"><input id="r_from" type="date" style="flex:1"><input id="r_to" type="date" style="flex:1"><button class="btn btn-red" onclick="genReport()">Generate</button><button class="btn btn-dark" onclick="genReport(true)">All</button><button class="btn btn-outline" onclick="printReport()">🖨️ Print</button></div>
-<div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap"><label style="font-size:12px"><input type="checkbox" id="incCargo" checked> Cargo</label><label style="font-size:12px"><input type="checkbox" id="incTicket" checked> Ticket</label><label style="font-size:12px"><input type="checkbox" id="incOffice" checked> Office</label><label style="font-size:12px"><input type="checkbox" id="incFlight" checked> Flight</label></div>
-<div id="reportOut" style="margin-top:12px"></div>
-</div></div>
-<div id="tab-search" class="tab"><div class="card"><h3>🔍 Search</h3><div style="display:flex;gap:6px"><input id="s_q" placeholder="Search..."><button class="btn btn-dark" onclick="doSearch()">Search</button></div><div id="searchOut" style="margin-top:12px"></div></div></div>
-<div id="tab-admin" class="tab"><div class="card"><h3>⚙️ Admin</h3><div class="g2"><input id="newDest" placeholder="Add Destination"><button class="btn btn-red" onclick="addDest()">Add</button></div><div id="destListAdmin" style="margin-top:10px"></div></div></div>
+<div class="tabs"><button class="active" onclick="showTab('cargo',this)">📦 Cargo</button><button onclick="showTab('ticket',this)">🎫 Ticket</button><button onclick="showTab('reports',this)">📊 Reports</button><button onclick="showTab('admin',this)" id="adminTabBtn" style="display:none">⚙️ Admin</button></div>
+<div id="tab-cargo" class="tab active"><div class="card"><h3>📦 Cargo</h3><div class="g2"><div><div class="field-box-label">Date</div><input id="c_date" type="date"></div><div><div class="field-box-label">AWB/Serial</div><input id="c_awb" class="input-red"></div></div><div class="g2" style="margin-top:8px"><div><div class="field-box-label">Origin</div><input id="c_origin" class="input-red" list="destList"></div><div><div class="field-box-label">Destination</div><input id="c_dest" class="input-red" list="destList"></div></div><datalist id="destList"></datalist><div class="g3" style="margin-top:8px"><div><div class="field-box-label">Shipper</div><input id="c_shipper" class="input-red"></div><div><div class="field-box-label">Consignee</div><input id="c_consignee" class="input-red"></div><div><div class="field-box-label">Phone</div><input id="c_phone"></div></div><div class="g4" style="margin-top:8px"><div><div class="field-box-label">Weight KGS</div><input id="c_weight" type="number" oninput="calcCargoRate()"></div><div><div class="field-box-label">Rate/KG</div><input id="c_rate" type="number" oninput="calcCargoRate()"></div><div><div class="field-box-label">Total USD</div><input id="c_total" type="number" oninput="calcCargo()"></div><div><div class="field-box-label">Paid</div><input id="c_paid" type="number" oninput="calcCargo()"></div></div><div class="g2" style="margin-top:8px"><div><div class="field-box-label">Balance</div><input id="c_balance" readonly></div><div><div class="field-box-label">Note</div><input id="c_desc"></div></div><button class="btn btn-red" style="width:100%;margin-top:10px" onclick="saveCargo()">Save & Print Cargo</button></div></div>
+<div id="tab-ticket" class="tab"><div class="card"><h3>🎫 Ticket</h3><div class="g2"><div><div class="field-box-label">Date</div><input id="t_date" type="date"></div><div><div class="field-box-label">Serial</div><input id="t_no" class="input-red"></div></div><div class="g2" style="margin-top:8px"><div><div class="field-box-label">Passenger Name</div><input id="t_pass" class="input-red"></div><div><div class="field-box-label">TEL</div><input id="t_phone"></div></div><div class="g4" style="margin-top:8px"><div><div class="field-box-label">Origin</div><input id="t_origin" class="input-red" list="destList"></div><div><div class="field-box-label">Destination</div><input id="t_dest" class="input-red" list="destList"></div><div><div class="field-box-label">Flight No</div><input id="t_flight"></div><div><div class="field-box-label">Check-in Time</div><input id="t_checkin" type="time"></div></div><div class="g4" style="margin-top:8px"><div><div class="field-box-label">Weight KGS</div><input id="t_weight" type="number"></div><div><div class="field-box-label">Total Fare USD</div><input id="t_total" type="number" oninput="calcTicket()"></div><div><div class="field-box-label">Paid</div><input id="t_paid" type="number" oninput="calcTicket()"></div><div><div class="field-box-label">Balance</div><input id="t_balance" readonly></div></div><button class="btn btn-red" style="width:100%;margin-top:10px" onclick="saveTicket()">Save & Print Ticket</button></div></div>
+<div id="tab-reports" class="tab"><div class="card"><h3>Reports</h3><div style="display:flex;gap:6px"><input id="r_from" type="date" style="flex:1"><input id="r_to" type="date" style="flex:1"><button class="btn btn-red" onclick="genReport()">Gen</button><button class="btn btn-dark" onclick="genReport(true)">All</button><button class="btn btn-outline" onclick="printReport()">Print</button></div><div id="reportOut" style="margin-top:10px"></div></div></div>
+<div id="tab-admin" class="tab"><div class="card"><h3>Admin</h3><div class="g2"><input id="newDest" placeholder="Add Dest"><button class="btn btn-red" onclick="addDest()">Add</button></div><div id="destListAdmin" style="margin-top:8px"></div></div></div>
 </div></div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 const firebaseConfig={apiKey:"AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls",authDomain:"sidigi-general-trading.firebaseapp.com",projectId:"sidigi-general-trading",storageBucket:"sidigi-general-trading.firebasestorage.app",messagingSenderId:"1054004122944",appId:"1:1054004122944:web:c66be702aed7f53f1dd6a5"};
 const app=initializeApp(firebaseConfig);const db=getFirestore(app);const auth=getAuth(app);
 let role=localStorage.getItem('sidigi_role')||'';let currentEmail=localStorage.getItem('sidigi_email')||'';const esc=(s)=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 function todayISO(){return new Date().toISOString().split('T')[0];}
-function setDefaultDates(){const t=todayISO(); ['c_date','t_date','o_date','f_date','pay_date'].forEach(id=>{const el=document.getElementById(id); if(el) el.value=t;}); const from=document.getElementById('r_from'); const to=document.getElementById('r_to'); if(from&&!from.value){let d=new Date(); d.setDate(d.getDate()-30); from.value=d.toISOString().split('T')[0];} if(to&&!to.value) to.value=todayISO();}
-function initApp(){document.getElementById('loginPage').style.display='none';document.getElementById('app').style.display='block';document.getElementById('roleBadge').innerText=role.toUpperCase();document.getElementById('emailBadge').innerText=currentEmail;if(role==='admin')document.getElementById('adminTabBtn').style.display='inline-block';setDefaultDates();loadDests();loadOffice();loadFlight();}
+function setDefaultDates(){const t=todayISO();['c_date','t_date'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=t;});let f=document.getElementById('r_from');let tt=document.getElementById('r_to');if(f&&!f.value){let d=new Date();d.setDate(d.getDate()-30);f.value=d.toISOString().split('T')[0];}if(tt&&!tt.value)tt.value=todayISO();}
+function initApp(){document.getElementById('loginPage').style.display='none';document.getElementById('app').style.display='block';document.getElementById('roleBadge').innerText=role.toUpperCase();document.getElementById('emailBadge').innerText=currentEmail;if(role==='admin')document.getElementById('adminTabBtn').style.display='inline-block';setDefaultDates();loadDests();}
 window.login=async()=>{const e=document.getElementById('u').value.trim(),p=document.getElementById('p').value.trim();const m=document.getElementById('loginMsg');if(!e||!p){m.innerText='Enter email & password';return;}try{await signInWithEmailAndPassword(auth,e,p);role=e.toLowerCase()==='admin123@gmail.com'?'admin':'staff';currentEmail=e;localStorage.setItem('sidigi_role',role);localStorage.setItem('sidigi_email',e);initApp();}catch(err){m.innerText=err.message;}};
 window.logout=async()=>{try{await signOut(auth)}catch{}localStorage.clear();location.reload();};
 onAuthStateChanged(auth,u=>{if(u&&role)initApp();});
@@ -82,79 +41,89 @@ window.showTab=(id,btn)=>{document.querySelectorAll('.tab').forEach(t=>t.classLi
 window.calcCargoRate=()=>{let w=parseFloat(c_weight.value||0),r=parseFloat(c_rate.value||0);if(w>0&&r>0)c_total.value=(w*r).toFixed(2);calcCargo();};
 window.calcCargo=()=>{let t=parseFloat(c_total.value||0),p=parseFloat(c_paid.value||0);c_balance.value=(t-p).toFixed(2);};
 window.calcTicket=()=>{let t=parseFloat(t_total.value||0),p=parseFloat(t_paid.value||0);t_balance.value=(t-p).toFixed(2);};
-async function loadDests(){try{let snap=await getDocs(collection(db,'destinations'));let list=[];snap.forEach(d=>list.push(d.data().name));if(!list.length)list=['JUBA','MABAN','KRT','DXB','NBO','ADD','CAI','WAU','BENTIU','MALAKAL'];let dl=document.getElementById('destList');dl.innerHTML='';list.forEach(n=>{let o=document.createElement('option');o.value=n;dl.appendChild(o)});destListAdmin.innerHTML=list.map(n=>`<span style="border:1px solid #e2e8f0;padding:5px 10px;border-radius:14px;margin:3px;display:inline-block;background:#fff">${esc(n)}</span>`).join('');}catch{}}
+async function loadDests(){try{let snap=await getDocs(collection(db,'destinations'));let list=[];snap.forEach(d=>list.push(d.data().name));if(!list.length)list=['JUBA','MABAN','KRT','DXB','NBO','ADD','CAI','WAU','BENTIU','MALAKAL'];let dl=document.getElementById('destList');dl.innerHTML='';list.forEach(n=>{let o=document.createElement('option');o.value=n;dl.appendChild(o)});document.getElementById('destListAdmin').innerHTML=list.map(n=>`<span style="border:1px solid #ddd;padding:4px 8px;border-radius:10px;margin:2px;display:inline-block">${esc(n)}</span>`).join('');}catch{}}
 window.addDest=async()=>{let v=newDest.value.trim().toUpperCase();if(!v)return;await addDoc(collection(db,'destinations'),{name:v});newDest.value='';loadDests();};
-window.saveCargo=async()=>{let data={date:c_date.value,serial:c_awb.value.trim(),origin:c_origin.value.trim().toUpperCase(),destination:c_dest.value.trim().toUpperCase(),shipper:c_shipper.value.trim(),consignee:c_consignee.value.trim(),phone:c_phone.value.trim(),weight:parseFloat(c_weight.value||0),rate:parseFloat(c_rate.value||0),total:parseFloat(c_total.value||0),paid:parseFloat(c_paid.value||0),balance:parseFloat(c_balance.value||0),desc:c_desc.value.trim(),createdAt:new Date(),createdBy:currentEmail};if(!data.date||!data.serial)return alert('Fill required');await addDoc(collection(db,'cargos'),data);alert('Cargo Saved');printCargo(data);};
-window.saveTicket=async()=>{let data={date:t_date.value,serial:t_no.value.trim(),passenger:t_pass.value.trim(),phone:t_phone.value.trim(),origin:t_origin.value.trim().toUpperCase(),destination:t_dest.value.trim().toUpperCase(),flightNo:t_flight.value.trim(),checkin:t_checkin.value,weight:parseFloat(t_weight.value||0),total:parseFloat(t_total.value||0),paid:parseFloat(t_paid.value||0),balance:parseFloat(t_balance.value||0),createdAt:new Date(),createdBy:currentEmail};if(!data.date||!data.serial)return alert('Fill required');await addDoc(collection(db,'tickets'),data);alert('Ticket Saved');printTicket(data);};
-window.saveOffice=async()=>{await addDoc(collection(db,'officeExpenses'),{date:o_date.value,category:o_cat.value,amount:parseFloat(o_amount.value||0),paidTo:o_to.value,note:o_note.value,createdAt:new Date()});loadOffice();};
-window.saveFlight=async()=>{await addDoc(collection(db,'expenses'),{date:f_date.value,desc:f_desc.value,amount:parseFloat(f_amount.value||0),createdAt:new Date()});loadFlight();};
-async function loadOffice(){let snap=await getDocs(query(collection(db,'officeExpenses'),orderBy('createdAt','desc')));let h='';snap.forEach(d=>{let x=d.data();h+=`<div style="display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:6px"><span>${esc(x.date)} - ${esc(x.category)} - $${esc(x.amount)}</span></div>`});officeList.innerHTML=h;}
-async function loadFlight(){let snap=await getDocs(query(collection(db,'expenses'),orderBy('createdAt','desc')));let h='';snap.forEach(d=>{let x=d.data();h+=`<div style="display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:6px"><span>${esc(x.date)} - ${esc(x.desc)} - $${esc(x.amount)}</span></div>`});flightList.innerHTML=h;}
-window.doSearch=async()=>{let q=s_q.value.toLowerCase().trim();let out='';let cargos=await getDocs(collection(db,'cargos'));cargos.forEach(d=>{let x=d.data();if(JSON.stringify(x).toLowerCase().includes(q))out+=`<div class="card"><b>CARGO ${esc(x.serial)}</b></div>`});searchOut.innerHTML=out;};
-window.loadPaymentRoll=async()=>{let serial=pay_serial.value.trim();if(!serial)return alert('Enter Serial');let found=null,col='',docId='';let cargos=await getDocs(collection(db,'cargos'));cargos.forEach(d=>{if(d.data().serial===serial){found=d.data();col='cargos';docId=d.id;}});if(!found){let tickets=await getDocs(collection(db,'tickets'));tickets.forEach(d=>{if(d.data().serial===serial){found=d.data();col='tickets';docId=d.id;}});}if(!found)return pay_roll_out.innerHTML='Serial not found';pay_roll_out.innerHTML=`<div><b>${esc(found.shipper||found.passenger)}</b> Total $${found.total}</div>`;pay_roll_out.dataset.docId=docId;pay_roll_out.dataset.col=col;pay_roll_out.dataset.serial=serial;};
-window.addPayment=async()=>{let out=document.getElementById('pay_roll_out');let serial=out.dataset.serial,col=out.dataset.col,docId=out.dataset.docId;if(!serial)return alert('Load first');let amount=parseFloat(pay_amount.value||0),date=pay_date.value;await addDoc(collection(db,'payments'),{serial,amount,date,method:pay_method.value,note:pay_note.value,createdAt:new Date()});let snap=await getDocs(collection(db,col));let cur=null;snap.forEach(d=>{if(d.id===docId)cur=d.data();});let newPaid=parseFloat(cur.paid||0)+amount;let newBal=parseFloat(cur.total||0)-newPaid;await updateDoc(doc(db,col,docId),{paid:newPaid,balance:newBal});alert('Payment added');loadPaymentRoll();};
-// ===== SIMPLE PRINT - NO COLORS =====
-function getLogoUrls(){return {headerLocal:'./sidigi_header.jpg',headerUpper:'./sidigi_header.JPG',footerLocal:'./sidigi_footer.jpg',footerUpper:'./sidigi_footer.JPG',headerRemote:'https://sadik8-design.github.io/Sidigi-General-Trading-/sidigi_header.jpg',footerRemote:'https://sadik8-design.github.io/Sidigi-General-Trading-/sidigi_footer.jpg'};}
+window.saveCargo=async()=>{let data={date:c_date.value,serial:c_awb.value.trim(),origin:c_origin.value.trim().toUpperCase(),destination:c_dest.value.trim().toUpperCase(),shipper:c_shipper.value.trim(),consignee:c_consignee.value.trim(),phone:c_phone.value.trim(),weight:parseFloat(c_weight.value||0),rate:parseFloat(c_rate.value||0),total:parseFloat(c_total.value||0),paid:parseFloat(c_paid.value||0),balance:parseFloat(c_balance.value||0),desc:c_desc.value.trim(),createdAt:new Date(),createdBy:currentEmail};if(!data.date||!data.serial)return alert('Fill required');await addDoc(collection(db,'cargos'),data);alert('Saved');printCargo(data);};
+window.saveTicket=async()=>{let data={date:t_date.value,serial:t_no.value.trim(),passenger:t_pass.value.trim(),phone:t_phone.value.trim(),origin:t_origin.value.trim().toUpperCase(),destination:t_dest.value.trim().toUpperCase(),flightNo:t_flight.value.trim(),checkin:t_checkin.value,weight:parseFloat(t_weight.value||0),total:parseFloat(t_total.value||0),paid:parseFloat(t_paid.value||0),balance:parseFloat(t_balance.value||0),createdAt:new Date(),createdBy:currentEmail};if(!data.date||!data.serial)return alert('Fill required');await addDoc(collection(db,'tickets'),data);alert('Saved');printTicket(data);};
+
+// ===== PAPER MATCH PRINT - EXACT LIKE PHOTO NO EMAIL =====
 window.printTicket=(d)=>{
-  const u=getLogoUrls();
-  let html=`<div style="border:1px solid #000;max-width:700px;margin:0 auto;font-family:Arial;font-size:12px">
-  <div style="text-align:center;border-bottom:1px solid #000;padding:6px"><img src="${u.headerLocal}" onerror="this.src='${u.headerUpper}';this.onerror=function(){this.src='${u.headerRemote}'}" style="max-width:100%;max-height:70px"></div>
-  <div style="padding:8px"><b style="font-size:14px">AIR TICKET - Serial: ${esc(d.serial)}</b>
-  <table border="1" style="width:100%;border-collapse:collapse;margin-top:8px;font-size:12px"><tr><td style="padding:6px"><b>Passenger:</b> ${esc(d.passenger)}</td><td style="padding:6px"><b>TEL:</b> ${esc(d.phone)}</td></tr><tr><td style="padding:6px"><b>Origin:</b> ${esc(d.origin)}</td><td style="padding:6px"><b>Destination:</b> ${esc(d.destination)}</td></tr><tr><td style="padding:6px"><b>Flight:</b> ${esc(d.flightNo)}</td><td style="padding:6px"><b>Check-in:</b> ${esc(d.checkin)}</td></tr><tr><td style="padding:6px"><b>Total:</b> $${esc(d.total)}</td><td style="padding:6px"><b>Paid:</b> $${esc(d.paid)}</td></tr><tr><td style="padding:6px" colspan="2"><b>Balance:</b> $${esc(d.balance)} | <b>Date:</b> ${esc(d.date)} | <b>Weight:</b> ${esc(d.weight)} KG</td></tr></table></div>
-  <div style="text-align:center;border-top:1px solid #000;padding:6px;margin-top:8px"><img src="${u.footerLocal}" onerror="this.src='${u.footerUpper}';this.onerror=function(){this.src='${u.footerRemote}'}" style="max-width:100%;max-height:50px"><div style="font-size:9px;margin-top:4px">SIDIGI GENERAL TRADING CO LTD - Juba International Airport - +211 915 499 458</div></div>
+  let html = `
+  <div style="width:750px;margin:0 auto;font-family:Arial, sans-serif;border:1px solid #ddd;overflow:hidden;">
+    <div style="background:#E05A6B;position:relative;height:78px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;overflow:hidden;">
+      <div style="color:#fff;font-weight:900;font-size:28px;font-style:italic;display:flex;align-items:center;gap:8px;z-index:2;padding-left:10px;">✈ AIR TICKET</div>
+      <div style="position:absolute;right:0;top:0;width:65%;height:100%;background:#fff;border-radius:40px 0 0 40px;display:flex;align-items:center;padding-left:30px;gap:10px;">
+        <img src="./sidigi_header.jpg" onerror="this.style.display='none'" style="height:50px">
+        <div>
+          <div style="color:#D93B4D;font-weight:900;font-size:17px;line-height:1">SIDIGI GENERAL TRADING CO. LTD</div>
+          <div style="color:#2a7ab5;font-size:10px;margin-top:2px">📞 +211 915 499 458 | +211 917 273 900 | +211 922 710 020 &nbsp; 📍 Juba International Airport</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;background:#fff;border-bottom:3px solid #E05A6B;padding:4px 10px;font-size:12px;">
+      <div><span style="color:#2a7ab5;font-weight:700;font-size:12px">Serial NO.</span> <span style="color:#C83A4B;font-weight:900;font-size:18px;margin-left:6px">${esc(d.serial)}</span></div>
+      <div style="color:#E05A6B;font-size:10px;font-style:italic;align-self:center">Thank You For Travelling With Us</div>
+    </div>
+    <div style="padding:0;background:#fff;">
+      <table style="width:100%;border-collapse:collapse;font-size:11px;color:#2a6a9a;">
+        <tr>
+          <td colspan="4" style="border:1px solid #7ab0d4;padding:6px 8px;height:38px"><span style="font-weight:800;font-size:10px">PASSANGER NAME:</span><br><span style="color:#000;font-size:13px;font-weight:700">${esc(d.passenger)}</span></td>
+          <td colspan="2" style="border:1px solid #7ab0d4;padding:6px 8px"><span style="font-weight:800;font-size:10px">TEL:</span><br><span style="color:#000">${esc(d.phone)}</span></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #7ab0d4;padding:6px 8px;height:42px;width:22%"><span style="font-weight:800;font-size:10px">ORIGIN:</span><br><span style="color:#000;font-weight:600">${esc(d.origin)}</span></td>
+          <td style="border:1px solid #7ab0d4;padding:6px 8px;width:18%"><span style="font-weight:800;font-size:10px">WEIGHT<br>(KGS):</span><br><span style="color:#000;font-weight:600">${esc(d.weight)}</span></td>
+          <td style="border:1px solid #7ab0d4;padding:6px 8px;width:20%"><span style="font-weight:800;font-size:10px">FLIGHT NO:</span><br><span style="color:#000;font-weight:600">${esc(d.flightNo)}</span></td>
+          <td style="border:1px solid #7ab0d4;padding:6px 8px;width:20%"><span style="font-weight:800;font-size:10px">CHECK IN TIME:</span><br><span style="color:#000;font-weight:600">${esc(d.checkin)}</span></td>
+          <td colspan="2" style="border:1px solid #7ab0d4;padding:6px 8px;width:20%"></td>
+        </tr>
+        <tr>
+          <td style="border:1px solid #7ab0d4;padding:6px 8px;height:42px"><span style="font-weight:800;font-size:10px">DESTINATION:</span><br><span style="color:#000;font-weight:600">${esc(d.destination)}</span></td>
+          <td colspan="2" style="border:1px solid #7ab0d4;padding:6px 8px"><span style="font-weight:800;font-size:10px">TOTAL FARE:</span><br><span style="color:#000;font-weight:800">$${esc(d.total)} Paid $${esc(d.paid)} Bal $${esc(d.balance)}</span></td>
+          <td colspan="2" style="border:1px solid #7ab0d4;padding:6px 8px"><span style="font-weight:800;font-size:10px">TRAVEL DATE:</span><br><span style="color:#000;font-weight:600">${esc(d.date)}</span></td>
+          <td style="border:1px solid #7ab0d4;padding:6px 8px"></td>
+        </tr>
+      </table>
+    </div>
+    <div style="background:#D94A5A;color:#fff;padding:10px 14px;font-size:11px;line-height:1.4;border-radius:0 0 12px 12px;margin-top:0;">
+      This ticket is valid for 30 days and is subject to the terms and conditions on the back,<br>
+      requiring check-in to start one hour before departure and close 30 minutes before departure,<br>
+      with a maximum luggage allowance of 15 kilograms, where any additional weight must be paid for.
+    </div>
   </div>`;
-  let w=window.open('','_blank');w.document.write(`<html><head><style>body{margin:0;font-family:Arial} @page{margin:5mm}</style></head><body>${html}</body></html>`);w.document.close();setTimeout(()=>w.print(),600);
+  let w=window.open('','_blank');w.document.write(`<html><head><style>@page{margin:2mm} body{margin:0}</style></head><body>${html}</body></html>`);w.document.close();setTimeout(()=>w.print(),500);
 };
 window.printCargo=(d)=>{
-  const u=getLogoUrls();
-  let html=`<div style="border:1px solid #000;max-width:700px;margin:0 auto;font-family:Arial;font-size:12px">
-  <div style="text-align:center;border-bottom:1px solid #000;padding:6px"><img src="${u.headerLocal}" onerror="this.src='${u.headerUpper}';this.onerror=function(){this.src='${u.headerRemote}'}" style="max-width:100%;max-height:70px"></div>
-  <div style="padding:8px"><b style="font-size:14px">AIR CARGO - Serial: ${esc(d.serial)}</b>
-  <table border="1" style="width:100%;border-collapse:collapse;margin-top:8px;font-size:12px"><tr><td style="padding:6px"><b>Shipper:</b> ${esc(d.shipper)}</td><td style="padding:6px"><b>Phone:</b> ${esc(d.phone)}</td></tr><tr><td style="padding:6px"><b>Consignee:</b> ${esc(d.consignee)}</td><td style="padding:6px"><b>Destination:</b> ${esc(d.destination)}</td></tr><tr><td style="padding:6px"><b>Origin:</b> ${esc(d.origin)}</td><td style="padding:6px"><b>Weight:</b> ${esc(d.weight)} KG</td></tr><tr><td style="padding:6px"><b>Rate/KG:</b> $${esc(d.rate)}</td><td style="padding:6px"><b>Total:</b> $${esc(d.total)} | Paid $${esc(d.paid)} | Bal $${esc(d.balance)}</td></tr><tr><td style="padding:6px" colspan="2"><b>Note:</b> ${esc(d.desc)} | <b>Date:</b> ${esc(d.date)}</td></tr></table></div>
-  <div style="text-align:center;border-top:1px solid #000;padding:6px;margin-top:8px"><img src="${u.footerLocal}" onerror="this.src='${u.footerUpper}';this.onerror=function(){this.src='${u.footerRemote}'}" style="max-width:100%;max-height:50px"><div style="font-size:9px;margin-top:4px">SIDIGI GENERAL TRADING CO LTD - Juba International Airport</div></div>
+  let html = `
+  <div style="width:750px;margin:0 auto;font-family:Arial, sans-serif;border:1px solid #ddd;overflow:hidden;">
+    <div style="background:#E05A6B;position:relative;height:78px;display:flex;align-items:center;padding:0 10px;overflow:hidden;">
+      <div style="color:#fff;font-weight:900;font-size:24px;font-style:italic;display:flex;align-items:center;gap:8px;z-index:2;padding-left:10px;">✈ AIR CARGO RECEIPT</div>
+      <div style="position:absolute;right:0;top:0;width:65%;height:100%;background:#fff;border-radius:40px 0 0 40px;display:flex;align-items:center;padding-left:30px;gap:10px;">
+        <img src="./sidigi_header.jpg" onerror="this.style.display='none'" style="height:50px">
+        <div><div style="color:#D93B4D;font-weight:900;font-size:17px">SIDIGI GENERAL TRADING CO. LTD</div><div style="color:#2a7ab5;font-size:10px">📞 +211 915 499 458 | +211 917 273 900 | +211 922 710 020 &nbsp; 📍 Juba International Airport</div></div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;background:#fff;border-bottom:3px solid #E05A6B;padding:4px 10px;"><div><span style="color:#2a7ab5;font-weight:700">Serial NO.</span> <span style="color:#C83A4B;font-weight:900;font-size:18px;margin-left:6px">${esc(d.serial)}</span></div><div style="color:#E05A6B;font-size:10px;font-style:italic">Thank You For Using Our Service</div></div>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;color:#2a6a9a;">
+      <tr><td colspan="3" style="border:1px solid #7ab0d4;padding:6px 8px"><span style="font-weight:800;font-size:10px">SHIPPER:</span><br><span style="color:#000;font-weight:700">${esc(d.shipper)}</span></td><td colspan="2" style="border:1px solid #7ab0d4;padding:6px 8px"><span style="font-weight:800;font-size:10px">TEL:</span><br><span style="color:#000">${esc(d.phone)}</span></td></tr>
+      <tr><td style="border:1px solid #7ab0d4;padding:6px 8px"><span style="font-weight:800;font-size:10px">CONSIGNEE:</span><br><span style="color:#000">${esc(d.consignee)}</span></td><td style="border:1px solid #7ab0d4;padding:6px 8px"><span style="font-weight:800;font-size:10px">ORIGIN:</span><br><span style="color:#000">${esc(d.origin)}</span></td><td style="border:1px solid #7ab0d4;padding:6px 8px"><span style="font-weight:800;font-size:10px">DESTINATION:</span><br><span style="color:#000">${esc(d.destination)}</span></td><td style="border:1px solid #7ab0d4;padding:6px 8px"><span style="font-weight:800;font-size:10px">WEIGHT (KGS):</span><br><span style="color:#000">${esc(d.weight)}</span></td><td style="border:1px solid #7ab0d4;padding:6px 8px"><span style="font-weight:800;font-size:10px">RATE/KG:</span><br><span style="color:#000">$${esc(d.rate)}</span></td></tr>
+      <tr><td colspan="2" style="border:1px solid #7ab0d4;padding:6px 8px"><span style="font-weight:800;font-size:10px">TOTAL:</span><br><span style="color:#000;font-weight:800">$${esc(d.total)} | Paid $${esc(d.paid)} | Bal $${esc(d.balance)}</span></td><td colspan="3" style="border:1px solid #7ab0d4;padding:6px 8px"><span style="font-weight:800;font-size:10px">DATE:</span> ${esc(d.date)}<br><span style="font-weight:800;font-size:10px">NOTE:</span> ${esc(d.desc)}</td></tr>
+    </table>
+    <div style="background:#D94A5A;color:#fff;padding:10px 14px;font-size:11px;border-radius:0 0 12px 12px;">This cargo receipt is valid for 30 days and subject to terms on back.</div>
   </div>`;
-  let w=window.open('','_blank');w.document.write(`<html><head><style>body{margin:0;font-family:Arial} @page{margin:5mm}</style></head><body>${html}</body></html>`);w.document.close();setTimeout(()=>w.print(),600);
+  let w=window.open('','_blank');w.document.write(`<html><head><style>@page{margin:2mm} body{margin:0}</style></head><body>${html}</body></html>`);w.document.close();setTimeout(()=>w.print(),500);
 };
-window.printReport=()=>{
-  const el=document.getElementById('reportOut');if(!el.innerHTML.trim()){alert('Generate first');return;}
-  const u=getLogoUrls();
-  let header=`<div style="text-align:center"><img src="${u.headerLocal}" onerror="this.src='${u.headerUpper}';this.onerror=function(){this.src='${u.headerRemote}'}" style="max-width:100%;max-height:80px"></div><div style="text-align:center;font-weight:800;margin:6px 0">SIDIGI REPORT - ${new Date().toLocaleDateString()}</div>`;
-  let footer=`<div style="text-align:center;border-top:1px solid #000;margin-top:10px;padding-top:6px"><img src="${u.footerLocal}" onerror="this.src='${u.footerUpper}';this.onerror=function(){this.src='${u.footerRemote}'}" style="max-width:100%;max-height:50px"><div style="font-size:9px">SIDIGI GENERAL TRADING CO LTD - Juba Airport - +211 915 499 458</div></div>`;
-  let w=window.open('','_blank');w.document.write(`<html><head><style>@page{size:A4 landscape;margin:6mm} body{margin:0;font-family:Arial;font-size:11px} table{width:100%;border-collapse:collapse} th,td{border:1px solid #000;padding:4px;font-size:10px} th{background:#eee}</style></head><body>${header}${el.innerHTML}${footer}</body></html>`);w.document.close();setTimeout(()=>w.print(),800);
-};
+window.printReport=()=>{const el=document.getElementById('reportOut');if(!el.innerHTML.trim()){alert('Generate first');return;}let w=window.open('','_blank');w.document.write(`<html><head><style>@page{size:A4 landscape;margin:5mm} body{margin:0;font-family:Arial;font-size:11px} table{width:100%;border-collapse:collapse} th,td{border:1px solid #000;padding:4px;font-size:10px} th{background:#eee}</style></head><body><div style="text-align:center"><img src="./sidigi_header.jpg" style="max-height:60px"><h3>SIDIGI REPORT</h3></div>${el.innerHTML}<div style="text-align:center;border-top:1px solid #000;margin-top:10px"><img src="./sidigi_footer.jpg" style="max-height:40px"><div style="font-size:9px">SIDIGI GENERAL TRADING CO LTD - Juba Airport +211 915 499 458</div></div></body></html>`);w.document.close();setTimeout(()=>w.print(),700);};
 window.genReport=async(showAll)=>{
 let from=r_from.value,to=r_to.value;if(showAll){from='';to='';}
-let incC=document.getElementById('incCargo').checked,incT=document.getElementById('incTicket').checked,incO=document.getElementById('incOffice').checked,incF=document.getElementById('incFlight').checked;
-let cargos=[],tickets=[],offices=[],flights=[];
-if(incC){let snap=await getDocs(collection(db,'cargos'));snap.forEach(d=>cargos.push(d.data()));}
-if(incT){let snap=await getDocs(collection(db,'tickets'));snap.forEach(d=>tickets.push(d.data()));}
-if(incO){let snap=await getDocs(collection(db,'officeExpenses'));snap.forEach(d=>offices.push(d.data()));}
-if(incF){let snap=await getDocs(collection(db,'expenses'));snap.forEach(d=>flights.push(d.data()));}
+let cargos=[],tickets=[];
+let s1=await getDocs(collection(db,'cargos'));s1.forEach(d=>cargos.push(d.data()));
+let s2=await getDocs(collection(db,'tickets'));s2.forEach(d=>tickets.push(d.data()));
 function inRange(dt){if(!from&&!to)return true;if(from&&dt<from)return false;if(to&&dt>to)return false;return true;}
-cargos=cargos.filter(x=>inRange(x.date));tickets=tickets.filter(x=>inRange(x.date));offices=offices.filter(x=>inRange(x.date));flights=flights.filter(x=>inRange(x.date));
-let tIncome=0,tPaid=0,tBal=0,tOffice=0,tFlight=0;
-cargos.forEach(x=>{tIncome+=parseFloat(x.total||0);tPaid+=parseFloat(x.paid||0);tBal+=parseFloat(x.balance||0);});
-tickets.forEach(x=>{tIncome+=parseFloat(x.total||0);tPaid+=parseFloat(x.paid||0);tBal+=parseFloat(x.balance||0);});
-offices.forEach(x=>{tOffice+=parseFloat(x.amount||0);});flights.forEach(x=>{tFlight+=parseFloat(x.amount||0);});
-let totalExp=tOffice+tFlight;let net=tIncome-totalExp;
-document.getElementById('sumIncome').innerText=`$${tIncome.toFixed(2)}`;document.getElementById('sumExp').innerText=`$${totalExp.toFixed(2)}`;document.getElementById('sumProfit').innerText=`$${net.toFixed(2)}`;document.getElementById('sumBal').innerText=`$${tBal.toFixed(2)}`;
-cargos.sort((a,b)=>new Date(a.date)-new Date(b.date));tickets.sort((a,b)=>new Date(a.date)-new Date(b.date));offices.sort((a,b)=>new Date(a.date)-new Date(b.date));flights.sort((a,b)=>new Date(a.date)-new Date(b.date));
-let html='';
-if((incC&&cargos.length)||(incT&&tickets.length)){
-html+=`<div style="margin-bottom:10px;border:1px solid #000"><div style="background:#eee;padding:4px 8px;font-weight:800;border-bottom:1px solid #000">INCOME - Cargo & Ticket - Total $${tIncome.toFixed(2)} Paid $${tPaid.toFixed(2)} Bal $${tBal.toFixed(2)}</div><table border="1" style="width:100%;border-collapse:collapse;font-size:11px"><tr><th>Date</th><th>Serial</th><th>Type</th><th>Name</th><th>Route</th><th>Total</th><th>Paid</th><th>Bal</th></tr>`;
-cargos.forEach(x=>{html+=`<tr><td>${esc(x.date)}</td><td>${esc(x.serial)}</td><td>Cargo</td><td>${esc(x.shipper)}</td><td>${esc(x.origin)}->${esc(x.destination)}</td><td>$${parseFloat(x.total||0).toFixed(2)}</td><td>$${parseFloat(x.paid||0).toFixed(2)}</td><td>$${parseFloat(x.balance||0).toFixed(2)}</td></tr>`;});
-tickets.forEach(x=>{html+=`<tr><td>${esc(x.date)}</td><td>${esc(x.serial)}</td><td>Ticket</td><td>${esc(x.passenger)}</td><td>${esc(x.origin)}->${esc(x.destination)}</td><td>$${parseFloat(x.total||0).toFixed(2)}</td><td>$${parseFloat(x.paid||0).toFixed(2)}</td><td>$${parseFloat(x.balance||0).toFixed(2)}</td></tr>`;});
-html+=`</table></div>`;
-}
-if((incO&&offices.length)||(incF&&flights.length)){
-html+=`<div style="margin-bottom:10px;border:1px solid #000"><div style="background:#eee;padding:4px 8px;font-weight:800;border-bottom:1px solid #000">EXPENSES - Office $${tOffice.toFixed(2)} + Flight $${tFlight.toFixed(2)} = $${totalExp.toFixed(2)}</div><table border="1" style="width:100%;border-collapse:collapse;font-size:11px"><tr><th>Date</th><th>Category</th><th>Paid To / Desc</th><th>Amount</th><th>Note</th></tr>`;
-offices.forEach(x=>{html+=`<tr><td>${esc(x.date)}</td><td>${esc(x.category)}</td><td>${esc(x.paidTo)}</td><td>-$${parseFloat(x.amount||0).toFixed(2)}</td><td>${esc(x.note||'')}</td></tr>`;});
-flights.forEach(x=>{html+=`<tr><td>${esc(x.date)}</td><td>Flight</td><td>${esc(x.desc)}</td><td>-$${parseFloat(x.amount||0).toFixed(2)}</td><td></td></tr>`;});
-html+=`</table></div>`;
-}
-html+=`<div style="border:1px solid #000;padding:8px;display:flex;justify-content:space-around;text-align:center;font-size:12px"><div><b>Income</b><br>$${tIncome.toFixed(2)}</div><div><b>Expenses</b><br>-$${totalExp.toFixed(2)}</div><div><b>Net Profit</b><br>$${net.toFixed(2)}</div><div><b>Balance Due</b><br>$${tBal.toFixed(2)}</div></div>`;
-document.getElementById('reportOut').innerHTML=html;
+cargos=cargos.filter(x=>inRange(x.date));tickets=tickets.filter(x=>inRange(x.date));
+let html=`<table border="1" style="width:100%;border-collapse:collapse"><tr><th>Date</th><th>Serial</th><th>Type</th><th>Name</th><th>Route</th><th>Total</th><th>Paid</th><th>Bal</th></tr>`;
+cargos.forEach(x=>{html+=`<tr><td>${esc(x.date)}</td><td>${esc(x.serial)}</td><td>Cargo</td><td>${esc(x.shipper)}</td><td>${esc(x.origin)}->${esc(x.destination)}</td><td>${esc(x.total)}</td><td>${esc(x.paid)}</td><td>${esc(x.balance)}</td></tr>`;});
+tickets.forEach(x=>{html+=`<tr><td>${esc(x.date)}</td><td>${esc(x.serial)}</td><td>Ticket</td><td>${esc(x.passenger)}</td><td>${esc(x.origin)}->${esc(x.destination)}</td><td>${esc(x.total)}</td><td>${esc(x.paid)}</td><td>${esc(x.balance)}</td></tr>`;});
+html+=`</table>`;document.getElementById('reportOut').innerHTML=html;
 };
-</script>
-</body>
-</html>
+</script></body></html>
