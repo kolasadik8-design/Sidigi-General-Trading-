@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SIDIGI - Cargo Details & Fragile Addon</title>
+<style>
+*{box-sizing:border-box;font-family:Arial}body{margin:0;background:#f1f5f9;padding:12px}
+.card{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;border:1px solid #e2e8f0;max-width:900px;margin:12px auto}
+.btn{border:0;border-radius:10px;padding:11px 16px;font-weight:800;cursor:pointer;font-size:13px}
+.btn-red{background:#D93A4B;color:#fff}.btn-dark{background:#0f172a;color:#fff}.btn-o{background:#fff;border:1px solid #fecdd3;color:#D93A4B}
+input,select,textarea{width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:10px;font-weight:600;margin-top:6px}
+.warn{padding:12px;border-radius:10px;font-weight:900;text-align:center;font-size:15px;display:none}
+.warn-fragile{background:#fee2e2;border:2px solid #ef4444;color:#991b1b;display:block}
+.warn-liquid{background:#dbeafe;border:2px solid #2563eb;color:#1e40af;display:block}
+.warn-sensitive{background:#fef9c3;border:2px solid #eab308;color:#854d0e;display:block}
+.warn-normal{background:#f0fdf4;border:2px solid #16a34a;color:#166534;display:block}
+img.preview{width:100%;max-height:280px;object-fit:contain;border:2px dashed #cbd5e1;border-radius:12px;margin-top:8px;background:#f8fafc}
+</style></head><body>
+
+<div class="card" style="text-align:center;border-top:4px solid #D93A4B">
+<h2 style="margin:0">SIDIGI - Cargo Details Addon</h2>
+<p style="color:#64748b;font-size:12px">Fragile / Glass / Liquid / Sensitive - Separate File - v1.0</p>
+<a href="./index.html" class="btn btn-o" style="text-decoration:none;display:inline-block">Back to Main System</a>
+</div>
+
+<div class="card">
+<h3>1. Select Cargo</h3>
+<input id="searchSerial" placeholder="Enter Cargo Serial - Example: SGD-001">
+<button class="btn btn-dark" style="width:100%;margin-top:8px" onclick="loadCargo()">Load Cargo</button>
+<div id="cargoInfo" style="margin-top:10px;font-size:13px"></div>
+</div>
+
+<div class="card" id="detailsCard" style="display:none">
+<h3>2. Cargo Details & Handling Warning</h3>
+<label>Cargo Type</label>
+<select id="cargoType" onchange="updateWarning()">
+<option value="Normal">Normal</option>
+<option value="Glass">Glass / Fragile</option>
+<option value="Liquid">Liquid</option>
+<option value="Sensitive">Sensitive / Electronics</option>
+<option value="Perishable">Perishable</option>
+</select>
+
+<div id="warnBox" class="warn warn-normal">NORMAL - Handle Normally</div>
+
+<label>Handling Instructions</label>
+<textarea id="handlingNote" rows="3" placeholder="Example: DO NOT FLIP - KEEP AWAY FROM SUN - OPEN WITH CARE..."></textarea>
+
+<label>Extra Note</label>
+<input id="extraNote" placeholder="Example: Contains 2 boxes of glass">
+
+<h3 style="margin-top:16px">3. Cargo Photo / Upload Image</h3>
+<input type="file" id="cargoImageInput" accept="image/*" onchange="previewImage(event)">
+<img id="imgPreview" class="preview" style="display:none">
+<p style="font-size:11px;color:#64748b">The photo is saved with the cargo and will appear on the print.</p>
+
+<div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+<button class="btn btn-red" style="flex:1" onclick="saveDetails()">Save Details</button>
+<button class="btn btn-dark" style="flex:1" onclick="printWithImage()">Print Receipt + Photo</button>
+</div>
+<div id="saveMsg" style="margin-top:10px;font-weight:700;text-align:center"></div>
+</div>
+
+<div class="card"><h3>Fragile / Special Handling List</h3><div id="fragileList">Loading...</div></div>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getFirestore,collection,getDocs,doc,updateDoc,query,orderBy,limit} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {getAuth,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig={apiKey:"AIzaSyDrAyZXWqD3ymYQPxendW9lkynoSiTa0ls",authDomain:"sidigi-general-trading.firebaseapp.com",projectId:"sidigi-general-trading",storageBucket:"sidigi-general-trading.firebasestorage.app",messagingSenderId:"1054004122944",appId:"1:1054004122944:web:c66be702aed7f53f1dd6a5"};
+const app=initializeApp(firebaseConfig);const db=getFirestore(app);const auth=getAuth(app);
+const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+let currentCargoId=null, currentCargo=null, imageBase64="";
+
+onAuthStateChanged(auth,u=>{ if(!u){ document.getElementById('cargoInfo').innerHTML='<b style="color:red">Please login first from the main file</b>'; } loadFragileList(); });
+
+window.updateWarning=()=>{
+  let t=document.getElementById('cargoType').value;
+  let box=document.getElementById('warnBox');
+  let note=document.getElementById('handlingNote');
+  if(t==='Glass'){ box.className='warn warn-fragile'; box.innerHTML='FRAGILE - GLASS - HANDLE WITH CARE<br>DO NOT DROP - DO NOT FLIP'; if(!note.value) note.value='FRAGILE - GLASS - DO NOT DROP - DO NOT FLIP - HANDLE WITH CARE'; }
+  else if(t==='Liquid'){ box.className='warn warn-liquid'; box.innerHTML='LIQUID - KEEP UPRIGHT - NO SUN<br>KEEP UPRIGHT - DO NOT FLIP'; if(!note.value) note.value='LIQUID - KEEP UPRIGHT - KEEP AWAY FROM SUN - DO NOT FLIP'; }
+  else if(t==='Sensitive'){ box.className='warn warn-sensitive'; box.innerHTML='SENSITIVE - ELECTRONICS - HANDLE WITH CARE<br>KEEP DRY - HANDLE WITH CARE'; if(!note.value) note.value='SENSITIVE - HANDLE WITH CARE - KEEP DRY'; }
+  else if(t==='Perishable'){ box.className='warn warn-liquid'; box.innerHTML='PERISHABLE - KEEP COOL<br>KEEP COOL - DO NOT LEAVE IN SUN'; }
+  else{ box.className='warn warn-normal'; box.innerHTML='NORMAL - Handle Normally'; }
+};
+
+window.previewImage=(e)=>{
+  let f=e.target.files[0]; if(!f) return;
+  let r=new FileReader(); r.onload=()=>{ imageBase64=r.result; let im=document.getElementById('imgPreview'); im.src=imageBase64; im.style.display='block'; };
+  r.readAsDataURL(f);
+};
+
+window.loadCargo=async()=>{
+  let q=document.getElementById('searchSerial').value.trim().toLowerCase();
+  if(!q) return alert('Enter Serial');
+  let s=await getDocs(collection(db,'cargos')); let found=null, fid=null;
+  s.forEach(d=>{ let x=d.data(); if(String(x.serial||'').toLowerCase()===q){ found=x; fid=d.id; } });
+  if(!found) return alert('Cargo not found');
+  currentCargo=found; currentCargoId=fid;
+  document.getElementById('cargoInfo').innerHTML=`<b>${esc(found.serial)}</b> - ${esc(found.shipper)} - ${esc(found.origin)} to ${esc(found.destination)} - ${found.weight||0} KG - $${found.total||0}`;
+  document.getElementById('detailsCard').style.display='block';
+  document.getElementById('cargoType').value=found.cargoType||'Normal';
+  document.getElementById('handlingNote').value=found.handlingNote||'';
+  document.getElementById('extraNote').value=found.extraNote||'';
+  imageBase64=found.cargoImage||"";
+  if(imageBase64){ let im=document.getElementById('imgPreview'); im.src=imageBase64; im.style.display='block'; }
+  updateWarning(); window.scrollTo(0,300);
+};
+
+window.saveDetails=async()=>{
+  if(!currentCargoId) return alert('Select a cargo first');
+  let data={ cargoType:document.getElementById('cargoType').value, handlingNote:document.getElementById('handlingNote').value, extraNote:document.getElementById('extraNote').value, cargoImage:imageBase64, updatedAt:new Date() };
+  await updateDoc(doc(db,'cargos',currentCargoId), data);
+  document.getElementById('saveMsg').innerHTML='Saved! Warning and photo are now attached to this cargo';
+  loadFragileList();
+};
+
+async function loadFragileList(){
+  let s=await getDocs(query(collection(db,'cargos'),orderBy('createdAt','desc'),limit(50)));
+  let h='';
+  s.forEach(d=>{ let x=d.data(); if(x.cargoType && x.cargoType!=='Normal'){ let color=x.cargoType==='Glass'?'#fee2e2':x.cargoType==='Liquid'?'#dbeafe':'#fef9c3'; h+=`<div style="padding:10px;border:1px solid #ddd;border-radius:10px;margin-bottom:6px;background:${color}"><b>${esc(x.serial)}</b> - ${esc(x.cargoType)} - ${esc(x.shipper)} ${x.cargoImage?` <img src="${x.cargoImage}" style="width:50px;height:40px;object-fit:cover;border-radius:6px">`:''} <button class="btn btn-dark" style="padding:5px 10px;float:right" onclick="quickLoad('${esc(x.serial)}')">Open</button></div>`; } });
+  document.getElementById('fragileList').innerHTML=h||'No fragile cargos yet';
+}
+window.quickLoad=(serial)=>{ document.getElementById('searchSerial').value=serial; loadCargo(); };
+
+window.printWithImage=()=>{
+  if(!currentCargo) return alert('Select a cargo first');
+  let type=document.getElementById('cargoType').value;
+  let warn = type==='Glass' ? 'FRAGILE - GLASS - HANDLE WITH CARE - DO NOT DROP - DO NOT FLIP' : type==='Liquid' ? 'LIQUID - KEEP UPRIGHT - KEEP AWAY FROM SUN' : type==='Sensitive' ? 'SENSITIVE - HANDLE WITH CARE' : type==='Perishable' ? 'PERISHABLE - KEEP COOL' : 'NORMAL';
+  let h=`<div style="width:780px;margin:0 auto;font-family:Arial;border:2px solid #000;background:#fff">
+  <div style="background:#D93A4B;color:#fff;padding:14px;text-align:center"><div style="font-size:22px;font-weight:900">SIDIGI - AIR CARGO RECEIPT</div><div style="font-size:11px">SIDIGI GENERAL TRADING CO. LTD | WA +211917273900</div></div>
+  <div style="background:${type==='Normal'?'#f0fdf4':'#fee2e2'};border:3px solid ${type==='Normal'?'#16a34a':'#ef4444'};margin:12px;padding:14px;text-align:center;font-weight:900;font-size:18px">${warn}</div>
+  <table style="width:100%;border-collapse:collapse;font-size:13px"><tr><td style="border:1px solid #999;padding:10px"><b>Serial:</b> ${esc(currentCargo.serial)}</td><td style="border:1px solid #999;padding:10px"><b>Date:</b> ${esc(currentCargo.date)}</td></tr>
+  <tr><td style="border:1px solid #999;padding:10px"><b>Shipper:</b> ${esc(currentCargo.shipper)}</td><td style="border:1px solid #999;padding:10px"><b>Phone:</b> ${esc(currentCargo.phone||'')}</td></tr>
+  <tr><td style="border:1px solid #999;padding:10px"><b>Route:</b> ${esc(currentCargo.origin)} to ${esc(currentCargo.destination)}</td><td style="border:1px solid #999;padding:10px"><b>Weight:</b> ${currentCargo.weight} KG | <b>Total:</b> $${currentCargo.total} Paid $${currentCargo.paid} Bal $${currentCargo.balance}</td></tr>
+  <tr><td colspan="2" style="border:1px solid #999;padding:10px"><b>Handling:</b> ${esc(document.getElementById('handlingNote').value)}<br><b>Note:</b> ${esc(document.getElementById('extraNote').value)}</td></tr></table>
+  ${imageBase64?`<div style="text-align:center;padding:12px"><div style="font-weight:900">CARGO PHOTO</div><img src="${imageBase64}" style="max-width:100%;max-height:380px;border:2px solid #000;margin-top:8px"></div>`:`<div style="text-align:center;padding:12px;color:#999">No Photo Uploaded</div>`}
+  <div style="background:#D93A4B;color:#fff;padding:10px;text-align:center;font-size:11px">Handle With Care - Valid 30 Days - Thank You For Using SIDIGI</div></div>`;
+  let w=window.open('','_blank'); w.document.write(h); w.document.close(); setTimeout(()=>w.print(),600);
+};
+</script></body></html>
